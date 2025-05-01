@@ -1,0 +1,1938 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Starch Preparation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="xedni.css">
+</head>
+
+<body class="w3-black">
+<!--arditarizki-->
+<header>
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="atago.html" class="w3-bar-item w3-button" style="width:25% !important">ATAGO</a>
+    <a href="retentiontime.html" class="w3-bar-item w3-button" style="width:25% !important">RETENTION</a>
+    <a href="Totalizer Starch.html" class="w3-bar-item w3-button" style="width:25% !fimportant">TOTALIZER</a>
+    <a href="alum.html" class="w3-bar-item w3-button" style="width:25% !important">ALUM</a>
+    <a href="estimate.html" class="w3-bar-item w3-button" style="width:25% !important">ESTIMATE</a>
+</div>
+</div>
+</header>
+<script src="atago.js"></script>
+
+
+
+
+
+
+
+<script>
+   $(document).ready(function() {
+ 
+     $("#tombol_calc").click(function() {
+	   $("#GETHUK").hide();
+	   $("#OBAT").show();
+     })
+ 
+     $("#tombol_infm").click(function() {
+	   $("#OBAT").hide();
+	   $("#GETHUK").show();
+     })	 
+ 
+   });
+</script>
+
+
+
+
+
+
+
+
+
+<style>
+body.stop-scrolling {
+  height: 100%;
+  overflow: hidden; }
+
+.sweet-overlay {
+  background-color: black;
+  /* IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  /* IE8 */
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  z-index: 10000; }
+
+.sweet-alert {
+  background-color: #e74c3c;
+  font-family: 'Arial', Trebuchet ms, Open Sans, sans-serif;
+  width: 478px;
+  padding: 17px;
+  border-radius: 5px;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-left: -256px;
+  margin-top: -200px;
+  overflow: hidden;
+  display: none;
+  z-index: 99999; }
+  @media all and (max-width: 540px) {
+    .sweet-alert {
+      width: auto;
+      margin-left: 0;
+      margin-right: 0;
+      left: 15px;
+      right: 15px; } }
+  .sweet-alert h2 {
+    color: #FFFFFF;
+	text-shadow: 1px 1px 1px #000;
+    font-size: 25px;
+    text-align: center;
+    font-weight: 2300;
+    text-transform: none;
+    position: relative;
+    margin: 25px 0;
+    padding: 0;
+    line-height: 40px;
+    display: block; }
+  .sweet-alert p {
+    color: #797979;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 300;
+    position: relative;
+    text-align: inherit;
+    float: none;
+    margin: 0;
+    padding: 0;
+    line-height: normal; }
+  .sweet-alert fieldset {
+    border: none;
+    position: relative; }
+  .sweet-alert .sa-error-container {
+    background-color: #f1f1f1;
+    margin-left: -17px;
+    margin-right: -17px;
+    overflow: hidden;
+    padding: 0 10px;
+    max-height: 0;
+    webkit-transition: padding 0.15s, max-height 0.15s;
+    transition: padding 0.15s, max-height 0.15s; }
+    .sweet-alert .sa-error-container.show {
+      padding: 10px 0;
+      max-height: 100px;
+      webkit-transition: padding 0.2s, max-height 0.2s;
+      transition: padding 0.25s, max-height 0.25s; }
+    .sweet-alert .sa-error-container .icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ea7d7d;
+      color: white;
+      line-height: 24px;
+      text-align: center;
+      margin-right: 3px; }
+    .sweet-alert .sa-error-container p {
+      display: inline-block; }
+  .sweet-alert .sa-input-error {
+    position: absolute;
+    top: 29px;
+    right: 26px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transition: all 0.1s;
+    transition: all 0.1s; }
+    .sweet-alert .sa-input-error::before, .sweet-alert .sa-input-error::after {
+      content: "";
+      width: 20px;
+      height: 6px;
+      background-color: #f06e57;
+      border-radius: 3px;
+      position: absolute;
+      top: 50%;
+      margin-top: -4px;
+      left: 50%;
+      margin-left: -9px; }
+    .sweet-alert .sa-input-error::before {
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
+    .sweet-alert .sa-input-error::after {
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg); }
+    .sweet-alert .sa-input-error.show {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1); }
+  .sweet-alert input {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #d7d7d7;
+    height: 43px;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    font-size: 18px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.06);
+    padding: 0 12px;
+    display: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s; }
+    .sweet-alert input:focus {
+      outline: none;
+      box-shadow: 0px 0px 3px #c4e6f5;
+      border: 1px solid #b4dbed; }
+      .sweet-alert input:focus::-moz-placeholder {
+        transition: opacity 0.3s 0.03s ease;
+        opacity: 0.5; }
+      .sweet-alert input:focus:-ms-input-placeholder {
+        transition: opacity 0.3s 0.03s ease;
+        opacity: 0.5; }
+      .sweet-alert input:focus::-webkit-input-placeholder {
+        transition: opacity 0.3s 0.03s ease;
+        opacity: 0.5; }
+    .sweet-alert input::-moz-placeholder {
+      color: #bdbdbd; }
+    .sweet-alert input::-ms-clear {
+      display: none; }
+    .sweet-alert input:-ms-input-placeholder {
+      color: #bdbdbd; }
+    .sweet-alert input::-webkit-input-placeholder {
+      color: #bdbdbd; }
+  .sweet-alert.show-input input {
+    display: block; }
+  .sweet-alert .sa-confirm-button-container {
+    display: inline-block;
+    position: relative; }
+  .sweet-alert .la-ball-fall {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -27px;
+    margin-top: 4px;
+    opacity: 0;
+    visibility: hidden; }
+  .sweet-alert button {
+    background-color: #8CD4F5;
+    color: white;
+    border: none;
+    box-shadow: none;
+    font-size: 17px;
+    font-weight: 500;
+    -webkit-border-radius: 4px;
+    border-radius: 5px;
+    padding: 10px 32px;
+    margin: 26px 5px 0 5px;
+    cursor: pointer; }
+    .sweet-alert button:focus {
+      outline: none;
+      box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05); }
+    .sweet-alert button:hover {
+      background-color: #7ecff4; }
+    .sweet-alert button:active {
+      background-color: #5dc2f1; }
+    .sweet-alert button.cancel {
+      background-color: #C1C1C1; }
+      .sweet-alert button.cancel:hover {
+        background-color: #b9b9b9; }
+      .sweet-alert button.cancel:active {
+        background-color: #a8a8a8; }
+      .sweet-alert button.cancel:focus {
+        box-shadow: rgba(197, 205, 211, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset !important; }
+    .sweet-alert button[disabled] {
+      opacity: .6;
+      cursor: default; }
+    .sweet-alert button.confirm[disabled] {
+      color: transparent; }
+      .sweet-alert button.confirm[disabled] ~ .la-ball-fall {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0s; }
+    .sweet-alert button::-moz-focus-inner {
+      border: 0; }
+  .sweet-alert[data-has-cancel-button=false] button {
+    box-shadow: none !important; }
+  .sweet-alert[data-has-confirm-button=false][data-has-cancel-button=false] {
+    padding-bottom: 40px; }
+  .sweet-alert .sa-icon {
+    width: 80px;
+    height: 80px;
+    border: 4px solid gray;
+    -webkit-border-radius: 40px;
+    border-radius: 40px;
+    border-radius: 50%;
+    margin: 20px auto;
+    padding: 0;
+    position: relative;
+    box-sizing: content-box; }
+    .sweet-alert .sa-icon.sa-error {
+      border-color: #F27474; }
+      .sweet-alert .sa-icon.sa-error .sa-x-mark {
+        position: relative;
+        display: block; }
+      .sweet-alert .sa-icon.sa-error .sa-line {
+        position: absolute;
+        height: 5px;
+        width: 47px;
+        background-color: #F27474;
+        display: block;
+        top: 37px;
+        border-radius: 2px; }
+        .sweet-alert .sa-icon.sa-error .sa-line.sa-left {
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+          left: 17px; }
+        .sweet-alert .sa-icon.sa-error .sa-line.sa-right {
+          -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+          right: 16px; }
+    .sweet-alert .sa-icon.sa-warning {
+      border-color: #F8BB86; }
+      .sweet-alert .sa-icon.sa-warning .sa-body {
+        position: absolute;
+        width: 5px;
+        height: 47px;
+        left: 50%;
+        top: 10px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        margin-left: -2px;
+        background-color: #F8BB86; }
+      .sweet-alert .sa-icon.sa-warning .sa-dot {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        margin-left: -3px;
+        left: 50%;
+        bottom: 10px;
+        background-color: #F8BB86; }
+    .sweet-alert .sa-icon.sa-info {
+      border-color: #C9DAE1; }
+      .sweet-alert .sa-icon.sa-info::before {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 29px;
+        left: 50%;
+        bottom: 17px;
+        border-radius: 2px;
+        margin-left: -2px;
+        background-color: #C9DAE1; }
+      .sweet-alert .sa-icon.sa-info::after {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        margin-left: -3px;
+        top: 19px;
+        background-color: #C9DAE1;
+        left: 50%; }
+    .sweet-alert .sa-icon.sa-success {
+      border-color: #A5DC86; }
+      .sweet-alert .sa-icon.sa-success::before, .sweet-alert .sa-icon.sa-success::after {
+        content: '';
+        -webkit-border-radius: 40px;
+        border-radius: 40px;
+        border-radius: 50%;
+        position: absolute;
+        width: 60px;
+        height: 120px;
+        background: white;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg); }
+      .sweet-alert .sa-icon.sa-success::before {
+        -webkit-border-radius: 120px 0 0 120px;
+        border-radius: 120px 0 0 120px;
+        top: -7px;
+        left: -33px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-transform-origin: 60px 60px;
+        transform-origin: 60px 60px; }
+      .sweet-alert .sa-icon.sa-success::after {
+        -webkit-border-radius: 0 120px 120px 0;
+        border-radius: 0 120px 120px 0;
+        top: -11px;
+        left: 30px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-transform-origin: 0px 60px;
+        transform-origin: 0px 60px; }
+      .sweet-alert .sa-icon.sa-success .sa-placeholder {
+        width: 80px;
+        height: 80px;
+        border: 4px solid rgba(165, 220, 134, 0.2);
+        -webkit-border-radius: 40px;
+        border-radius: 40px;
+        border-radius: 50%;
+        box-sizing: content-box;
+        position: absolute;
+        left: -4px;
+        top: -4px;
+        z-index: 2; }
+      .sweet-alert .sa-icon.sa-success .sa-fix {
+        width: 5px;
+        height: 90px;
+        background-color: white;
+        position: absolute;
+        left: 28px;
+        top: 8px;
+        z-index: 1;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg); }
+      .sweet-alert .sa-icon.sa-success .sa-line {
+        height: 5px;
+        background-color: #A5DC86;
+        display: block;
+        border-radius: 2px;
+        position: absolute;
+        z-index: 2; }
+        .sweet-alert .sa-icon.sa-success .sa-line.sa-tip {
+          width: 25px;
+          left: 14px;
+          top: 46px;
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg); }
+        .sweet-alert .sa-icon.sa-success .sa-line.sa-long {
+          width: 47px;
+          right: 8px;
+          top: 38px;
+          -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg); }
+    .sweet-alert .sa-icon.sa-custom {
+      background-size: contain;
+      border-radius: 0;
+      border: none;
+      background-position: center center;
+      background-repeat: no-repeat; }
+
+/*
+ * Animations
+ */
+@-webkit-keyframes showSweetAlert {
+  0% {
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7); }
+  45% {
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05); }
+  80% {
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95); }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1); } }
+
+@keyframes showSweetAlert {
+  0% {
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7); }
+  45% {
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05); }
+  80% {
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95); }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1); } }
+
+@-webkit-keyframes hideSweetAlert {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1); }
+  100% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5); } }
+
+@keyframes hideSweetAlert {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1); }
+  100% {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5); } }
+
+@-webkit-keyframes slideFromTop {
+  0% {
+    top: 0%; }
+  100% {
+    top: 50%; } }
+
+@keyframes slideFromTop {
+  0% {
+    top: 0%; }
+  100% {
+    top: 50%; } }
+
+@-webkit-keyframes slideToTop {
+  0% {
+    top: 50%; }
+  100% {
+    top: 0%; } }
+
+@keyframes slideToTop {
+  0% {
+    top: 50%; }
+  100% {
+    top: 0%; } }
+
+@-webkit-keyframes slideFromBottom {
+  0% {
+    top: 70%; }
+  100% {
+    top: 50%; } }
+
+@keyframes slideFromBottom {
+  0% {
+    top: 70%; }
+  100% {
+    top: 50%; } }
+
+@-webkit-keyframes slideToBottom {
+  0% {
+    top: 50%; }
+  100% {
+    top: 70%; } }
+
+@keyframes slideToBottom {
+  0% {
+    top: 50%; }
+  100% {
+    top: 70%; } }
+
+.showSweetAlert[data-animation=pop] {
+  -webkit-animation: showSweetAlert 0.3s;
+  animation: showSweetAlert 0.3s; }
+
+.showSweetAlert[data-animation=none] {
+  -webkit-animation: none;
+  animation: none; }
+
+.showSweetAlert[data-animation=slide-from-top] {
+  -webkit-animation: slideFromTop 0.3s;
+  animation: slideFromTop 0.3s; }
+
+.showSweetAlert[data-animation=slide-from-bottom] {
+  -webkit-animation: slideFromBottom 0.3s;
+  animation: slideFromBottom 0.3s; }
+
+.hideSweetAlert[data-animation=pop] {
+  -webkit-animation: hideSweetAlert 0.2s;
+  animation: hideSweetAlert 0.2s; }
+
+.hideSweetAlert[data-animation=none] {
+  -webkit-animation: none;
+  animation: none; }
+
+.hideSweetAlert[data-animation=slide-from-top] {
+  -webkit-animation: slideToTop 0.4s;
+  animation: slideToTop 0.4s; }
+
+.hideSweetAlert[data-animation=slide-from-bottom] {
+  -webkit-animation: slideToBottom 0.3s;
+  animation: slideToBottom 0.3s; }
+
+@-webkit-keyframes animateSuccessTip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px; }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px; }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px; } }
+
+@keyframes animateSuccessTip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px; }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px; }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px; } }
+
+@-webkit-keyframes animateSuccessLong {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  84% {
+    width: 55px;
+    right: 0px;
+    top: 35px; }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px; } }
+
+@keyframes animateSuccessLong {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  84% {
+    width: 55px;
+    right: 0px;
+    top: 35px; }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px; } }
+
+@-webkit-keyframes rotatePlaceholder {
+  0% {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg); }
+  5% {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg); }
+  12% {
+    transform: rotate(-405deg);
+    -webkit-transform: rotate(-405deg); }
+  100% {
+    transform: rotate(-405deg);
+    -webkit-transform: rotate(-405deg); } }
+
+@keyframes rotatePlaceholder {
+  0% {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg); }
+  5% {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg); }
+  12% {
+    transform: rotate(-405deg);
+    -webkit-transform: rotate(-405deg); }
+  100% {
+    transform: rotate(-405deg);
+    -webkit-transform: rotate(-405deg); } }
+
+.animateSuccessTip {
+  -webkit-animation: animateSuccessTip 0.75s;
+  animation: animateSuccessTip 0.75s; }
+
+.animateSuccessLong {
+  -webkit-animation: animateSuccessLong 0.75s;
+  animation: animateSuccessLong 0.75s; }
+
+.sa-icon.sa-success.animate::after {
+  -webkit-animation: rotatePlaceholder 4.25s ease-in;
+  animation: rotatePlaceholder 4.25s ease-in; }
+
+@-webkit-keyframes animateErrorIcon {
+  0% {
+    transform: rotateX(100deg);
+    -webkit-transform: rotateX(100deg);
+    opacity: 0; }
+  100% {
+    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    opacity: 1; } }
+
+@keyframes animateErrorIcon {
+  0% {
+    transform: rotateX(100deg);
+    -webkit-transform: rotateX(100deg);
+    opacity: 0; }
+  100% {
+    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    opacity: 1; } }
+
+.animateErrorIcon {
+  -webkit-animation: animateErrorIcon 0.5s;
+  animation: animateErrorIcon 0.5s; }
+
+@-webkit-keyframes animateXMark {
+  0% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+    margin-top: -6px; }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } }
+
+@keyframes animateXMark {
+  0% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+    margin-top: -6px; }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } }
+
+.animateXMark {
+  -webkit-animation: animateXMark 0.5s;
+  animation: animateXMark 0.5s; }
+
+@-webkit-keyframes pulseWarning {
+  0% {
+    border-color: #F8D486; }
+  100% {
+    border-color: #F8BB86; } }
+
+@keyframes pulseWarning {
+  0% {
+    border-color: #F8D486; }
+  100% {
+    border-color: #F8BB86; } }
+
+.pulseWarning {
+  -webkit-animation: pulseWarning 0.75s infinite alternate;
+  animation: pulseWarning 0.75s infinite alternate; }
+
+@-webkit-keyframes pulseWarningIns {
+  0% {
+    background-color: #F8D486; }
+  100% {
+    background-color: #F8BB86; } }
+
+@keyframes pulseWarningIns {
+  0% {
+    background-color: #F8D486; }
+  100% {
+    background-color: #F8BB86; } }
+
+.pulseWarningIns {
+  -webkit-animation: pulseWarningIns 0.75s infinite alternate;
+  animation: pulseWarningIns 0.75s infinite alternate; }
+
+@-webkit-keyframes rotate-loading {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes rotate-loading {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+/* Internet Explorer 9 has some special quirks that are fixed here */
+/* The icons are not animated. */
+/* This file is automatically merged into sweet-alert.min.js through Gulp */
+/* Error icon */
+.sweet-alert .sa-icon.sa-error .sa-line.sa-left {
+  -ms-transform: rotate(45deg) \9; }
+
+.sweet-alert .sa-icon.sa-error .sa-line.sa-right {
+  -ms-transform: rotate(-45deg) \9; }
+
+/* Success icon */
+.sweet-alert .sa-icon.sa-success {
+  border-color: transparent\9; }
+
+.sweet-alert .sa-icon.sa-success .sa-line.sa-tip {
+  -ms-transform: rotate(45deg) \9; }
+
+.sweet-alert .sa-icon.sa-success .sa-line.sa-long {
+  -ms-transform: rotate(-45deg) \9; }
+
+/*!
+ * Load Awesome v1.1.0 (http://github.danielcardoso.net/load-awesome/)
+ * Copyright 2015 Daniel Cardoso <@DanielCardoso>
+ * Licensed under MIT
+ */
+.la-ball-fall,
+.la-ball-fall > div {
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.la-ball-fall {
+  display: block;
+  font-size: 0;
+  color: #fff; }
+
+.la-ball-fall.la-dark {
+  color: #333; }
+
+.la-ball-fall > div {
+  display: inline-block;
+  float: none;
+  background-color: currentColor;
+  border: 0 solid currentColor; }
+
+.la-ball-fall {
+  width: 54px;
+  height: 18px; }
+
+.la-ball-fall > div {
+  width: 10px;
+  height: 10px;
+  margin: 4px;
+  border-radius: 100%;
+  opacity: 0;
+  -webkit-animation: ball-fall 1s ease-in-out infinite;
+  -moz-animation: ball-fall 1s ease-in-out infinite;
+  -o-animation: ball-fall 1s ease-in-out infinite;
+  animation: ball-fall 1s ease-in-out infinite; }
+
+.la-ball-fall > div:nth-child(1) {
+  -webkit-animation-delay: -200ms;
+  -moz-animation-delay: -200ms;
+  -o-animation-delay: -200ms;
+  animation-delay: -200ms; }
+
+.la-ball-fall > div:nth-child(2) {
+  -webkit-animation-delay: -100ms;
+  -moz-animation-delay: -100ms;
+  -o-animation-delay: -100ms;
+  animation-delay: -100ms; }
+
+.la-ball-fall > div:nth-child(3) {
+  -webkit-animation-delay: 0ms;
+  -moz-animation-delay: 0ms;
+  -o-animation-delay: 0ms;
+  animation-delay: 0ms; }
+
+.la-ball-fall.la-sm {
+  width: 26px;
+  height: 8px; }
+
+.la-ball-fall.la-sm > div {
+  width: 4px;
+  height: 4px;
+  margin: 2px; }
+
+.la-ball-fall.la-2x {
+  width: 108px;
+  height: 36px; }
+
+.la-ball-fall.la-2x > div {
+  width: 20px;
+  height: 20px;
+  margin: 8px; }
+
+.la-ball-fall.la-3x {
+  width: 162px;
+  height: 54px; }
+
+.la-ball-fall.la-3x > div {
+  width: 30px;
+  height: 30px;
+  margin: 12px; }
+
+/*
+ * Animation
+ */
+@-webkit-keyframes ball-fall {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-145%);
+    transform: translateY(-145%); }
+  10% {
+    opacity: .5; }
+  20% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0); }
+  80% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0); }
+  90% {
+    opacity: .5; }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(145%);
+    transform: translateY(145%); } }
+
+@-moz-keyframes ball-fall {
+  0% {
+    opacity: 0;
+    -moz-transform: translateY(-145%);
+    transform: translateY(-145%); }
+  10% {
+    opacity: .5; }
+  20% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+    transform: translateY(0); }
+  80% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+    transform: translateY(0); }
+  90% {
+    opacity: .5; }
+  100% {
+    opacity: 0;
+    -moz-transform: translateY(145%);
+    transform: translateY(145%); } }
+
+@-o-keyframes ball-fall {
+  0% {
+    opacity: 0;
+    -o-transform: translateY(-145%);
+    transform: translateY(-145%); }
+  10% {
+    opacity: .5; }
+  20% {
+    opacity: 1;
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  80% {
+    opacity: 1;
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  90% {
+    opacity: .5; }
+  100% {
+    opacity: 0;
+    -o-transform: translateY(145%);
+    transform: translateY(145%); } }
+
+@keyframes ball-fall {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-145%);
+    -moz-transform: translateY(-145%);
+    -o-transform: translateY(-145%);
+    transform: translateY(-145%); }
+  10% {
+    opacity: .5; }
+  20% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  80% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  90% {
+    opacity: .5; }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(145%);
+    -moz-transform: translateY(145%);
+    -o-transform: translateY(145%);
+    transform: translateY(145%); } }
+
+</style>
+
+
+
+
+
+
+
+
+<style>
+h1 {
+  width: 100%;
+  font-family: arial, times new roman;
+  text-shadow: 2px 2px 2px #000;
+  padding-left: 0px;
+  background-color: #2C4161;
+  color: white;
+}
+.TCo {
+  width: 100%;
+  margin-left: 8px;
+  font-size: 1.5em;
+  font-family: times new roman;
+  text-shadow: 2px 2px 2px #000;
+  padding-left: 0px;
+  color: #D0D0D0;
+}
+#format {
+  width: 100%;
+  font-size: 0.8em;
+  padding-left: 0px;
+  line-height: 20px;
+  text-shadow: 1px 1px 1px #000;
+  background-color: #1F2E44;
+  color: white;
+}
+#box {
+  background-color: #1F2E44;
+  padding-left: 0px;
+}
+p1 {
+  color: blue;
+  font-size: 12px;
+}
+p2 {
+  color: blue;
+  font-size: 12px;
+}
+
+#tombol_calc {
+	box-sizing: border-box;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	background-color: transparent;
+	border: 2px solid #e74c3c;
+	border-radius: 0.6em;
+	color: #e74c3c;
+	cursor: pointer;
+	align-self: center;
+	font-size: 15px;
+	line-height: 0.3;
+	margin: 8px;
+	padding: 0.8em 0.8em;
+	text-decoration: none;
+	text-align: center;
+	text-shadow:1px 1px 1px #000;
+	text-transform: uppercase;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	transition: box-shadow 300ms ease-in-out, color 50ms ease-in-out;
+}
+
+#tombol_calc:hover, #tombol_calc:focus {
+	color: #fff;
+	outline: 0;
+	box-shadow: 0 0 40px 40px #e74c3c inset;
+}
+
+#tombol_infm {
+	box-sizing: border-box;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	background-color: transparent;
+	border: 2px solid #e74c3c;
+	border-radius: 0.6em;
+	color: #e74c3c;
+	cursor: pointer;
+	align-self: center;
+	font-size: 15px;
+	line-height: 0.3;
+	margin: 8px;
+	padding: 0.8em 0.8em;
+	text-decoration: none;
+	text-align: center;
+	text-shadow:1px 1px 1px #000;
+	text-transform: uppercase;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	transition: box-shadow 300ms ease-in-out, color 50ms ease-in-out;
+}
+
+#tombol_infm:hover, #tombol_infm:focus {
+	color: #fff;
+	outline: 0;
+	box-shadow: 0 0 40px 40px #e74c3c inset;
+}
+
+.inp1{
+     float: left;
+     position:relative;
+     line-height: 2.3em;
+     font-size: 90%;
+     font-family: arial;
+	 color: #FFFFFF;
+     padding: 5px;
+	 text-shadow: 1px 1px 1px #000;
+     }
+
+.inp2{
+     float: left;
+     position:relative;
+     line-height: 2.3em;
+     font-size: 90%;
+     font-family: arial;
+	 color: #FFFFFF;
+     padding: 5px;
+	 text-shadow: 1px 1px 1px #000;
+     }
+
+input[type=number]{
+     width: 80px;
+	 }
+
+#pd1 {
+     font-size: 0.8em;
+	 font-family: trebuchet ms;
+	 background: #EAE4DE;
+	 }
+
+#pd2 {
+     font-size: 0.8em;
+	 font-family: trebuchet ms;
+	 background: #EAE4DE;
+	 }	
+
+table {
+     font-size: 0.8em;
+	 color: #EAE4DE;
+	 font-family: times new roman;
+	 text-align: center;
+	 }
+	 
+.hidden {
+     display: none;
+     }	 	 
+	 
+.res{
+     float: left;
+     position:relative;
+     line-height: 1.7em;
+     font-size: 1,0em;
+     font-family: arial;
+	 color: #FFFFFF; 
+     padding: 9px;
+	 text-shadow: 2px 2px 1px #000;
+     }
+.copyright {
+     width: 100%;
+     height: 50 px;
+     padding-left: 0px;
+     line-height: 23px;
+     background: #505050;
+	 font-size: 13px;
+     text-shadow: 1px 1px 1px #000;
+     color: #FFF;
+	}
+
+a {
+	text-decoration: none;
+	font-size: 13px;
+	color: #FFF;
+    }</style>
+
+
+<!--END All CSS-->
+
+
+
+
+
+
+
+
+
+
+
+<!--BEGIN OBAT-->
+
+<script type="text/javascript">
+<!--Andreas Prima-->
+
+function STMTBL()
+{
+  var BRX = parseFloat (document.getElementById("BRX").value);  
+  var TMP = parseFloat (document.getElementById("TMP").value);
+  
+  
+  if ((BRX>=0) & (BRX<=5))
+  {
+  document.getElementById("TR15").value = (0.29+(BRX-0)*((0.30-0.29)/(5-0)));
+  document.getElementById("TR16").value = (0.24+(BRX-0)*((0.25-0.24)/(5-0)));
+  document.getElementById("TR17").value = (0.18+(BRX-0)*((0.19-0.18)/(5-0)));
+  document.getElementById("TR18").value = (0.12+(BRX-0)*((0.13-0.12)/(5-0)));
+  document.getElementById("TR19").value = (0.06+(BRX-0)*((0.06-0.06)/(5-0)));
+  document.getElementById("TR20").value = (0.00+(BRX-0)*((0.00-0.00)/(5-0)));
+  document.getElementById("TR21").value = (0.06+(BRX-0)*((0.07-0.06)/(5-0)));
+  document.getElementById("TR22").value = (0.13+(BRX-0)*((0.14-0.13)/(5-0)));
+  document.getElementById("TR23").value = (0.20+(BRX-0)*((0.21-0.20)/(5-0)));
+  document.getElementById("TR24").value = (0.27+(BRX-0)*((0.28-0.27)/(5-0)));
+  document.getElementById("TR25").value = (0.34+(BRX-0)*((0.35-0.34)/(5-0)));
+  document.getElementById("TR26").value = (0.42+(BRX-0)*((0.43-0.42)/(5-0)));
+  document.getElementById("TR27").value = (0.50+(BRX-0)*((0.51-0.50)/(5-0)));
+  document.getElementById("TR28").value = (0.58+(BRX-0)*((0.59-0.58)/(5-0)));
+  document.getElementById("TR29").value = (0.66+(BRX-0)*((0.67-0.66)/(5-0)));
+  document.getElementById("TR30").value = (0.74+(BRX-0)*((0.76-0.74)/(5-0)));
+  document.getElementById("TR31").value = (0.83+(BRX-0)*((0.84-0.83)/(5-0)));
+  document.getElementById("TR32").value = (0.92+(BRX-0)*((0.93-0.92)/(5-0)));
+  document.getElementById("TR33").value = (1.01+(BRX-0)*((1.02-1.01)/(5-0)));
+  document.getElementById("TR34").value = (1.10+(BRX-0)*((1.11-1.10)/(5-0)));
+  document.getElementById("TR35").value = (1.19+(BRX-0)*((1.21-1.19)/(5-0)));
+  document.getElementById("TR36").value = (1.29+(BRX-0)*((1.30-1.29)/(5-0)));
+  document.getElementById("TR37").value = (1.39+(BRX-0)*((1.40-1.39)/(5-0)));
+  document.getElementById("TR38").value = (1.49+(BRX-0)*((1.50-1.49)/(5-0)));
+  document.getElementById("TR39").value = (1.59+(BRX-0)*((1.60-1.59)/(5-0)));
+  document.getElementById("TR40").value = (1.69+(BRX-0)*((1.70-1.69)/(5-0)));
+  }
+
+  else if ((BRX>=5) & (BRX<=10))
+  {
+  document.getElementById("TR15").value = (0.30+(BRX-5)*((0.32-0.30)/(10-5)));
+  document.getElementById("TR16").value = (0.25+(BRX-5)*((0.26-0.25)/(10-5)));
+  document.getElementById("TR17").value = (0.19+(BRX-5)*((0.20-0.19)/(10-5)));
+  document.getElementById("TR18").value = (0.13+(BRX-5)*((0.13-0.13)/(10-5)));
+  document.getElementById("TR19").value = (0.06+(BRX-5)*((0.07-0.06)/(10-5)));
+  document.getElementById("TR20").value = (0.00+(BRX-5)*((0.00-0.00)/(10-5)));
+  document.getElementById("TR21").value = (0.07+(BRX-5)*((0.07-0.07)/(10-5)));
+  document.getElementById("TR22").value = (0.14+(BRX-5)*((0.14-0.14)/(10-5)));
+  document.getElementById("TR23").value = (0.21+(BRX-5)*((0.21-0.21)/(10-5)));
+  document.getElementById("TR24").value = (0.28+(BRX-5)*((0.29-0.28)/(10-5)));
+  document.getElementById("TR25").value = (0.35+(BRX-5)*((0.36-0.35)/(10-5)));
+  document.getElementById("TR26").value = (0.43+(BRX-5)*((0.44-0.43)/(10-5)));
+  document.getElementById("TR27").value = (0.51+(BRX-5)*((0.52-0.51)/(10-5)));
+  document.getElementById("TR28").value = (0.59+(BRX-5)*((0.60-0.59)/(10-5)));
+  document.getElementById("TR29").value = (0.67+(BRX-5)*((0.68-0.67)/(10-5)));
+  document.getElementById("TR30").value = (0.76+(BRX-5)*((0.77-0.76)/(10-5)));
+  document.getElementById("TR31").value = (0.84+(BRX-5)*((0.85-0.84)/(10-5)));
+  document.getElementById("TR32").value = (0.93+(BRX-5)*((0.94-0.93)/(10-5)));
+  document.getElementById("TR33").value = (1.02+(BRX-5)*((1.03-1.02)/(10-5)));
+  document.getElementById("TR34").value = (1.11+(BRX-5)*((1.13-1.11)/(10-5)));
+  document.getElementById("TR35").value = (1.21+(BRX-5)*((1.22-1.21)/(10-5)));
+  document.getElementById("TR36").value = (1.30+(BRX-5)*((1.31-1.30)/(10-5)));
+  document.getElementById("TR37").value = (1.40+(BRX-5)*((1.41-1.40)/(10-5)));
+  document.getElementById("TR38").value = (1.50+(BRX-5)*((1.51-1.50)/(10-5)));
+  document.getElementById("TR39").value = (1.60+(BRX-5)*((1.61-1.60)/(10-5)));
+  document.getElementById("TR40").value = (1.70+(BRX-5)*((1.71-1.70)/(10-5)));
+  }
+
+  else if ((BRX>=10) & (BRX<=15))
+  {
+  document.getElementById("TR15").value = (0.32+(BRX-10)*((0.33-0.32)/(15-10)));
+  document.getElementById("TR16").value = (0.26+(BRX-10)*((0.27-0.26)/(15-10)));
+  document.getElementById("TR17").value = (0.20+(BRX-10)*((0.20-0.20)/(15-10)));
+  document.getElementById("TR18").value = (0.13+(BRX-10)*((0.14-0.13)/(15-10)));
+  document.getElementById("TR19").value = (0.07+(BRX-10)*((0.07-0.07)/(15-10)));
+  document.getElementById("TR20").value = (0.00+(BRX-10)*((0.00-0.00)/(15-10)));
+  document.getElementById("TR21").value = (0.07+(BRX-10)*((0.07-0.07)/(15-10)));
+  document.getElementById("TR22").value = (0.14+(BRX-10)*((0.14-0.14)/(15-10)));
+  document.getElementById("TR23").value = (0.21+(BRX-10)*((0.22-0.21)/(15-10)));
+  document.getElementById("TR24").value = (0.29+(BRX-10)*((0.29-0.29)/(15-10)));
+  document.getElementById("TR25").value = (0.36+(BRX-10)*((0.37-0.36)/(15-10)));
+  document.getElementById("TR26").value = (0.44+(BRX-10)*((0.45-0.44)/(15-10)));
+  document.getElementById("TR27").value = (0.52+(BRX-10)*((0.53-0.52)/(15-10)));
+  document.getElementById("TR28").value = (0.60+(BRX-10)*((0.61-0.60)/(15-10)));
+  document.getElementById("TR29").value = (0.68+(BRX-10)*((0.70-0.68)/(15-10)));
+  document.getElementById("TR30").value = (0.77+(BRX-10)*((0.78-0.77)/(15-10)));
+  document.getElementById("TR31").value = (0.85+(BRX-10)*((0.87-0.85)/(15-10)));
+  document.getElementById("TR32").value = (0.94+(BRX-10)*((0.96-0.94)/(15-10)));
+  document.getElementById("TR33").value = (1.03+(BRX-10)*((1.05-1.03)/(15-10)));
+  document.getElementById("TR34").value = (1.13+(BRX-10)*((1.14-1.13)/(15-10)));
+  document.getElementById("TR35").value = (1.22+(BRX-10)*((1.23-1.22)/(15-10)));
+  document.getElementById("TR36").value = (1.31+(BRX-10)*((1.33-1.31)/(15-10)));
+  document.getElementById("TR37").value = (1.41+(BRX-10)*((1.42-1.41)/(15-10)));
+  document.getElementById("TR38").value = (1.51+(BRX-10)*((1.52-1.51)/(15-10)));
+  document.getElementById("TR39").value = (1.61+(BRX-10)*((1.62-1.61)/(15-10)));
+  document.getElementById("TR40").value = (1.71+(BRX-10)*((1.72-1.71)/(15-10)));
+  }
+
+  else if ((BRX>=15) & (BRX<=20))
+  {
+  document.getElementById("TR15").value = (0.33+(BRX-15)*((0.34-0.33)/(20-15)));
+  document.getElementById("TR16").value = (0.27+(BRX-15)*((0.28-0.27)/(20-15)));
+  document.getElementById("TR17").value = (0.20+(BRX-15)*((0.21-0.20)/(20-15)));
+  document.getElementById("TR18").value = (0.14+(BRX-15)*((0.14-0.14)/(20-15)));
+  document.getElementById("TR19").value = (0.07+(BRX-15)*((0.07-0.07)/(20-15)));
+  document.getElementById("TR20").value = (0.00+(BRX-15)*((0.00-0.00)/(20-15)));
+  document.getElementById("TR21").value = (0.07+(BRX-15)*((0.07-0.07)/(20-15)));
+  document.getElementById("TR22").value = (0.14+(BRX-15)*((0.15-0.14)/(20-15)));
+  document.getElementById("TR23").value = (0.22+(BRX-15)*((0.22-0.22)/(20-15)));
+  document.getElementById("TR24").value = (0.29+(BRX-15)*((0.30-0.29)/(20-15)));
+  document.getElementById("TR25").value = (0.37+(BRX-15)*((0.38-0.37)/(20-15)));
+  document.getElementById("TR26").value = (0.45+(BRX-15)*((0.46-0.45)/(20-15)));
+  document.getElementById("TR27").value = (0.53+(BRX-15)*((0.54-0.53)/(20-15)));
+  document.getElementById("TR28").value = (0.61+(BRX-15)*((0.62-0.61)/(20-15)));
+  document.getElementById("TR29").value = (0.70+(BRX-15)*((0.71-0.70)/(20-15)));
+  document.getElementById("TR30").value = (0.78+(BRX-15)*((0.79-0.78)/(20-15)));
+  document.getElementById("TR31").value = (0.87+(BRX-15)*((0.88-0.87)/(20-15)));
+  document.getElementById("TR32").value = (0.96+(BRX-15)*((0.97-0.96)/(20-15)));
+  document.getElementById("TR33").value = (1.05+(BRX-15)*((1.06-1.05)/(20-15)));
+  document.getElementById("TR34").value = (1.14+(BRX-15)*((1.15-1.14)/(20-15)));
+  document.getElementById("TR35").value = (1.23+(BRX-15)*((1.24-1.23)/(20-15)));
+  document.getElementById("TR36").value = (1.33+(BRX-15)*((1.34-1.33)/(20-15)));
+  document.getElementById("TR37").value = (1.42+(BRX-15)*((1.43-1.42)/(20-15)));
+  document.getElementById("TR38").value = (1.52+(BRX-15)*((1.53-1.52)/(20-15)));
+  document.getElementById("TR39").value = (1.62+(BRX-15)*((1.63-1.62)/(20-15)));
+  document.getElementById("TR40").value = (1.72+(BRX-15)*((1.73-1.72)/(20-15)));
+  }
+  
+  else if ((BRX>=20) & (BRX<=25))
+  {
+  document.getElementById("TR15").value = (0.34+(BRX-20)*((0.35-0.34)/(25-20)));
+  document.getElementById("TR16").value = (0.28+(BRX-20)*((0.28-0.28)/(25-20)));
+  document.getElementById("TR17").value = (0.21+(BRX-20)*((0.21-0.21)/(25-20)));
+  document.getElementById("TR18").value = (0.14+(BRX-20)*((0.14-0.14)/(25-20)));
+  document.getElementById("TR19").value = (0.07+(BRX-20)*((0.07-0.07)/(25-20)));
+  document.getElementById("TR20").value = (0+(BRX-20)*((0-0)/(25-20)));
+  document.getElementById("TR21").value = (0.07+(BRX-20)*((0.07-0.07)/(25-20)));
+  document.getElementById("TR22").value = (0.15+(BRX-20)*((0.15-0.15)/(25-20)));
+  document.getElementById("TR23").value = (0.22+(BRX-20)*((0.23-0.22)/(25-20)));
+  document.getElementById("TR24").value = (0.3+(BRX-20)*((0.3-0.3)/(25-20)));
+  document.getElementById("TR25").value = (0.38+(BRX-20)*((0.38-0.38)/(25-20)));
+  document.getElementById("TR26").value = (0.46+(BRX-20)*((0.46-0.46)/(25-20)));
+  document.getElementById("TR27").value = (0.54+(BRX-20)*((0.55-0.54)/(25-20)));
+  document.getElementById("TR28").value = (0.62+(BRX-20)*((0.63-0.62)/(25-20)));
+  document.getElementById("TR29").value = (0.71+(BRX-20)*((0.71-0.71)/(25-20)));
+  document.getElementById("TR30").value = (0.79+(BRX-20)*((0.8-0.79)/(25-20)));
+  document.getElementById("TR31").value = (0.88+(BRX-20)*((0.89-0.88)/(25-20)));
+  document.getElementById("TR32").value = (0.97+(BRX-20)*((0.98-0.97)/(25-20)));
+  document.getElementById("TR33").value = (1.06+(BRX-20)*((1.07-1.06)/(25-20)));
+  document.getElementById("TR34").value = (1.15+(BRX-20)*((1.16-1.15)/(25-20)));
+  document.getElementById("TR35").value = (1.24+(BRX-20)*((1.25-1.24)/(25-20)));
+  document.getElementById("TR36").value = (1.34+(BRX-20)*((1.34-1.34)/(25-20)));
+  document.getElementById("TR37").value = (1.43+(BRX-20)*((1.44-1.43)/(25-20)));
+  document.getElementById("TR38").value = (1.53+(BRX-20)*((1.53-1.53)/(25-20)));
+  document.getElementById("TR39").value = (1.63+(BRX-20)*((1.63-1.63)/(25-20)));
+  document.getElementById("TR40").value = (1.73+(BRX-20)*((1.73-1.73)/(25-20)));
+  }
+  
+  else if ((BRX>=25) & (BRX<=30))
+  {
+  document.getElementById("TR15").value = (0.35+(BRX-25)*((0.36-0.35)/(30-25)));
+  document.getElementById("TR16").value = (0.28+(BRX-25)*((0.29-0.28)/(30-25)));
+  document.getElementById("TR17").value = (0.21+(BRX-25)*((0.22-0.21)/(30-25)));
+  document.getElementById("TR18").value = (0.14+(BRX-25)*((0.15-0.14)/(30-25)));
+  document.getElementById("TR19").value = (0.07+(BRX-25)*((0.07-0.07)/(30-25)));
+  document.getElementById("TR20").value = (0.00+(BRX-25)*((0.00-0.00)/(30-25)));
+  document.getElementById("TR21").value = (0.07+(BRX-25)*((0.08-0.07)/(30-25)));
+  document.getElementById("TR22").value = (0.15+(BRX-25)*((0.15-0.15)/(30-25)));
+  document.getElementById("TR23").value = (0.23+(BRX-25)*((0.23-0.23)/(30-25)));
+  document.getElementById("TR24").value = (0.3+(BRX-25)*((0.31-0.3)/(30-25)));
+  document.getElementById("TR25").value = (0.38+(BRX-25)*((0.39-0.38)/(30-25)));
+  document.getElementById("TR26").value = (0.46+(BRX-25)*((0.47-0.46)/(30-25)));
+  document.getElementById("TR27").value = (0.55+(BRX-25)*((0.55-0.55)/(30-25)));
+  document.getElementById("TR28").value = (0.63+(BRX-25)*((0.64-0.63)/(30-25)));
+  document.getElementById("TR29").value = (0.71+(BRX-25)*((0.72-0.71)/(30-25)));
+  document.getElementById("TR30").value = (0.8+(BRX-25)*((0.81-0.8)/(30-25)));
+  document.getElementById("TR31").value = (0.89+(BRX-25)*((0.89-0.89)/(30-25)));
+  document.getElementById("TR32").value = (0.98+(BRX-25)*((0.98-0.98)/(30-25)));
+  document.getElementById("TR33").value = (1.07+(BRX-25)*((1.07-1.07)/(30-25)));
+  document.getElementById("TR34").value = (1.16+(BRX-25)*((1.16-1.16)/(30-25)));
+  document.getElementById("TR35").value = (1.25+(BRX-25)*((1.25-1.25)/(30-25)));
+  document.getElementById("TR36").value = (1.34+(BRX-25)*((1.35-1.34)/(30-25)));
+  document.getElementById("TR37").value = (1.44+(BRX-25)*((1.44-1.44)/(30-25)));
+  document.getElementById("TR38").value = (1.53+(BRX-25)*((1.54-1.53)/(30-25)));
+  document.getElementById("TR39").value = (1.63+(BRX-25)*((1.63-1.63)/(30-25)));
+  document.getElementById("TR40").value = (1.73+(BRX-25)*((1.73-1.73)/(30-25)));
+  }
+  
+  else if ((BRX>=30) & (BRX<=35))
+  {
+  document.getElementById("TR15").value = (0.36+(BRX-30)*((0.37-0.36)/(35-30)));
+  document.getElementById("TR16").value = (0.29+(BRX-30)*((0.3-0.29)/(35-30)));
+  document.getElementById("TR17").value = (0.22+(BRX-30)*((0.22-0.22)/(35-30)));
+  document.getElementById("TR18").value = (0.15+(BRX-30)*((0.15-0.15)/(35-30)));
+  document.getElementById("TR19").value = (0.07+(BRX-30)*((0.08-0.07)/(35-30)));
+  document.getElementById("TR20").value = (0+(BRX-30)*((0-0)/(35-30)));
+  document.getElementById("TR21").value = (0.08+(BRX-30)*((0.08-0.08)/(35-30)));
+  document.getElementById("TR22").value = (0.15+(BRX-30)*((0.15-0.15)/(35-30)));
+  document.getElementById("TR23").value = (0.23+(BRX-30)*((0.23-0.23)/(35-30)));
+  document.getElementById("TR24").value = (0.31+(BRX-30)*((0.31-0.31)/(35-30)));
+  document.getElementById("TR25").value = (0.39+(BRX-30)*((0.39-0.39)/(35-30)));
+  document.getElementById("TR26").value = (0.47+(BRX-30)*((0.47-0.47)/(35-30)));
+  document.getElementById("TR27").value = (0.55+(BRX-30)*((0.56-0.55)/(35-30)));
+  document.getElementById("TR28").value = (0.64+(BRX-30)*((0.64-0.64)/(35-30)));
+  document.getElementById("TR29").value = (0.72+(BRX-30)*((0.73-0.72)/(35-30)));
+  document.getElementById("TR30").value = (0.81+(BRX-30)*((0.81-0.81)/(35-30)));
+  document.getElementById("TR31").value = (0.89+(BRX-30)*((0.9-0.89)/(35-30)));
+  document.getElementById("TR32").value = (0.98+(BRX-30)*((0.99-0.98)/(35-30)));
+  document.getElementById("TR33").value = (1.07+(BRX-30)*((1.08-1.07)/(35-30)));
+  document.getElementById("TR34").value = (1.16+(BRX-30)*((1.17-1.16)/(35-30)));
+  document.getElementById("TR35").value = (1.25+(BRX-30)*((1.26-1.25)/(35-30)));
+  document.getElementById("TR36").value = (1.35+(BRX-30)*((1.35-1.35)/(35-30)));
+  document.getElementById("TR37").value = (1.44+(BRX-30)*((1.44-1.44)/(35-30)));
+  document.getElementById("TR38").value = (1.54+(BRX-30)*((1.54-1.54)/(35-30)));
+  document.getElementById("TR39").value = (1.63+(BRX-30)*((1.63-1.63)/(35-30)));
+  document.getElementById("TR40").value = (1.73+(BRX-30)*((1.73-1.73)/(35-30)));
+  }
+  
+  else if ((BRX>=35) & (BRX<=40))
+  {
+  document.getElementById("TR15").value = (0.37+(BRX-35)*((0.37-0.37)/(40-35)));
+  document.getElementById("TR16").value = (0.3+(BRX-35)*((0.3-0.3)/(40-35)));
+  document.getElementById("TR17").value = (0.22+(BRX-35)*((0.23-0.22)/(40-35)));
+  document.getElementById("TR18").value = (0.15+(BRX-35)*((0.15-0.15)/(40-35)));
+  document.getElementById("TR19").value = (0.08+(BRX-35)*((0.08-0.08)/(40-35)));
+  document.getElementById("TR20").value = (0+(BRX-35)*((0-0)/(40-35)));
+  document.getElementById("TR21").value = (0.08+(BRX-35)*((0.08-0.08)/(40-35)));
+  document.getElementById("TR22").value = (0.15+(BRX-35)*((0.16-0.15)/(40-35)));
+  document.getElementById("TR23").value = (0.23+(BRX-35)*((0.23-0.23)/(40-35)));
+  document.getElementById("TR24").value = (0.31+(BRX-35)*((0.31-0.31)/(40-35)));
+  document.getElementById("TR25").value = (0.39+(BRX-35)*((0.4-0.39)/(40-35)));
+  document.getElementById("TR26").value = (0.47+(BRX-35)*((0.48-0.47)/(40-35)));
+  document.getElementById("TR27").value = (0.56+(BRX-35)*((0.56-0.56)/(40-35)));
+  document.getElementById("TR28").value = (0.64+(BRX-35)*((0.64-0.64)/(40-35)));
+  document.getElementById("TR29").value = (0.73+(BRX-35)*((0.73-0.73)/(40-35)));
+  document.getElementById("TR30").value = (0.81+(BRX-35)*((0.82-0.81)/(40-35)));
+  document.getElementById("TR31").value = (0.9+(BRX-35)*((0.9-0.9)/(40-35)));
+  document.getElementById("TR32").value = (0.99+(BRX-35)*((0.99-0.99)/(40-35)));
+  document.getElementById("TR33").value = (1.08+(BRX-35)*((1.08-1.08)/(40-35)));
+  document.getElementById("TR34").value = (1.17+(BRX-35)*((1.17-1.17)/(40-35)));
+  document.getElementById("TR35").value = (1.26+(BRX-35)*((1.26-1.26)/(40-35)));
+  document.getElementById("TR36").value = (1.35+(BRX-35)*((1.35-1.35)/(40-35)));
+  document.getElementById("TR37").value = (1.44+(BRX-35)*((1.44-1.44)/(40-35)));
+  document.getElementById("TR38").value = (1.54+(BRX-35)*((1.53-1.54)/(40-35)));
+  document.getElementById("TR39").value = (1.63+(BRX-35)*((1.63-1.63)/(40-35)));
+  document.getElementById("TR40").value = (1.73+(BRX-35)*((1.72-1.73)/(40-35)));
+  }
+  
+  else if ((BRX>=40) & (BRX<=45))
+  {
+  document.getElementById("TR15").value = (0.37+(BRX-40)*((0.38-0.37)/(45-40)));
+  document.getElementById("TR16").value = (0.3+(BRX-40)*((0.3-0.3)/(45-40)));
+  document.getElementById("TR17").value = (0.23+(BRX-40)*((0.23-0.23)/(45-40)));
+  document.getElementById("TR18").value = (0.15+(BRX-40)*((0.15-0.15)/(45-40)));
+  document.getElementById("TR19").value = (0.08+(BRX-40)*((0.08-0.08)/(45-40)));
+  document.getElementById("TR20").value = (0+(BRX-40)*((0-0)/(45-40)));
+  document.getElementById("TR21").value = (0.08+(BRX-40)*((0.08-0.08)/(45-40)));
+  document.getElementById("TR22").value = (0.16+(BRX-40)*((0.16-0.16)/(45-40)));
+  document.getElementById("TR23").value = (0.23+(BRX-40)*((0.24-0.23)/(45-40)));
+  document.getElementById("TR24").value = (0.31+(BRX-40)*((0.32-0.31)/(45-40)));
+  document.getElementById("TR25").value = (0.4+(BRX-40)*((0.4-0.4)/(45-40)));
+  document.getElementById("TR26").value = (0.48+(BRX-40)*((0.48-0.48)/(45-40)));
+  document.getElementById("TR27").value = (0.56+(BRX-40)*((0.56-0.56)/(45-40)));
+  document.getElementById("TR28").value = (0.64+(BRX-40)*((0.65-0.64)/(45-40)));
+  document.getElementById("TR29").value = (0.73+(BRX-40)*((0.73-0.73)/(45-40)));
+  document.getElementById("TR30").value = (0.82+(BRX-40)*((0.82-0.82)/(45-40)));
+  document.getElementById("TR31").value = (0.9+(BRX-40)*((0.9-0.9)/(45-40)));
+  document.getElementById("TR32").value = (0.99+(BRX-40)*((0.99-0.99)/(45-40)));
+  document.getElementById("TR33").value = (1.08+(BRX-40)*((1.08-1.08)/(45-40)));
+  document.getElementById("TR34").value = (1.17+(BRX-40)*((1.16-1.17)/(45-40)));
+  document.getElementById("TR35").value = (1.26+(BRX-40)*((1.25-1.26)/(45-40)));
+  document.getElementById("TR36").value = (1.35+(BRX-40)*((1.34-1.35)/(45-40)));
+  document.getElementById("TR37").value = (1.44+(BRX-40)*((1.43-1.44)/(45-40)));
+  document.getElementById("TR38").value = (1.53+(BRX-40)*((1.53-1.53)/(45-40)));
+  document.getElementById("TR39").value = (1.63+(BRX-40)*((1.62-1.63)/(45-40)));
+  document.getElementById("TR40").value = (1.72+(BRX-40)*((1.71-1.72)/(45-40)));
+  }
+  
+  else if ((BRX>=45) & (BRX<=50))
+  {
+  document.getElementById("TR15").value = (0.38+(BRX-45)*((0.38-0.38)/(50-45)));
+  document.getElementById("TR16").value = (0.3+(BRX-45)*((0.31-0.3)/(50-45)));
+  document.getElementById("TR17").value = (0.23+(BRX-45)*((0.23-0.23)/(50-45)));
+  document.getElementById("TR18").value = (0.15+(BRX-45)*((0.15-0.15)/(50-45)));
+  document.getElementById("TR19").value = (0.08+(BRX-45)*((0.08-0.08)/(50-45)));
+  document.getElementById("TR20").value = (0+(BRX-45)*((0-0)/(50-45)));
+  document.getElementById("TR21").value = (0.08+(BRX-45)*((0.08-0.08)/(50-45)));
+  document.getElementById("TR22").value = (0.16+(BRX-45)*((0.16-0.16)/(50-45)));
+  document.getElementById("TR23").value = (0.24+(BRX-45)*((0.24-0.24)/(50-45)));
+  document.getElementById("TR24").value = (0.32+(BRX-45)*((0.32-0.32)/(50-45)));
+  document.getElementById("TR25").value = (0.4+(BRX-45)*((0.4-0.4)/(50-45)));
+  document.getElementById("TR26").value = (0.48+(BRX-45)*((0.48-0.48)/(50-45)));
+  document.getElementById("TR27").value = (0.56+(BRX-45)*((0.56-0.56)/(50-45)));
+  document.getElementById("TR28").value = (0.65+(BRX-45)*((0.65-0.65)/(50-45)));
+  document.getElementById("TR29").value = (0.73+(BRX-45)*((0.73-0.73)/(50-45)));
+  document.getElementById("TR30").value = (0.82+(BRX-45)*((0.81-0.82)/(50-45)));
+  document.getElementById("TR31").value = (0.9+(BRX-45)*((0.9-0.9)/(50-45)));
+  document.getElementById("TR32").value = (0.99+(BRX-45)*((0.99-0.99)/(50-45)));
+  document.getElementById("TR33").value = (1.08+(BRX-45)*((1.07-1.08)/(50-45)));
+  document.getElementById("TR34").value = (1.16+(BRX-45)*((1.16-1.16)/(50-45)));
+  document.getElementById("TR35").value = (1.25+(BRX-45)*((1.25-1.25)/(50-45)));
+  document.getElementById("TR36").value = (1.34+(BRX-45)*((1.34-1.34)/(50-45)));
+  document.getElementById("TR37").value = (1.43+(BRX-45)*((1.43-1.43)/(50-45)));
+  document.getElementById("TR38").value = (1.53+(BRX-45)*((1.52-1.53)/(50-45)));
+  document.getElementById("TR39").value = (1.62+(BRX-45)*((1.61-1.62)/(50-45)));
+  document.getElementById("TR40").value = (1.71+(BRX-45)*((1.7-1.71)/(50-45)));
+  }
+  
+  else if ((BRX>=50) & (BRX<=55))
+  {
+  document.getElementById("TR15").value = (0.38+(BRX-50)*((0.38-0.38)/(55-50)));
+  document.getElementById("TR16").value = (0.31+(BRX-50)*((0.31-0.31)/(55-50)));
+  document.getElementById("TR17").value = (0.23+(BRX-50)*((0.23-0.23)/(55-50)));
+  document.getElementById("TR18").value = (0.15+(BRX-50)*((0.15-0.15)/(55-50)));
+  document.getElementById("TR19").value = (0.08+(BRX-50)*((0.08-0.08)/(55-50)));
+  document.getElementById("TR20").value = (0+(BRX-50)*((0-0)/(55-50)));
+  document.getElementById("TR21").value = (0.08+(BRX-50)*((0.08-0.08)/(55-50)));
+  document.getElementById("TR22").value = (0.16+(BRX-50)*((0.16-0.16)/(55-50)));
+  document.getElementById("TR23").value = (0.24+(BRX-50)*((0.24-0.24)/(55-50)));
+  document.getElementById("TR24").value = (0.32+(BRX-50)*((0.32-0.32)/(55-50)));
+  document.getElementById("TR25").value = (0.4+(BRX-50)*((0.4-0.4)/(55-50)));
+  document.getElementById("TR26").value = (0.48+(BRX-50)*((0.48-0.48)/(55-50)));
+  document.getElementById("TR27").value = (0.56+(BRX-50)*((0.56-0.56)/(55-50)));
+  document.getElementById("TR28").value = (0.65+(BRX-50)*((0.64-0.65)/(55-50)));
+  document.getElementById("TR29").value = (0.73+(BRX-50)*((0.73-0.73)/(55-50)));
+  document.getElementById("TR30").value = (0.81+(BRX-50)*((0.81-0.81)/(55-50)));
+  document.getElementById("TR31").value = (0.9+(BRX-50)*((0.89-0.9)/(55-50)));
+  document.getElementById("TR32").value = (0.99+(BRX-50)*((0.98-0.99)/(55-50)));
+  document.getElementById("TR33").value = (1.07+(BRX-50)*((1.07-1.07)/(55-50)));
+  document.getElementById("TR34").value = (1.16+(BRX-50)*((1.15-1.16)/(55-50)));
+  document.getElementById("TR35").value = (1.25+(BRX-50)*((1.24-1.25)/(55-50)));
+  document.getElementById("TR36").value = (1.34+(BRX-50)*((1.33-1.34)/(55-50)));
+  document.getElementById("TR37").value = (1.43+(BRX-50)*((1.41-1.43)/(55-50)));
+  document.getElementById("TR38").value = (1.52+(BRX-50)*((1.52-1.52)/(55-50)));
+  document.getElementById("TR39").value = (1.61+(BRX-50)*((1.59-1.61)/(55-50)));
+  document.getElementById("TR40").value = (1.7+(BRX-50)*((1.68-1.7)/(55-50)));
+  }
+  
+  else if ((BRX>=55) & (BRX<=60))
+  {
+  document.getElementById("TR15").value = (0.38+(BRX-55)*((0.38-0.38)/(60-55)));
+  document.getElementById("TR16").value = (0.31+(BRX-55)*((0.31-0.31)/(60-55)));
+  document.getElementById("TR17").value = (0.23+(BRX-55)*((0.23-0.23)/(60-55)));
+  document.getElementById("TR18").value = (0.15+(BRX-55)*((0.15-0.15)/(60-55)));
+  document.getElementById("TR19").value = (0.08+(BRX-55)*((0.08-0.08)/(60-55)));
+  document.getElementById("TR20").value = (0+(BRX-55)*((0-0)/(60-55)));
+  document.getElementById("TR21").value = (0.08+(BRX-55)*((0.08-0.08)/(60-55)));
+  document.getElementById("TR22").value = (0.16+(BRX-55)*((0.16-0.16)/(60-55)));
+  document.getElementById("TR23").value = (0.24+(BRX-55)*((0.24-0.24)/(60-55)));
+  document.getElementById("TR24").value = (0.32+(BRX-55)*((0.32-0.32)/(60-55)));
+  document.getElementById("TR25").value = (0.4+(BRX-55)*((0.4-0.4)/(60-55)));
+  document.getElementById("TR26").value = (0.48+(BRX-55)*((0.48-0.48)/(60-55)));
+  document.getElementById("TR27").value = (0.56+(BRX-55)*((0.56-0.56)/(60-55)));
+  document.getElementById("TR28").value = (0.64+(BRX-55)*((0.64-0.64)/(60-55)));
+  document.getElementById("TR29").value = (0.73+(BRX-55)*((0.72-0.73)/(60-55)));
+  document.getElementById("TR30").value = (0.81+(BRX-55)*((0.8-0.81)/(60-55)));
+  document.getElementById("TR31").value = (0.89+(BRX-55)*((0.89-0.89)/(60-55)));
+  document.getElementById("TR32").value = (0.98+(BRX-55)*((0.97-0.98)/(60-55)));
+  document.getElementById("TR33").value = (1.07+(BRX-55)*((1.06-1.07)/(60-55)));
+  document.getElementById("TR34").value = (1.15+(BRX-55)*((1.14-1.15)/(60-55)));
+  document.getElementById("TR35").value = (1.24+(BRX-55)*((1.23-1.24)/(60-55)));
+  document.getElementById("TR36").value = (1.33+(BRX-55)*((1.31-1.33)/(60-55)));
+  document.getElementById("TR37").value = (1.41+(BRX-55)*((1.4-1.41)/(60-55)));
+  document.getElementById("TR38").value = (1.52+(BRX-55)*((1.48-1.52)/(60-55)));
+  document.getElementById("TR39").value = (1.59+(BRX-55)*((1.57-1.59)/(60-55)));
+  document.getElementById("TR40").value = (1.68+(BRX-55)*((1.66-1.68)/(60-55)));
+  }
+  
+  else if ((BRX>=60) & (BRX<=65))
+  {
+  document.getElementById("TR15").value = (0.38+(BRX-60)*((0.38-0.38)/(65-60)));
+  document.getElementById("TR16").value = (0.31+(BRX-60)*((0.31-0.31)/(65-60)));
+  document.getElementById("TR17").value = (0.23+(BRX-60)*((0.23-0.23)/(65-60)));
+  document.getElementById("TR18").value = (0.15+(BRX-60)*((0.15-0.15)/(65-60)));
+  document.getElementById("TR19").value = (0.08+(BRX-60)*((0.08-0.08)/(65-60)));
+  document.getElementById("TR20").value = (0+(BRX-60)*((0-0)/(65-60)));
+  document.getElementById("TR21").value = (0.08+(BRX-60)*((0.08-0.08)/(65-60)));
+  document.getElementById("TR22").value = (0.16+(BRX-60)*((0.16-0.16)/(65-60)));
+  document.getElementById("TR23").value = (0.24+(BRX-60)*((0.23-0.24)/(65-60)));
+  document.getElementById("TR24").value = (0.32+(BRX-60)*((0.31-0.32)/(65-60)));
+  document.getElementById("TR25").value = (0.4+(BRX-60)*((0.39-0.4)/(65-60)));
+  document.getElementById("TR26").value = (0.48+(BRX-60)*((0.47-0.48)/(65-60)));
+  document.getElementById("TR27").value = (0.56+(BRX-60)*((0.55-0.56)/(65-60)));
+  document.getElementById("TR28").value = (0.64+(BRX-60)*((0.63-0.64)/(65-60)));
+  document.getElementById("TR29").value = (0.72+(BRX-60)*((0.72-0.72)/(65-60)));
+  document.getElementById("TR30").value = (0.8+(BRX-60)*((0.8-0.8)/(65-60)));
+  document.getElementById("TR31").value = (0.89+(BRX-60)*((0.88-0.89)/(65-60)));
+  document.getElementById("TR32").value = (0.97+(BRX-60)*((0.96-0.97)/(65-60)));
+  document.getElementById("TR33").value = (1.06+(BRX-60)*((1.04-1.06)/(65-60)));
+  document.getElementById("TR34").value = (1.14+(BRX-60)*((1.13-1.14)/(65-60)));
+  document.getElementById("TR35").value = (1.23+(BRX-60)*((1.21-1.23)/(65-60)));
+  document.getElementById("TR36").value = (1.31+(BRX-60)*((1.29-1.31)/(65-60)));
+  document.getElementById("TR37").value = (1.4+(BRX-60)*((1.38-1.4)/(65-60)));
+  document.getElementById("TR38").value = (1.48+(BRX-60)*((1.46-1.48)/(65-60)));
+  document.getElementById("TR39").value = (1.57+(BRX-60)*((1.55-1.57)/(65-60)));
+  document.getElementById("TR40").value = (1.66+(BRX-60)*((1.63-1.66)/(65-60)));
+  }
+  
+  else if ((BRX>=65) & (BRX<=70))
+  {
+  document.getElementById("TR15").value = (0.38+(BRX-65)*((0.38-0.38)/(70-65)));
+  document.getElementById("TR16").value = (0.31+(BRX-65)*((0.31-0.31)/(70-65)));
+  document.getElementById("TR17").value = (0.23+(BRX-65)*((0.23-0.23)/(70-65)));
+  document.getElementById("TR18").value = (0.15+(BRX-65)*((0.15-0.15)/(70-65)));
+  document.getElementById("TR19").value = (0.08+(BRX-65)*((0.08-0.08)/(70-65)));
+  document.getElementById("TR20").value = (0+(BRX-65)*((0-0)/(70-65)));
+  document.getElementById("TR21").value = (0.08+(BRX-65)*((0.08-0.08)/(70-65)));
+  document.getElementById("TR22").value = (0.16+(BRX-65)*((0.15-0.16)/(70-65)));
+  document.getElementById("TR23").value = (0.23+(BRX-65)*((0.23-0.23)/(70-65)));
+  document.getElementById("TR24").value = (0.31+(BRX-65)*((0.31-0.31)/(70-65)));
+  document.getElementById("TR25").value = (0.39+(BRX-65)*((0.39-0.39)/(70-65)));
+  document.getElementById("TR26").value = (0.47+(BRX-65)*((0.47-0.47)/(70-65)));
+  document.getElementById("TR27").value = (0.55+(BRX-65)*((0.55-0.55)/(70-65)));
+  document.getElementById("TR28").value = (0.63+(BRX-65)*((0.63-0.63)/(70-65)));
+  document.getElementById("TR29").value = (0.72+(BRX-65)*((0.71-0.72)/(70-65)));
+  document.getElementById("TR30").value = (0.8+(BRX-65)*((0.79-0.8)/(70-65)));
+  document.getElementById("TR31").value = (0.88+(BRX-65)*((0.87-0.88)/(70-65)));
+  document.getElementById("TR32").value = (0.96+(BRX-65)*((0.95-0.96)/(70-65)));
+  document.getElementById("TR33").value = (1.04+(BRX-65)*((1.03-1.04)/(70-65)));
+  document.getElementById("TR34").value = (1.13+(BRX-65)*((1.11-1.13)/(70-65)));
+  document.getElementById("TR35").value = (1.21+(BRX-65)*((1.19-1.21)/(70-65)));
+  document.getElementById("TR36").value = (1.29+(BRX-65)*((1.28-1.29)/(70-65)));
+  document.getElementById("TR37").value = (1.38+(BRX-65)*((1.36-1.38)/(70-65)));
+  document.getElementById("TR38").value = (1.46+(BRX-65)*((1.44-1.46)/(70-65)));
+  document.getElementById("TR39").value = (1.55+(BRX-65)*((1.52-1.55)/(70-65)));
+  document.getElementById("TR40").value = (1.63+(BRX-65)*((1.61-1.63)/(70-65)));
+  }
+
+  else if ((BRX>=70) & (BRX<=75))
+  {
+  document.getElementById("TR15").value = (0.38+(BRX-70)*((0.38-0.38)/(75-70)));
+  document.getElementById("TR16").value = (0.31+(BRX-70)*((0.3-0.31)/(75-70)));
+  document.getElementById("TR17").value = (0.23+(BRX-70)*((0.23-0.23)/(75-70)));
+  document.getElementById("TR18").value = (0.15+(BRX-70)*((0.15-0.15)/(75-70)));
+  document.getElementById("TR19").value = (0.08+(BRX-70)*((0.08-0.08)/(75-70)));
+  document.getElementById("TR20").value = (0+(BRX-70)*((0-0)/(75-70)));
+  document.getElementById("TR21").value = (0.08+(BRX-70)*((0.08-0.08)/(75-70)));
+  document.getElementById("TR22").value = (0.15+(BRX-70)*((0.15-0.15)/(75-70)));
+  document.getElementById("TR23").value = (0.23+(BRX-70)*((0.23-0.23)/(75-70)));
+  document.getElementById("TR24").value = (0.31+(BRX-70)*((0.31-0.31)/(75-70)));
+  document.getElementById("TR25").value = (0.39+(BRX-70)*((0.38-0.39)/(75-70)));
+  document.getElementById("TR26").value = (0.47+(BRX-70)*((0.46-0.47)/(75-70)));
+  document.getElementById("TR27").value = (0.55+(BRX-70)*((0.54-0.55)/(75-70)));
+  document.getElementById("TR28").value = (0.63+(BRX-70)*((0.62-0.63)/(75-70)));
+  document.getElementById("TR29").value = (0.71+(BRX-70)*((0.7-0.71)/(75-70)));
+  document.getElementById("TR30").value = (0.79+(BRX-70)*((0.78-0.79)/(75-70)));
+  document.getElementById("TR31").value = (0.87+(BRX-70)*((0.86-0.87)/(75-70)));
+  document.getElementById("TR32").value = (0.95+(BRX-70)*((0.93-0.95)/(75-70)));
+  document.getElementById("TR33").value = (1.03+(BRX-70)*((1.01-1.03)/(75-70)));
+  document.getElementById("TR34").value = (1.11+(BRX-70)*((1.09-1.11)/(75-70)));
+  document.getElementById("TR35").value = (1.19+(BRX-70)*((1.17-1.19)/(75-70)));
+  document.getElementById("TR36").value = (1.28+(BRX-70)*((1.25-1.28)/(75-70)));
+  document.getElementById("TR37").value = (1.36+(BRX-70)*((1.33-1.36)/(75-70)));
+  document.getElementById("TR38").value = (1.44+(BRX-70)*((1.42-1.44)/(75-70)));
+  document.getElementById("TR39").value = (1.52+(BRX-70)*((1.5-1.52)/(75-70)));
+  document.getElementById("TR40").value = (1.61+(BRX-70)*((1.58-1.61)/(75-70)));
+  }
+  
+  else if ((BRX>=75) & (BRX<=80))
+  {
+  document.getElementById("TR15").value = (0.38+(BRX-75)*((0.37-0.38)/(80-75)));
+  document.getElementById("TR16").value = (0.3+(BRX-75)*((0.3-0.3)/(80-75)));
+  document.getElementById("TR17").value = (0.23+(BRX-75)*((0.23-0.23)/(80-75)));
+  document.getElementById("TR18").value = (0.15+(BRX-75)*((0.15-0.15)/(80-75)));
+  document.getElementById("TR19").value = (0.08+(BRX-75)*((0.08-0.08)/(80-75)));
+  document.getElementById("TR20").value = (0+(BRX-75)*((0-0)/(80-75)));
+  document.getElementById("TR21").value = (0.08+(BRX-75)*((0.08-0.08)/(80-75)));
+  document.getElementById("TR22").value = (0.15+(BRX-75)*((0.15-0.15)/(80-75)));
+  document.getElementById("TR23").value = (0.23+(BRX-75)*((0.23-0.23)/(80-75)));
+  document.getElementById("TR24").value = (0.31+(BRX-75)*((0.3-0.31)/(80-75)));
+  document.getElementById("TR25").value = (0.38+(BRX-75)*((0.38-0.38)/(80-75)));
+  document.getElementById("TR26").value = (0.46+(BRX-75)*((0.46-0.46)/(80-75)));
+  document.getElementById("TR27").value = (0.54+(BRX-75)*((0.53-0.54)/(80-75)));
+  document.getElementById("TR28").value = (0.62+(BRX-75)*((0.61-0.62)/(80-75)));
+  document.getElementById("TR29").value = (0.7+(BRX-75)*((0.69-0.7)/(80-75)));
+  document.getElementById("TR30").value = (0.78+(BRX-75)*((0.76-0.78)/(80-75)));
+  document.getElementById("TR31").value = (0.86+(BRX-75)*((0.84-0.86)/(80-75)));
+  document.getElementById("TR32").value = (0.93+(BRX-75)*((0.92-0.93)/(80-75)));
+  document.getElementById("TR33").value = (1.01+(BRX-75)*((1-1.01)/(80-75)));
+  document.getElementById("TR34").value = (1.09+(BRX-75)*((1.07-1.09)/(80-75)));
+  document.getElementById("TR35").value = (1.17+(BRX-75)*((1.15-1.17)/(80-75)));
+  document.getElementById("TR36").value = (1.25+(BRX-75)*((1.23-1.25)/(80-75)));
+  document.getElementById("TR37").value = (1.33+(BRX-75)*((1.31-1.33)/(80-75)));
+  document.getElementById("TR38").value = (1.42+(BRX-75)*((1.39-1.42)/(80-75)));
+  document.getElementById("TR39").value = (1.5+(BRX-75)*((1.47-1.5)/(80-75)));
+  document.getElementById("TR40").value = (1.58+(BRX-75)*((1.54-1.58)/(80-75)));
+  }
+  
+  else if ((BRX>=80) & (BRX<=85))
+  {
+  document.getElementById("TR15").value = (0.37+(BRX-80)*((0.37-0.37)/(85-80)));
+  document.getElementById("TR16").value = (0.3+(BRX-80)*((0.3-0.3)/(85-80)));
+  document.getElementById("TR17").value = (0.23+(BRX-80)*((0.22-0.23)/(85-80)));
+  document.getElementById("TR18").value = (0.15+(BRX-80)*((0.15-0.15)/(85-80)));
+  document.getElementById("TR19").value = (0.08+(BRX-80)*((0.07-0.08)/(85-80)));
+  document.getElementById("TR20").value = (0+(BRX-80)*((0-0)/(85-80)));
+  document.getElementById("TR21").value = (0.08+(BRX-80)*((0.07-0.08)/(85-80)));
+  document.getElementById("TR22").value = (0.15+(BRX-80)*((0.15-0.15)/(85-80)));
+  document.getElementById("TR23").value = (0.23+(BRX-80)*((0.22-0.23)/(85-80)));
+  document.getElementById("TR24").value = (0.3+(BRX-80)*((0.3-0.3)/(85-80)));
+  document.getElementById("TR25").value = (0.38+(BRX-80)*((0.37-0.38)/(85-80)));
+  document.getElementById("TR26").value = (0.46+(BRX-80)*((0.45-0.46)/(85-80)));
+  document.getElementById("TR27").value = (0.53+(BRX-80)*((0.52-0.53)/(85-80)));
+  document.getElementById("TR28").value = (0.61+(BRX-80)*((0.6-0.61)/(85-80)));
+  document.getElementById("TR29").value = (0.69+(BRX-80)*((0.67-0.69)/(85-80)));
+  document.getElementById("TR30").value = (0.76+(BRX-80)*((0.75-0.76)/(85-80)));
+  document.getElementById("TR31").value = (0.84+(BRX-80)*((0.82-0.84)/(85-80)));
+  document.getElementById("TR32").value = (0.92+(BRX-80)*((0.9-0.92)/(85-80)));
+  document.getElementById("TR33").value = (1+(BRX-80)*((0.98-1)/(85-80)));
+  document.getElementById("TR34").value = (1.07+(BRX-80)*((1.05-1.07)/(85-80)));
+  document.getElementById("TR35").value = (1.15+(BRX-80)*((1.13-1.15)/(85-80)));
+  document.getElementById("TR36").value = (1.23+(BRX-80)*((1.2-1.23)/(85-80)));
+  document.getElementById("TR37").value = (1.31+(BRX-80)*((1.28-1.31)/(85-80)));
+  document.getElementById("TR38").value = (1.39+(BRX-80)*((1.36-1.39)/(85-80)));
+  document.getElementById("TR39").value = (1.47+(BRX-80)*((1.43-1.47)/(85-80)));
+  document.getElementById("TR40").value = (1.54+(BRX-80)*((1.51-1.54)/(85-80)));
+  }
+  
+
+  		var TR15 = parseFloat (document.getElementById("TR15").value);
+		var TR16 = parseFloat (document.getElementById("TR16").value);
+		var TR17 = parseFloat (document.getElementById("TR17").value);
+		var TR18 = parseFloat (document.getElementById("TR18").value);
+		var TR19 = parseFloat (document.getElementById("TR19").value);
+		var TR20 = parseFloat (document.getElementById("TR20").value);
+		var TR21 = parseFloat (document.getElementById("TR21").value);
+		var TR22 = parseFloat (document.getElementById("TR22").value);
+		var TR23 = parseFloat (document.getElementById("TR23").value);
+		var TR24 = parseFloat (document.getElementById("TR24").value);
+		var TR25 = parseFloat (document.getElementById("TR25").value);
+		var TR26 = parseFloat (document.getElementById("TR26").value);
+		var TR27 = parseFloat (document.getElementById("TR27").value);
+		var TR28 = parseFloat (document.getElementById("TR28").value);
+		var TR29 = parseFloat (document.getElementById("TR29").value);
+		var TR30 = parseFloat (document.getElementById("TR30").value);
+		var TR31 = parseFloat (document.getElementById("TR31").value);
+		var TR32 = parseFloat (document.getElementById("TR32").value);
+		var TR33 = parseFloat (document.getElementById("TR33").value);
+		var TR34 = parseFloat (document.getElementById("TR34").value);
+		var TR35 = parseFloat (document.getElementById("TR35").value);
+		var TR36 = parseFloat (document.getElementById("TR36").value);
+		var TR37 = parseFloat (document.getElementById("TR37").value);
+		var TR38 = parseFloat (document.getElementById("TR38").value);
+		var TR39 = parseFloat (document.getElementById("TR39").value);
+		var TR40 = parseFloat (document.getElementById("TR40").value);
+				
+		if ((TMP>=15) & (TMP<=16))
+		{ document.getElementById("UHUY").value = (TR15+(TMP-15)*((TR16-TR15)/(16-15))).toFixed(2); }
+		
+		else if ((TMP>=16) & (TMP<=17))
+		{ document.getElementById("UHUY").value = (TR16+(TMP-16)*((TR17-TR16)/(17-16))).toFixed(2); }
+		
+		else if ((TMP>=17) & (TMP<=18))
+		{ document.getElementById("UHUY").value = (TR17+(TMP-17)*((TR18-TR17)/(18-17))).toFixed(2); }
+		
+		else if ((TMP>=18) & (TMP<=19))
+		{ document.getElementById("UHUY").value = (TR18+(TMP-18)*((TR19-TR18)/(19-18))).toFixed(2); }
+		
+		else if ((TMP>=19) & (TMP<=20))
+		{ document.getElementById("UHUY").value = (TR19+(TMP-19)*((TR20-TR19)/(20-19))).toFixed(2); }
+		
+		else if ((TMP>=20) & (TMP<=21))
+		{ document.getElementById("UHUY").value = (TR20+(TMP-20)*((TR21-TR20)/(21-20))).toFixed(2); }
+		
+		else if ((TMP>=21) & (TMP<=22))
+		{ document.getElementById("UHUY").value = (TR21+(TMP-21)*((TR22-TR21)/(22-21))).toFixed(2); }
+		
+		else if ((TMP>=22) & (TMP<=23))
+		{ document.getElementById("UHUY").value = (TR22+(TMP-22)*((TR23-TR22)/(23-22))).toFixed(2); }
+		
+		else if ((TMP>=23) & (TMP<=24))
+		{ document.getElementById("UHUY").value = (TR23+(TMP-23)*((TR24-TR23)/(24-23))).toFixed(2); }
+		
+		else if ((TMP>=24) & (TMP<=25))
+		{ document.getElementById("UHUY").value = (TR24+(TMP-24)*((TR25-TR24)/(25-24))).toFixed(2); }
+		
+		else if ((TMP>=25) & (TMP<=26))
+		{ document.getElementById("UHUY").value = (TR25+(TMP-25)*((TR26-TR25)/(26-25))).toFixed(2); }
+		
+		else if ((TMP>=26) & (TMP<=27))
+		{ document.getElementById("UHUY").value = (TR26+(TMP-26)*((TR27-TR26)/(27-26))).toFixed(2); }
+		
+		else if ((TMP>=27) & (TMP<=28))
+		{ document.getElementById("UHUY").value = (TR27+(TMP-27)*((TR28-TR27)/(28-27))).toFixed(2); }
+		
+		else if ((TMP>=28) & (TMP<=29))
+		{ document.getElementById("UHUY").value = (TR28+(TMP-28)*((TR29-TR28)/(29-28))).toFixed(2); }
+		
+		else if ((TMP>=29) & (TMP<=30))
+		{ document.getElementById("UHUY").value = (TR29+(TMP-29)*((TR30-TR29)/(30-29))).toFixed(2); }
+		
+		else if ((TMP>=30) & (TMP<=31))
+		{ document.getElementById("UHUY").value = (TR30+(TMP-30)*((TR31-TR30)/(31-30))).toFixed(2); }
+		
+		else if ((TMP>=31) & (TMP<=32))
+		{ document.getElementById("UHUY").value = (TR31+(TMP-31)*((TR32-TR31)/(32-31))).toFixed(2); }
+		
+		else if ((TMP>=32) & (TMP<=33))
+		{ document.getElementById("UHUY").value = (TR32+(TMP-32)*((TR33-TR32)/(33-32))).toFixed(2); }
+		
+		else if ((TMP>=33) & (TMP<=34))
+		{ document.getElementById("UHUY").value = (TR33+(TMP-33)*((TR34-TR33)/(34-33))).toFixed(2); }
+		
+		else if ((TMP>=34) & (TMP<=35))
+		{ document.getElementById("UHUY").value = (TR34+(TMP-34)*((TR35-TR34)/(35-34))).toFixed(2); }
+		
+		else if ((TMP>=35) & (TMP<=36))
+		{ document.getElementById("UHUY").value = (TR35+(TMP-35)*((TR36-TR35)/(36-35))).toFixed(2); }
+		
+		else if ((TMP>=36) & (TMP<=37))
+		{ document.getElementById("UHUY").value = (TR36+(TMP-36)*((TR37-TR36)/(37-36))).toFixed(2); }
+		
+		else if ((TMP>=37) & (TMP<=38))
+		{ document.getElementById("UHUY").value = (TR37+(TMP-37)*((TR38-TR37)/(38-37))).toFixed(2); }
+		
+		else if ((TMP>=38) & (TMP<=39))
+		{ document.getElementById("UHUY").value = (TR38+(TMP-38)*((TR39-TR38)/(39-38))).toFixed(2); }
+		
+		else if ((TMP>=39) & (TMP<=40))
+		{ document.getElementById("UHUY").value = (TR39+(TMP-39)*((TR40-TR39)/(40-39))).toFixed(2); }
+		
+		
+		var UHUY = parseFloat (document.getElementById("UHUY").value);
+		
+		
+		if (TMP<15)
+		{ swal("The temperature is out of range, it must be 15-40°C"); }
+		
+		else if ((TMP>=15) & (TMP<20))
+		{ document.getElementById("HORE").value = (BRX-UHUY); }
+		
+		else if (TMP==20)
+		{ document.getElementById("HORE").value = (BRX); }
+		
+		else if ((TMP>20) & (TMP<=40))
+		{ document.getElementById("HORE").value = (BRX+UHUY); }
+		
+		else if (TMP>40)
+		{ swal("The temperature is out of range, it must be 15-40°C"); }
+		
+		return (false);		
+}
+</script>
+
+
+<!--Andreas Prima-->
+
+
+
+
+<div id="OBAT" style="background:#3E3E3E">
+<form name="OBATCAL" onsubmit="return validasi_input(this)">
+<br>
+<span style="color:#e74c3c; font-family:trebuchet ms; font-size:100%; font-weight:bold; text-shadow:1px 1px 1px #000;">
+</span>
+<br><br><br>
+
+<button type="reset" class="button"><i><b>Clear</b></i></button>
+
+<br><br>
+
+<div class="inp1">
+<b>Brix</b>
+<br>
+<b>Temperature</b>
+</div>
+
+<div class="inp2">
+<input style="text-align:right; font-size:1.2em;" onblur="return TRTH();" type="number" id="BRX">&nbsp;<i><b>%</b></i>
+<br>
+<input style="text-align:right; font-size:1.2em;" onblur="return TRTH();" type="number" id="TMP">&nbsp;<i><b>°C</b></i>
+</div>
+
+<div class="hidden">
+<input style="text-align:right; font-size:1.2em;" id="TR15">
+<input style="text-align:right; font-size:1.2em;" id="TR16">
+<input style="text-align:right; font-size:1.2em;" id="TR17">
+<input style="text-align:right; font-size:1.2em;" id="TR18">
+<input style="text-align:right; font-size:1.2em;" id="TR19">
+<input style="text-align:right; font-size:1.2em;" id="TR20">
+<input style="text-align:right; font-size:1.2em;" id="TR21">
+<input style="text-align:right; font-size:1.2em;" id="TR22">
+<input style="text-align:right; font-size:1.2em;" id="TR23">
+<input style="text-align:right; font-size:1.2em;" id="TR24">
+<input style="text-align:right; font-size:1.2em;" id="TR25">
+<input style="text-align:right; font-size:1.2em;" id="TR26">
+<input style="text-align:right; font-size:1.2em;" id="TR27">
+<input style="text-align:right; font-size:1.2em;" id="TR28">
+<input style="text-align:right; font-size:1.2em;" id="TR29">
+<input style="text-align:right; font-size:1.2em;" id="TR30">
+<input style="text-align:right; font-size:1.2em;" id="TR31">
+<input style="text-align:right; font-size:1.2em;" id="TR32">
+<input style="text-align:right; font-size:1.2em;" id="TR33">
+<input style="text-align:right; font-size:1.2em;" id="TR34">
+<input style="text-align:right; font-size:1.2em;" id="TR35">
+<input style="text-align:right; font-size:1.2em;" id="TR36">
+<input style="text-align:right; font-size:1.2em;" id="TR37">
+<input style="text-align:right; font-size:1.2em;" id="TR38">
+<input style="text-align:right; font-size:1.2em;" id="TR39">
+<input style="text-align:right; font-size:1.2em;" id="TR40">
+<input style="text-align:right; font-size:1.2em;" id="UHUY">
+</div>
+
+
+<br><br><br><br><br><br><br>
+
+<span style="font-size:1.0em; font-family:arial; font-weight:bold; color:#FFFFFF; padding:5px; text-shadow:1px 1px 1px #000;">
+Solid Content:
+</span>
+<br>
+<div class="res">
+<input style="text-align:center; font-size:2.5em; border:1px #FFF ridge; border-top:none; border-left:none; border-right:none; background:#3E3E3E; color:white; text-shadow:2px 2px 1px #000;" onblur="return BHWS();" type="text" size="4" id="HORE" disabled="">&nbsp;&nbsp;<i><b>%</b></i>
+</div>
+
+</form>
+
+<br><br><br><br>
+
+<button class="button" onclick="STMTBL();"><i><b>Calculate</b></i></button>
+</div>
+<!--END OBAT-->
+
+
+
+
+
+
+
+
+
+<!--BEGIN GETHUK-->
+<style> /* CSS GETHUK */
+#GETHUK {
+  display: none;
+  margin: 0;
+}
+</style></i>
+</div>
+</form></div>
+<!--END GETHUK-->
+
+<!--SaPwY-->
+</body></html>

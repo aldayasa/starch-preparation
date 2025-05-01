@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalkulator Total Enzim</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f3e5f5, #ce93d8);
+      color: #4a148c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    input[type="time"],
+    input[type="number"] {
+    	background-color: #f3e5f5;
+  color: #4a148c;
+  border: 2px solid #8e24aa;
+  font-weight: bold;
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border: 1px solid #d1c4e9;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #8e24aa;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #6a1b9a;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .menu-button {
+  background-color: #8e24aa;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.menu-button:hover {
+  background-color: #6a1b9a;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+  	<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+  <a href="index.html" class="menu-button">Home</a>
+  <button onclick="konfirmasiReset()" class="menu-button">Reset</button>
+</div>
+    <h1>Kalkulator Total Enzim</h1>
+    <label for="start">Jam Mulai Masak:</label>
+    <input type="time" id="start" required />
+    <label for="end">Jam Selesai Masak:</label>
+    <input type="time" id="end" required />
+    <label for="rate">Konsumsi Enzim (ml/menit):</label>
+    <input type="number" id="rate" placeholder="Contoh: 15 ml/min" required />
+    <button onclick="hitung()">Hitung Total Enzim</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitung() {
+      const start = document.getElementById('start').value;
+      const end = document.getElementById('end').value;
+      const rate = parseFloat(document.getElementById('rate').value);
+
+      if (!start || !end || isNaN(rate)) {
+        document.getElementById('hasil').innerText = "Isien datae cokk!";
+        return;
+      }
+
+      const [startHour, startMin] = start.split(":").map(Number);
+      const [endHour, endMin] = end.split(":").map(Number);
+
+      const startMinutes = startHour * 60 + startMin;
+      const endMinutes = endHour * 60 + endMin;
+
+      let duration = endMinutes - startMinutes;
+      if (duration <= 0) {
+        document.getElementById('hasil').innerText = "Jam selesai harus lebih besar dari jam mulai.";
+        return;
+      }
+
+      const totalEnzim = rate * duration;
+      document.getElementById('hasil').innerText = `Total enzim yang digunakan: ${totalEnzim.toFixed(0)} ml`;
+    }
+    
+    function konfirmasiReset() {
+  Swal.fire({
+    title: 'Yakin a mbok reset?',
+    text: "Kabeh datae ate dihapus.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#8e24aa',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yo, reset!',
+    cancelButtonText: 'Gak Sido'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById('start').value = '';
+      document.getElementById('end').value = '';
+      document.getElementById('rate').value = '';
+      document.getElementById('hasil').innerText = '';
+    }
+  });
+}
+  </script>
+</body>
+</html>
+

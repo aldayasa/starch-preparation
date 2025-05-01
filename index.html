@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Starch Preparation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="xedni.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<style>
+  .toggle-content {
+  display: none;
+}
+#auto-hide-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;               /* tambahan penting */
+  width: 100%;           /* supaya footer memenuhi layar */
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s ease;
+  z-index: 1000;         /* supaya footer di atas elemen lain */
+}
+}
+
+#auto-hide-footer.hide {
+  transform: translateY(100%);
+  border-top: none;
+  box-shadow: none;
+}
+button {
+  background-color: #2196F3;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #1976D2;
+  transform: scale(1.03);
+}
+
+body, h1,h2,h3,h4,h5,h6 {
+  font-family: "Montserrat", sans-serif;
+  margin-top: 0;
+}
+
+h1, h2 {
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+}
+
+.toggle-content {
+  display: none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.toggle-content > * {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.w3-row-padding img {
+  margin-bottom: 0 px;
+}
+
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {
+  width: 120px;
+  background: #222;
+}
+
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {
+  margin-left: 0 !important;
+}
+
+/* Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {
+  #main {
+    margin-left: 0;
+  }
+}
+}
+  html {
+    scroll-behavior: smooth;
+  }
+  .montserrat-font {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+.w3-dropdown-content {
+  background-color: transparent!important; /* Warna latar belakang hitam */
+  box-shadow: none!important; /* Warna font light grey agar kontras */
+  
+}
+
+.w3-dropdown-content a {
+  color: #d3d3d3 !important; /* Link dropdown light grey */
+}
+
+.w3-dropdown-content a:hover {
+  background-color: whitesmoke; /* Hover lebih gelap */
+}
+.w3-dropdown-hover {
+  background-color: whitesmoke; /* Hover lebih gelap */
+  background-color: transparent!important; /* Warna latar belakang hitam */
+  box-shadow: none!important;
+}
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-image: url('LRM_EXPORT_14736687623178_20191107_151321735.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    transition: background-image 1s ease-in-out;
+    overflow-x: hidden;
+  }
+
+  .bg-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* Semi-gelap untuk kontras teks */
+    z-index: -1;
+    animation: fadeIn 2s ease-in-out;
+    backdrop-filter: blur(2px); /* Efek blur */
+}
+
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+/* Untuk dropdown agar melayang */
+.w3-dropdown-content {
+  position: absolute;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 100;
+}
+
+/* Efek geser ke bawah + opacity */
+#about-section {
+  transition: all 0.5s ease;
+}
+
+#about-section.shifted {
+  margin-top: 120px;
+  opacity: 0.4;
+}
+
+.scroll-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scroll-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-content {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.fade-content.visible {
+  opacity: 1;
+}
+
+#whatit-content,
+#auto-hide-footer
+#formula-content {
+  background-color: rgba(0, 0, 0, 0.6); /* Warna gelap semi-transparan */
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff; /* Pastikan teks kontras */
+}
+.formula-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  color: #ffffff;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.formula-item {
+  margin-bottom: 20px;
+}
+
+.formula-item h3 {
+  color: #aad8ff;
+  margin-bottom: 5px;
+}
+
+.formula-item code {
+  background-color: rgba(255, 255, 255, 0.1);
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  font-family: Consolas, monospace;
+  font-size: 15px;
+  color: #fffde7;
+}
+.formula-item {
+    margin-bottom: 30px;
+  }
+  .formula-toggle {
+    color: #aad8ff;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  .formula-content {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    display: none;
+  }
+  .example-box {
+    background-color: rgba(255,255,255,0.1);
+    padding: 12px;
+    border-left: 4px solid #4fc3f7;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #e0f7fa;
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  input[type="number"] {
+    margin: 5px 0;
+    padding: 4px;
+    border-radius: 4px;
+    border: none;
+    width: 100px;
+  }
+  pre, code {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    display: block;
+    white-space: pre-wrap;
+    font-family: Consolas, monospace;
+    color: #fffde7;
+  }
+  #result_1,
+#result_2,
+#result_3,
+#result_4,
+#result_5,
+#result_6,
+#result_7,
+#result_8,
+#result_9,
+#result_10,
+#result_11,
+#result_12,
+#result_13 {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+</style>
+</head>
+<body class="w3-black">
+<!-- Navbar untuk desktop dan tablet -->
+<div class="w3-top w3-hide-small">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="Starch Consumption.html" class="w3-bar-item w3-button" style="width:25% !important">STARCH CONSUMPTION</a>
+    <a href="pemakaian enzyme.html" class="w3-bar-item w3-button" style="width:25% !important">FLOW ENZYME</a>
+    <a href="Totalizer Starch.html" class="w3-bar-item w3-button" style="width:25% !important">TOTALIZER STARCH</a>
+  </div>
+</div>
+
+<!-- Navbar untuk mobile -->
+<div class="w3-top w3-hide-medium w3-hide-large" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+    <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="Starch Consumption.html" class="w3-bar-item w3-button" style="width:25% !important">STARCH CONSUMPTION</a>
+    <a href="pemakaian enzyme.html" class="w3-bar-item w3-button" style="width:25% !important">FLOW ENZYME</a>
+    <a href="Totalizer Starch.html" class="w3-bar-item w3-button" style="width:25% !important">TOTALIZER STARCH</a>
+  </div>
+</div>
+<div class="bg-overlay"></div>
+
+<!-- Page Content -->
+<div class="section w3-content w3-justify w3-text-grey w3-padding-16" id="starch">
+  <div class="w3-dropdown-hover" id="starch-menu">
+    <h2 class="w3-text-light-grey">Starch Preparation</h2>
+<div class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-opacity">
+	<a href="Stock Flow Formula.html" class="w3-bar-item w3-button">STOCK FLOW CALC</a>
+      <a href="alum.html" class="w3-bar-item w3-button">ALUM CONSUMPTION</a>
+      <a href="estimate.html" class="w3-bar-item w3-button">ESTIMATE STARCH</a>
+      <a href="atago.html" class="w3-bar-item w3-button">ATAGO SOLID</a>
+      <a href="retentiontime.html" class="w3-bar-item w3-button">RETENTION TIME</a>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- About Section -->
+<div class="w3-content w3-justify w3-text-grey w3-padding-16" id="about-section">
+    <h2 class="w3-text-light-grey" id="whatit-title">What it is?</h2>
+<div id="whatit-content" class="fade-content" style="display: none;">
+  <hr style="width:100px" class="w3-opacity">
+    <p>The papermaking process consists of several main steps: stock preparation, sheet forming, pressing, drying, and surface finishing.  Starch is an important component of many paper qualities.  Starch consumption by weight in paper making and paper conversion processes ranks third after cellulose fiber and mineral pigments.  Starch is used as a flocculant and retention aid, as a binding agent, as a surface sizing agent, as a binder for coatings, and as an adhesive in corrugated board, laminate grades, and other products.  The main sources of starch are corn, potatoes, waxy corn, wheat, and tapioca.  Processed starch is available as powder or slightly aggregated pearl starch.  Unmodified (native) starch is rarely used in the paper industry, except as a binder in laminations and rolling processes.  Most starches used in papermaking are specialty products that have been modified through hydrolysis, oxidation, or controlled derivatization.  This chapter also covers various topics such as: starch application requirements, starch dispersion, environmental aspects of starch, analysis of starch in paper, and the use of starch in papermaking, for paper surface sizing, as a coating binder, as an adhesive in paper conversion, and special papers that  newer.
+    </p>
+</div>
+  
+  <!-- Portfolio Section -->
+<div class="section scroll-section w3-padding-16 w3-content" id="photos">
+    <h2 class="w3-text-light-grey" id="photos-title">Documentary</h2>
+
+<div id="photos-content" class="fade-content" style="display: none;">
+  <div class="w3-row-padding w3-margin-top">
+    <div class="w3-third w3-padding">
+      <a href="https://drive.google.com/file/d/1hSEemISLoVc8DORYLY-NyKJaODIJ7yiG/view?usp=drivesdk" target="_blank" class="w3-button w3-block w3-white w3-border w3-hover-light-grey">
+        📄 QC & Vibrating Screen <br><small>(Job Desk Helper)</small>
+      </a>
+    </div>
+
+    <div class="w3-third w3-padding">
+      <a href="https://drive.google.com/file/d/1hKj2Xa4wBXxIDTstsBEEKL-C4x4oBZTr/view?usp=drivesdk" target="_blank" class="w3-button w3-block w3-white w3-border w3-hover-light-grey">
+        📄 Starch Isi Jumbo Bag <br><small>(Job Desk Helper)</small>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="section scroll-section w3-content w3-justify w3-text-grey w3-padding-16" id="formula">
+  <h2 class="w3-text-light-grey" id="formula-title" style="cursor: pointer;">Starch Formula</h2>
+  <hr style="display:none">
+
+<div id="formula-content" class="fade-content" style="display: none;">
+  <div class="formula-box">
+    <div class="formula-item">
+<h3 class="formula-toggle">1. Rumus Solid</h3>
+<div class="formula-content">
+<pre><code>Solid = Starch / (Starch + Water)</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Starch (kg): <input type="number" id="starch1_1" /></label><br>
+<label>Water (liter): <input type="number" id="water1_1" /></label><br>
+<br><button id="btn_1">Hitung</button>
+<div id="result_1" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+
+<div class="formula-item">
+  <h3 class="formula-toggle">2. Flow Starch Elevator</h3>
+  <div class="formula-content">
+    <pre><code>Flow = [Solid × Flow Water / (1 - Solid)] × 1.1</code></pre>
+    <div class="example-box">
+      <strong>Masukkan nilai:</strong><br>
+      <label>Solid (%): <input type="number" id="solid2_2" /></label><br>
+      <label>Flow Water (l/min): <input type="number" id="flowwater2_2" /></label><br><br>
+      <button id="btn_2">Hitung</button>
+      <div id="result_2" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="formula-item">
+<h3 class="formula-toggle">3. Menghitung Flow</h3>
+<div class="formula-content">
+<pre><code>Flow = ((Level1 - Level2)% x Volume) / (Time2 - Time1)</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Level 1 (%): <input type="number" id="level1_3_3" /></label><br>
+<label>Level 2 (%): <input type="number" id="level2_3_3" /></label><br>
+<label>Volume Tangki (m3): <input type="number" id="volume3_3" /></label><br>
+<label>Waktu 1 (menit): <input type="number" id="time1_3_3" /></label><br>
+<label>Waktu 2 (menit): <input type="number" id="time2_3_3" /></label><br>
+<br><button id="btn_3">Hitung</button>
+<div id="result_3" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+
+<div class="formula-item">
+  <h3 class="formula-toggle">4. Retention Time</h3>
+  <div class="formula-content">
+    <pre><code>Retention Time (menit) = (Volume × Level%) / (Flow / 60)</code></pre>
+    <div class="example-box">
+      <strong>Masukkan nilai:</strong><br>
+      <label>Flow FIC-6881 (m³/h): <input type="number" id="flow4_4" /></label><br>
+      <label>Level Reaction Tank (%): <input type="number" id="level4_4" /></label><br><br>
+      <button id="btn_4">Hitung</button>
+      <div id="result_4" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="formula-item">
+<h3 class="formula-toggle">5. Flow Waterglass</h3>
+<div class="formula-content">
+<pre><code>Flow = Flow ML1 x %Solid Storage x %Dosis / 14</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Flow ML1 (l/min): <input type="number" id="flow5_5" /></label><br>
+<label>%Solid Storage: <input type="number" id="solid5_5" /></label><br>
+<label>%Dosis: <input type="number" id="dosis5_5" /></label><br>
+<br><button id="btn_5">Hitung</button>
+<div id="result_5" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+
+
+<div class="formula-item">
+  <h3 class="formula-toggle">6. Rumus Pengenceran</h3>
+  <div class="formula-content">
+    <pre><code>Flow Air (m³/h) = [(Flow × (%Solid - %Target)) / %Target]</code></pre>
+    <div class="example-box">
+      <strong>Masukkan nilai:</strong><br>
+      <label>Flow (m³/h): <input type="number" id="flow6_6" /></label><br>
+      <label>%Solid Content: <input type="number" id="solid6_6" /></label><br>
+      <label>%Target Solid: <input type="number" id="target6_6" /></label><br><br>
+      <button id="btn_6">Hitung</button>
+      <div id="result_6" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+<div class="formula-item">
+<h3 class="formula-toggle">7. Rumus Pencampuran</h3>
+<div class="formula-content">
+<pre><code>Solid Campuran = (Vol1 x Solid1 + Vol2 x Solid2) / (Vol1 + Vol2)</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Volume 1: <input type="number" id="vol1_7_7" /></label><br>
+<label>Solid 1 (%): <input type="number" id="solid1_7_7" /></label><br>
+<label>Volume 2: <input type="number" id="vol2_7_7" /></label><br>
+<label>Solid 2 (%): <input type="number" id="solid2_7_7" /></label><br>
+<br><button id="btn_7">Hitung</button>
+<div id="result_7" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+
+<div class="formula-item">
+<h3 class="formula-toggle">8. Solid NaOH</h3>
+<div class="formula-content">
+<pre><code>Solid = Total NaOH x 48% / (Total NaOH + Total Water)</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Total NaOH (kg): <input type="number" id="naoh8_8" /></label><br>
+<label>Total Water (liter): <input type="number" id="air8_8" /></label><br>
+<br><button id="btn_8">Hitung</button>
+<div id="result_8" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+
+<div class="formula-item">
+  <h3 class="formula-toggle">9. Konversi Flow</h3>
+  <div class="formula-content">
+    <pre><code>l/min → m³/h: Flow × 60 ÷ 1000  
+m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
+    <div class="example-box">
+      <strong>Masukkan nilai:</strong><br>
+      <label>Flow (angka): <input type="number" id="flow9_9" /></label><br>
+      <label>Pilih konversi:
+        <select id="conversionType9">
+          <option value="lpm_to_m3h">l/min → m³/h</option>
+          <option value="m3h_to_lpm">m³/h → l/min</option>
+        </select>
+      </label><br><br>
+      <button id="btn_9">Hitung</button>
+      <div id="result_9" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="formula-item">
+<h3 class="formula-toggle">10. PPM Enzyme</h3>
+<div class="formula-content">
+<pre><code>PPM = (Flow Enzyme / Flow Starch) x 1000</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Flow Enzyme (l/min): <input type="number" id="enzyme10_10" /></label><br>
+<label>Flow Starch (kg/min): <input type="number" id="starch10_10" /></label><br>
+<br><button id="btn_10">Hitung</button>
+<div id="result_10" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+
+<div class="formula-item">
+  <h3 class="formula-toggle">11. Starch Bonedry Flow</h3>
+  <div class="formula-content">
+    <pre><code>Flow (kg/h) = [(SolidTop × FlowTop) + (SolidBottom × FlowBottom)] × Density × 10</code></pre>
+    <div class="example-box">
+      <strong>Masukkan nilai:</strong><br>
+      <label>Solid Top (%): <input type="number" id="solidTop11" step="any" /></label><br>
+      <label>Flow Top (m³/h): <input type="number" id="flowTop11" step="any" /></label><br>
+      <label>Solid Bottom (%): <input type="number" id="solidBottom11" step="any" /></label><br>
+      <label>Flow Bottom (m³/h): <input type="number" id="flowBottom11" step="any" /></label><br>
+      <label>Density (ton/m³): <input type="number" id="density11" step="any" value="1.1" /></label><br><br>
+
+      <button id="btn_11">Hitung</button>
+      <div id="result_11" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="formula-item">
+<h3 class="formula-toggle">12. Starch Consumption</h3>
+<div class="formula-content">
+<pre><code>Consumption = Bonedry Flow / Paper Production Rate</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Bonedry Flow (kg/h): <input type="number" id="bdf12_12" /></label><br>
+<label>Paper Prod. Rate (t/h): <input type="number" id="rate12_12" /></label><br>
+<br><button id="btn_12">Hitung</button>
+<div id="result_12" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+
+<div class="formula-item">
+<h3 class="formula-toggle">13. Density Starch (%)</h3>
+<div class="formula-content">
+<pre><code>Density = 100 / (100 - solid + (solid / 1.65))</code></pre>
+<div class="example-box">
+<strong>Masukkan nilai:</strong><br>
+<label>Solid (%): <input type="number" id="solid13_13" /></label><br>
+<br><button id="btn_13">Hitung</button>
+<div id="result_13" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+ </div>
+</div>
+ </div>
+
+<!-- END PAGE CONTENT -->
+</div>
+<footer id="auto-hide-footer">Ditulis oleh <strong>Ardita Rizki Fauzi</strong></footer>
+<script>
+
+let lastScroll = 0;
+const footer = document.getElementById("auto-hide-footer");
+
+window.addEventListener("scroll", function () {
+  const currentScroll = window.scrollY;
+
+  if (currentScroll > lastScroll) {
+    // Scroll ke bawah → sembunyikan
+    footer.style.transform = "translateY(100%)";
+  } else {
+    // Scroll ke atas → tampilkan lagi
+    footer.style.transform = "translateY(0)";
+  }
+
+  lastScroll = currentScroll;
+});
+
+</script>
+<script>
+  const starchMenu = document.getElementById("starch-menu");
+  const about = document.getElementById("about-section");
+  const formula = document.getElementById("formula");
+  const starch = document.getElementById("starch");
+  const photos = document.getElementById("photos");
+
+  starchMenu.addEventListener("mouseenter", () => {
+    about.classList.add("shifted");
+  });
+
+  starchMenu.addEventListener("mouseleave", () => {
+    about.classList.remove("shifted");
+  });
+</script>
+<script>
+  const scrollSections = document.querySelectorAll(".scroll-section");
+
+  const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  scrollSections.forEach(section => fadeInObserver.observe(section));
+</script>
+<script>
+  const formulaSection = document.getElementById("formula");
+
+  formulaSection.querySelectorAll("h3").forEach(h3 => {
+    h3.style.cursor = "pointer";
+    h3.addEventListener("click", () => {
+      h3.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const formulaTitle = document.getElementById("formula-title");
+    const formulaContent = document.getElementById("formula-content");
+
+    formulaTitle.addEventListener("click", () => {
+      const isVisible = formulaContent.classList.contains("visible");
+
+      if (isVisible) {
+        // Hilangkan
+        formulaContent.classList.remove("visible");
+        setTimeout(() => {
+          formulaContent.style.display = "none";
+        }, 300); // tunggu transisi selesai
+      } else {
+        // Tampilkan
+        formulaContent.style.display = "block";
+        setTimeout(() => {
+          formulaContent.classList.add("visible");
+        }, 10);
+      }
+    });
+  });
+</script>
+<script>
+  function setupFadeToggle(titleId, contentId) {
+    const title = document.getElementById(titleId);
+    const content = document.getElementById(contentId);
+
+    title.style.cursor = "pointer";
+    title.addEventListener("click", () => {
+      const isVisible = content.classList.contains("visible");
+
+      if (isVisible) {
+        content.classList.remove("visible");
+        setTimeout(() => {
+          content.style.display = "none";
+        }, 300);
+      } else {
+        content.style.display = "block";
+        setTimeout(() => {
+          content.classList.add("visible");
+        }, 10);
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setupFadeToggle("whatit-title", "whatit-content");
+    setupFadeToggle("photos-title", "photos-content");
+  });
+</script>
+<script>
+let lastScrollTop = 0;
+const footer = document.getElementById('auto-hide-footer');
+
+window.addEventListener('scroll', function () {
+  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (currentScroll > lastScrollTop) {
+    // Scroll ke bawah -> sembunyikan
+    footer.classList.add('hide');
+  } else {
+    // Scroll ke atas -> tampilkan
+    footer.classList.remove('hide');
+  }
+
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Cegah nilai negatif
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".formula-toggle").forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const content = toggle.nextElementSibling;
+      content.style.display = content.style.display === "none" ? "block" : "none";
+    });
+document.getElementById("btn_1").addEventListener("click", function () {
+  const starch = parseFloat(document.getElementById("starch1_1").value);
+  const water = parseFloat(document.getElementById("water1_1").value);
+
+  if (isNaN(starch) || isNaN(water) || (starch + water) === 0) {
+    document.getElementById("result_1").innerText = "Masukkan nilai yang valid.";
+    return;
+  }
+
+  // Konversi: air tetap 1 liter = 1 kg, jadi bisa langsung digunakan
+  const solid = starch / (starch + water);
+  const percent = (solid * 100).toFixed(1);
+
+  document.getElementById("result_1").innerText = "Solid = " + percent + " %";
+});
+  });
+document.getElementById("btn_2").addEventListener("click", function() {
+  const solid = parseFloat(document.getElementById("solid2_2").value) / 100;
+  const flowWater = parseFloat(document.getElementById("flowwater2_2").value);
+
+  if (isNaN(solid) || isNaN(flowWater) || solid <= 0 || solid >= 1) {
+    document.getElementById("result_2").innerText = "Masukkan nilai yang valid.";
+    return;
+  }
+
+  const flow = (solid * flowWater) / (1 - solid) * 1.1;
+  document.getElementById("result_2").innerText = "Flow = " + flow.toFixed(2) + " l/min";
+});
+document.getElementById("btn_3").addEventListener("click", function () {
+  const level1 = parseFloat(document.getElementById("level1_3_3").value);
+  const level2 = parseFloat(document.getElementById("level2_3_3").value);
+  const volume = parseFloat(document.getElementById("volume3_3").value); // input dalam m³
+  const time1 = parseFloat(document.getElementById("time1_3_3").value);
+  const time2 = parseFloat(document.getElementById("time2_3_3").value);
+  const result = document.getElementById("result_3");
+
+  if (
+    isNaN(level1) || isNaN(level2) ||
+    isNaN(volume) || isNaN(time1) || isNaN(time2) ||
+    time2 === time1
+  ) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid, dan pastikan waktu tidak sama.</span>";
+    return;
+  }
+
+  const deltaLevel = (level1 - level2) / 100;
+  const deltaTime = time2 - time1; // menit
+  const flow_m3_per_min = (deltaLevel * volume) / deltaTime;
+  const flow_m3_per_hour = flow_m3_per_min * 60;
+  const flow_l_per_min = flow_m3_per_min * 1000;
+
+  result.innerHTML = `
+    Hasil:<br>
+    <strong>${flow_m3_per_hour.toFixed(1)} m³/jam</strong><br>
+    <strong>${flow_l_per_min.toFixed(1)} L/menit</strong>
+  `;
+});
+document.getElementById("btn_4").addEventListener("click", function () {
+    const flow = parseFloat(document.getElementById("flow4_4").value);
+    const level = parseFloat(document.getElementById("level4_4").value);
+    const tankVolume = 7; // volume tetap 7 m³
+
+    if (isNaN(flow) || isNaN(level)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Isien datae cokk!',
+        confirmButtonText: 'Oke'
+      });
+      return;
+    }
+
+    const actualVolume = tankVolume * (level / 100); // volume aktual berdasarkan level
+    const flowPerMinute = flow / 60;
+    const retentionTime = actualVolume / flowPerMinute;
+
+    document.getElementById("result_4").innerHTML = `Retention Time: ${retentionTime.toFixed(1)} menit`;
+});
+document.getElementById("btn_5").addEventListener("click", function() {
+  const flow = parseFloat(document.getElementById("flow5_5").value);
+  const solid = parseFloat(document.getElementById("solid5_5").value);
+  const dosis = parseFloat(document.getElementById("dosis5_5").value);
+  const result = document.getElementById("result_5");
+  if ([flow, solid, dosis].some(isNaN)) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+    return;
+  }
+  const output = flow * solid * dosis / 14;
+  result.innerHTML = `Hasil: <strong>${output.toFixed(1)} l/min</strong>`;
+});
+document.getElementById("btn_6").addEventListener("click", function() {
+  const flow_m3h = parseFloat(document.getElementById("flow6_6").value);
+  const solid = parseFloat(document.getElementById("solid6_6").value);
+  const target = parseFloat(document.getElementById("target6_6").value);
+
+  if (isNaN(flow_m3h) || isNaN(solid) || isNaN(target) || target === 0 || solid <= target) {
+    document.getElementById("result_6").innerText = "Masukkan nilai yang valid.";
+    return;
+  }
+
+  const flowAir = (flow_m3h * (solid - target)) / target;
+  document.getElementById("result_6").innerText = "Flow Air = " + flowAir.toFixed(2) + " m³/h";
+});
+document.getElementById("btn_7").addEventListener("click", function() {
+  const v1 = parseFloat(document.getElementById("vol1_7_7").value);
+  const s1 = parseFloat(document.getElementById("solid1_7_7").value);
+  const v2 = parseFloat(document.getElementById("vol2_7_7").value);
+  const s2 = parseFloat(document.getElementById("solid2_7_7").value);
+  const result = document.getElementById("result_7");
+  if ([v1, s1, v2, s2].some(isNaN)) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+    return;
+  }
+  const solid = (v1 * s1 + v2 * s2) / (v1 + v2);
+  result.innerHTML = `Hasil: <strong>${solid.toFixed(1)}%</strong>`;
+});
+document.getElementById("btn_8").addEventListener("click", function() {
+  const naoh = parseFloat(document.getElementById("naoh8_8").value);
+  const air = parseFloat(document.getElementById("air8_8").value);
+  const result = document.getElementById("result_8");
+  if ([naoh, air].some(isNaN) || (naoh + air) === 0) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+    return;
+  }
+  const solid = (naoh * 0.48) / (naoh + air) * 100;
+  result.innerHTML = `Hasil: <strong>${solid.toFixed(1)}%</strong>`;
+});
+document.getElementById("btn_9").addEventListener("click", function() {
+  const flow = parseFloat(document.getElementById("flow9_9").value);
+  const conversionType = document.getElementById("conversionType9").value;
+
+  if (isNaN(flow)) {
+    document.getElementById("result_9").innerText = "Masukkan angka yang valid.";
+    return;
+  }
+
+  let result;
+  if (conversionType === "lpm_to_m3h") {
+    result = (flow * 60 / 1000).toFixed(1) + " m³/h";
+  } else {
+    result = (flow * 1000 / 60).toFixed(1) + " l/min";
+  }
+
+  document.getElementById("result_9").innerText = "Hasil: " + result;
+});
+document.getElementById("btn_10").addEventListener("click", function() {
+  const enzyme = parseFloat(document.getElementById("enzyme10_10").value);
+  const starch = parseFloat(document.getElementById("starch10_10").value);
+  const result = document.getElementById("result_10");
+  if (isNaN(enzyme) || isNaN(starch) || starch === 0) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+    return;
+  }
+  const ppm = (enzyme / starch) * 1000;
+  result.innerHTML = `Hasil: <strong>${ppm.toFixed(0)} ppm</strong>`;
+});
+document.getElementById("btn_11").addEventListener("click", function () {
+  const solidTop = parseFloat(document.getElementById("solidTop11").value);
+  const flowTop = parseFloat(document.getElementById("flowTop11").value);
+  const solidBottom = parseFloat(document.getElementById("solidBottom11").value);
+  const flowBottom = parseFloat(document.getElementById("flowBottom11").value);
+  const density = parseFloat(document.getElementById("density11").value);
+  const result = document.getElementById("result_11");
+
+  if (
+    isNaN(solidTop) || isNaN(flowTop) ||
+    isNaN(solidBottom) || isNaN(flowBottom) ||
+    isNaN(density)
+  ) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+    return;
+  }
+
+  const flow = ((solidTop * flowTop) + (solidBottom * flowBottom)) * density * 10;
+  result.innerHTML = `Hasil: <strong>${flow.toFixed(1)} kg/h</strong>`;
+});
+document.getElementById("btn_12").addEventListener("click", function() {
+  const bdf = parseFloat(document.getElementById("bdf12_12").value);
+  const rate = parseFloat(document.getElementById("rate12_12").value);
+  const result = document.getElementById("result_12");
+  if (isNaN(bdf) || isNaN(rate) || rate === 0) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+    return;
+  }
+  const usage = bdf / rate;
+  result.innerHTML = `Hasil: <strong>${usage.toFixed(1)} kg/t</strong>`;
+});
+document.getElementById("btn_13").addEventListener("click", function() {
+  const solid = parseFloat(document.getElementById("solid13_13").value);
+  const result = document.getElementById("result_13");
+  if (isNaN(solid)) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+    return;
+  }
+  const density = 100 / (100 - solid + (solid / 1.65));
+  result.innerHTML = `Hasil: <strong>${density.toFixed(1)}</strong>`;
+});
+});
+</script>
+<script>
+  document.getElementById("btn_11").addEventListener("click", function () {
+    const solidTop = parseFloat(document.getElementById("solidTop11").value);
+    const flowTop = parseFloat(document.getElementById("flowTop11").value);
+    const solidBottom = parseFloat(document.getElementById("solidBottom11").value);
+    const flowBottom = parseFloat(document.getElementById("flowBottom11").value);
+    const density = parseFloat(document.getElementById("density11").value);
+
+    if (
+      isNaN(solidTop) || isNaN(flowTop) ||
+      isNaN(solidBottom) || isNaN(flowBottom) ||
+      isNaN(density)
+    ) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Isien datae Goblok!',
+        confirmButtonColor: '#e74c3c'
+      });
+      return;
+    }
+
+    const result = ((solidTop * flowTop) + (solidBottom * flowBottom)) * density * 10;
+    document.getElementById("result_11").textContent = `Starch Bonedry Flow = ${result.toFixed(1) kg/h`;
+  });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Iterasi untuk setiap elemen dengan kelas "formula-toggle"
+  document.querySelectorAll(".formula-toggle").forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      // Mendapatkan konten berikutnya (yang akan di-toggle)
+      const content = toggle.nextElementSibling;
+
+      // Jika konten tersembunyi, reset input dan hasil sebelum menampilkannya
+      if (content.classList.contains("hidden")) {
+        const inputs = content.querySelectorAll("input[type='number']");
+        inputs.forEach(input => input.value = "");
+
+        const resultDiv = content.querySelector("[id^='result_']");
+        if (resultDiv) resultDiv.innerHTML = "";
+
+        // Tampilkan konten dan hilangkan kelas "hidden"
+        content.classList.remove("hidden");
+      } else {
+        // Sembunyikan konten dengan menambahkan kelas "hidden"
+        content.classList.add("hidden");
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

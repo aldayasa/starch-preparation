@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retention Tank Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      margin: auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-home {
+      background-color: #3498db;
+      color: white;
+    }
+    .btn-calc {
+      background-color: #2ecc71;
+      color: white;
+    }
+    .btn-reset {
+      background-color: #e74c3c;
+      color: white;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .top-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>FLOW STARCH TO REACTION TANK</h2>
+
+    <div class="top-buttons">
+      <button class="btn-home" onclick="goHome()">Home</button>
+      <button class="btn-reset" onclick="resetForm()">Reset</button>
+    </div>
+
+    <label>Pilih Jenis Perhitungan:</label>
+    <select id="modeSelect">
+      <option value="level">Hitung % Level Tangki</option>
+      <option value="retention">Hitung Waktu Retention</option>
+    </select>
+
+    <label>Flow (m³/h):</label>
+    <input type="number" id="flowInput" placeholder="Contoh: 10" />
+
+    <div id="inputRetentionBox">
+      <label>Waktu Retention (menit):</label>
+      <input type="number" id="retentionInput" placeholder="Contoh: 5" />
+    </div>
+
+    <div id="inputLevelBox" style="display:none;">
+      <label>% Level Reaction Tank:</label>
+      <input type="number" id="levelInput" placeholder="Contoh: 50" />
+    </div>
+
+    <div style="text-align:center;">
+      <button class="btn-calc" onclick="calculate()">Calculate</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <p style="text-align:center; margin-top: 50px;">© Ardita Rizki F</p>
+
+  <script>
+    const tankVolume = 7; // 7 m³
+
+    document.getElementById('modeSelect').addEventListener('change', function () {
+      const mode = this.value;
+      document.getElementById('inputRetentionBox').style.display = (mode === 'level') ? 'block' : 'none';
+      document.getElementById('inputLevelBox').style.display = (mode === 'retention') ? 'block' : 'none';
+      document.getElementById('result').innerText = '';
+    });
+
+    function calculate() {
+      const flow = parseFloat(document.getElementById('flowInput').value);
+      const mode = document.getElementById('modeSelect').value;
+      const resultBox = document.getElementById('result');
+
+      if (isNaN(flow) || flow <= 0) {
+        resultBox.innerText = "Masukkan nilai flow yang valid.";
+        return;
+      }
+
+      if (mode === 'level') {
+        const time = parseFloat(document.getElementById('retentionInput').value);
+        if (isNaN(time) || time <= 0) {
+          resultBox.innerText = "Masukkan waktu retention yang valid.";
+          return;
+        }
+        const volume = (flow / 60) * time;
+        const levelPercent = (volume / tankVolume) * 100;
+        resultBox.innerText = `Level Tangki: ${levelPercent.toFixed(2)}% dari 7 m³`;
+      } else {
+        const levelPercent = parseFloat(document.getElementById('levelInput').value);
+        if (isNaN(levelPercent) || levelPercent <= 0 || levelPercent > 100) {
+          resultBox.innerText = "Masukkan % level yang valid (1 - 100).";
+          return;
+        }
+        const volume = (levelPercent / 100) * tankVolume;
+        const time = (volume * 60) / flow;
+        resultBox.innerText = `Waktu Retention: ${time.toFixed(2)} menit untuk ${levelPercent}% dari 7 m³`;
+      }
+    }
+
+    function resetForm() {
+      Swal.fire({
+        title: 'Yakin ingin mereset?',
+        text: "Semua data input akan dikosongkan.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#007bff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, reset!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('flowInput').value = '';
+          document.getElementById('retentionInput').value = '';
+          document.getElementById('levelInput').value = '';
+          document.getElementById('result').innerText = '';
+        }
+      });
+    }
+
+    function goHome() {
+      Swal.fire({
+        title: 'Kembali ke Home?',
+        text: "Anda akan diarahkan ke halaman utama.",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, ke Home',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'index.html'; // Ganti URL jika perlu
+        }
+      });
+    }
+  </script>
+</body>
+</html>

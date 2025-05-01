@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Starch Preparation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="xedni.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      padding-top: 80px;
+    }
+    .btn-calc {
+      background-color: none;
+      color: white;
+    }
+    .btn-reset {
+      background-color: none;
+      color: white;
+    }
+        .top-buttons {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body class="w3-black">
+<header>
+  <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+      <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+      <a href="atago.html" class="w3-bar-item w3-button" style="width:25% !important">ATAGO</a>
+      <a href="retentiontime.html" class="w3-bar-item w3-button" style="width:25% !important">RETENTION</a>
+      <a href="Totalizer Starch.html" class="w3-bar-item w3-button" style="width:25% !important">TOTALIZER</a>
+      <a href="alum.html" class="w3-bar-item w3-button" style="width:25% !important">ALUM</a>
+      <a href="estimate.html" class="w3-bar-item w3-button" style="width:25% !important">ESTIMATE</a>
+    </div>
+  </div>
+</header>
+
+<form id="conversion">
+	<input type="reset" onclick="confirm_reset(event)" value="Reset">
+  <table>
+    <tr>
+      <td>FLOW STORAGE<br>
+        <input type="number" placeholder="m³/h" name="FLOW" id="FLOW" required> m³/h
+      </td>
+    </tr>
+
+    <tr>
+      <td><i><small>Flow Starch Top + Bottom</small></i></td>
+    </tr>
+
+    <tr>
+      <td>COOKER<br><input type="number" placeholder="%" name="COOKER" id="COOKER" required> %</td>
+    </tr>
+    <tr>
+      <td>REACTION<br><input type="number" placeholder="%" name="REACTION" id="REACTION" required> %</td>
+    </tr>
+    <tr>
+      <td>STORAGE<br><input type="number" placeholder="%" name="STORAGE" id="STORAGE" required> %</td>
+    </tr>
+    <tr>
+      <td>F1<br><input type="number" placeholder="%" name="F1" id="F1" required> %</td>
+    </tr>
+    <tr>
+      <td>F2<br><input type="number" placeholder="%" name="F2" id="F2" required> %</td>
+    </tr>
+    <tr hidden>
+      <td><b>Total Time</b><br><input  type="number" placeholder="minutes" name="WG"> minutes</td>
+    </tr>
+<tr>
+  <td><b>Total Waktu Starch Habis</b><br>
+    <input readonly type="text" id="formattedTime" placeholder="0 jam 0 menit 0 detik">
+  </td>
+</tr>
+    <tr>
+      <td>
+        
+        <button type="button" class="button" onclick="calculate()"><b>Calculate</b></button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<br><br>
+<i>&copy; Ardita Rizki F</i>
+
+<script>
+  function calculate() {
+    const FLOW = parseFloat(document.getElementById("FLOW").value);
+    const COOKER = parseFloat(document.getElementById("COOKER").value);
+    const REACTION = parseFloat(document.getElementById("REACTION").value);
+    const STORAGE = parseFloat(document.getElementById("STORAGE").value);
+    const F1 = parseFloat(document.getElementById("F1").value);
+    const F2 = parseFloat(document.getElementById("F2").value);
+
+    if ([FLOW, COOKER, REACTION, STORAGE, F1, F2].some(isNaN)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Goblok!',
+        text: 'Isien Datae Cok!',
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    const VFLOW = (FLOW / 60 * 1000); // liter per menit
+    const VCOOKER = COOKER / 100 * 7000;
+    const VREACTION = REACTION / 100 * 7000;
+    const VSTORAGE = STORAGE / 100 * 15000;
+    const VF1 = F1 / 100 * 3000;
+    const VF2 = F2 / 100 * 3000;
+
+    const totalVolume = VCOOKER + VREACTION + VSTORAGE + VF1 + VF2;
+    const retentionTime = (totalVolume / VFLOW).toFixed(1);
+
+    document.forms.conversion.WG.value = retentionTime;
+    // Konversi WG (dalam menit) ke jam, menit, detik
+const totalMinutes = parseFloat(retentionTime);
+const jam = Math.floor(totalMinutes / 60);
+const sisaMenit = totalMinutes % 60;
+const menit = Math.floor(sisaMenit);
+const detik = Math.round((sisaMenit - menit) * 60);
+
+// Tampilkan di box
+document.getElementById("formattedTime").value =
+  `${jam} jam ${menit} menit ${detik} detik`;
+  }
+
+  function confirm_reset(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Temen ta pean?',
+      showCancelButton: true,
+      confirmButtonText: 'Iyo',
+      cancelButtonText: 'Gak',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById("conversion").reset();
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

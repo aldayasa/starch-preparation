@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Starch Preparation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="xedni.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      padding-top: 80px;
+    }
+    table td {
+      padding: 8px;
+    }
+.reset-button {
+  display: inline-block;
+  margin-left: 15px;
+  margin-top: 15px;
+  padding: 7px 15px;
+}
+  </style>
+</head>
+
+<body class="w3-black">
+<header>
+  <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+      <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+      <a href="atago.html" class="w3-bar-item w3-button" style="width:25% !important">ATAGO</a>
+      <a href="retentiontime.html" class="w3-bar-item w3-button" style="width:25% !important">RETENTION</a>
+      <a href="Totalizer Starch.html" class="w3-bar-item w3-button" style="width:25% !important">TOTALIZER</a>
+      <a href="alum.html" class="w3-bar-item w3-button" style="width:25% !important">ALUM</a>
+      <a href="estimate.html" class="w3-bar-item w3-button" style="width:25% !important">ESTIMATE</a>
+    </div>
+  </div>
+</header>
+
+<form id="conversion">
+	 <input type="reset" onclick="confirm_reset(event)" value="Reset" class="reset-button">
+  <table>
+    <tr>
+      <td>HOPPER<br><input type="number" name="HOPPER" id="HOPPER" placeholder="%" required> %</td>
+      <td><input type="hidden" name="CONV"></td>
+    </tr>
+    <tr>
+      <td>COOKER<br><input type="number" name="COOKER" id="COOKER" placeholder="kg" required> kg</td>
+    </tr>
+    <tr>
+      <td>REACTION<br><input type="number" name="REACTION" id="REACTION" placeholder="kg" required> kg</td>
+    </tr>
+    <tr>
+      <td>STORAGE<br><input type="number" name="STORAGE" id="STORAGE" placeholder="kg" required> kg</td>
+    </tr>
+    <tr>
+      <td>F1<br><input type="number" name="F1" id="F1" placeholder="kg" required> kg</td>
+    </tr>
+    <tr>
+      <td>F2<br><input type="number" name="F2" id="F2" placeholder="kg" required> kg</td>
+    </tr>
+    <tr>
+      <td><b><u>HASIL</u></b><br>
+        <input readonly type="number" name="WG" placeholder="kg"> kg
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button type="button" class="button" onclick="calculate()"><b>Calculate</b></button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<br><br>
+<i>&copy; Ardita Rizki F</i>
+
+<script>
+  function calculate() {
+    const HOPPER = parseFloat(document.getElementById("HOPPER").value);
+    const COOKER = parseFloat(document.getElementById("COOKER").value);
+    const REACTION = parseFloat(document.getElementById("REACTION").value);
+    const STORAGE = parseFloat(document.getElementById("STORAGE").value);
+    const F1 = parseFloat(document.getElementById("F1").value);
+    const F2 = parseFloat(document.getElementById("F2").value);
+
+    if ([HOPPER, COOKER, REACTION, STORAGE, F1, F2].some(isNaN)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Goblok!',
+        text: 'Isien Datae Cok!',
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    const CONV = Math.round(HOPPER * 32);
+    const TOTAL = CONV + COOKER + REACTION + STORAGE + F1 + F2;
+
+    document.forms.conversion.CONV.value = CONV;
+    document.forms.conversion.WG.value = TOTAL.toFixed(0);
+  }
+
+  function confirm_reset(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Temen ta pean?',
+      showCancelButton: true,
+      confirmButtonText: 'Iyo',
+      cancelButtonText: 'Gak',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById("conversion").reset();
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
