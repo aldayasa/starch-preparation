@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Flow Surface Sizing Agent</title>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            background-color: #003f7f;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        button:nth-of-type(2) {
+            background-color: #28a745;
+        }
+
+        button:nth-of-type(2):hover {
+            background-color: #218838;
+        }
+
+        button:nth-of-type(3) {
+            background-color: #dc3545;
+        }
+
+        button:nth-of-type(3):hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator Flow Surface Sizing Agent</h1>
+        <button onclick="window.location.href='index.html';">Home</button>
+        <button onclick="resetForm()">Reset</button>
+        <label for="mode">Pilih Mode Perhitungan:</label>
+        <select id="mode" onchange="toggleInputs()">
+            <option value="flow">Hitung Flow (cc/min)</option>
+            <option value="kgPerTon">Hitung Konsumsi Bahan per Ton Kertas (kg/ton)</option>
+        </select>
+
+        <div id="flowInputs" class="calculationInputs">
+            <label for="kgPerTon">Konsumsi Bahan per Ton Kertas (kg/ton):</label>
+            <input type="number" id="kgPerTon" placeholder="Masukkan konsumsi bahan per ton (kg/ton)" />
+
+            <label for="productionRate">Laju Produksi (ton/jam):</label>
+            <input type="number" id="productionRate" placeholder="Masukkan laju produksi (ton/jam)" />
+        </div>
+
+        <div id="kgPerTonInputs" class="calculationInputs" style="display:none;">
+            <label for="flow">Flow Surface Sizing Agent (cc/min):</label>
+            <input type="number" id="flow" placeholder="Masukkan flow surface sizing agent (cc/min)" />
+
+            <label for="productionRate2">Laju Produksi (ton/jam):</label>
+            <input type="number" id="productionRate2" placeholder="Masukkan laju produksi (ton/jam)" />
+        </div>
+
+        <button onclick="hitung()">Hitung</button>
+
+        <h2>Hasil</h2>
+        <p id="result">Hasil: <span id="resultValue">0</span></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
+    <script>
+        function toggleInputs() {
+    const mode = document.getElementById('mode').value;
+    if (mode === 'flow') {
+        document.getElementById('kgPerTonInputs').style.display = 'none';
+        document.getElementById('flowInputs').style.display = 'block';
+    } else {
+        document.getElementById('kgPerTonInputs').style.display = 'block';
+        document.getElementById('flowInputs').style.display = 'none';
+    }
+}
+
+function hitung() {
+    const mode = document.getElementById('mode').value;
+    if (mode === 'flow') {
+        const kgPerTon = parseFloat(document.getElementById('kgPerTon').value);
+        const productionRate = parseFloat(document.getElementById('productionRate').value);
+
+        if (!kgPerTon || !productionRate || kgPerTon <= 0 || productionRate <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Input tidak valid',
+                text: 'Harap masukkan nilai yang valid untuk konsumsi bahan dan laju produksi!',
+            });
+            return;
+        }
+
+        // Menghitung flow (cc/min) berdasarkan konsumsi bahan per ton kertas
+        const flow = (kgPerTon * productionRate) / 0.06; // Flow in cc/min
+
+        document.getElementById('resultValue').textContent = flow.toFixed(2) + ' cc/min';
+    } else if (mode === 'kgPerTon') {
+        const flow = parseFloat(document.getElementById('flow').value);
+        const productionRate = parseFloat(document.getElementById('productionRate2').value);
+
+        if (!flow || !productionRate || flow <= 0 || productionRate <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Input tidak valid',
+                text: 'Harap masukkan nilai yang valid untuk flow dan laju produksi!',
+            });
+            return;
+        }
+
+        // Menghitung konsumsi bahan per ton kertas (kg/ton) berdasarkan flow
+        const kgPerTon = (flow * 0.06) / productionRate;
+
+        document.getElementById('resultValue').textContent = kgPerTon.toFixed(2) + ' kg/ton';
+    }
+}
+
+function resetForm() {
+    Swal.fire({
+        title: 'Apakah Anda yakin ingin mereset?',
+        text: "Semua data yang dimasukkan akan dihapus.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: 'Ya, Reset!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById("kgPerTon").value = '';
+            document.getElementById("productionRate").value = '';
+            document.getElementById("flow").value = '';
+            document.getElementById("productionRate2").value = '';
+            document.getElementById("resultValue").textContent = '0';
+        }
+    });
+}
+    </script>
+</body>
+</html>

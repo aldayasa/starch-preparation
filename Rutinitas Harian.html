@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Galeri Pekerjaan: Helper QC & Operator Vibrating Screen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Reset dan box sizing */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0f0f0f;
+      color: #f0f0f0;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    header h1 {
+      font-size: 2.8em;
+      color: #4fc3f7;
+      margin-bottom: 10px;
+    }
+    
+    header p {
+      font-size: 1.1em;
+      color: #ccc;
+    }
+    
+    /* Kategori */
+    section {
+      margin-bottom: 60px;
+    }
+    
+    section h2 {
+      font-size: 2em;
+      color: #81d4fa;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #4fc3f7;
+      padding-bottom: 10px;
+    }
+    
+    /* Gallery grid untuk tiap kategori */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+    
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    /* Efek fade-in dengan delay dinamis, bisa sesuaikan jika jumlah card per kategori berbeda */
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .card-content {
+      padding: 20px;
+    }
+    
+    .card-content h3 {
+      color: #81d4fa;
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+    
+    .card-content p {
+      color: #ccc;
+      font-size: 0.95em;
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+    /* Tombol Navigasi */
+    .nav-buttons {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 999;
+    }
+
+    .home-btn, .top-btn {
+      background-color: #4fc3f7;
+      color: #0f0f0f;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 18px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, background-color 0.3s;
+    }
+
+    .home-btn:hover, .top-btn:hover {
+      background-color: #29b6f6;
+      transform: scale(1.05);
+    }
+    .top-btn {
+  display: none; /* Awalnya disembunyikan */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+
+.top-btn:hover {
+  background-color: #29b6f6;
+  transform: scale(1.05);
+}
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80%;
+  animation: zoom 0.3s ease;
+}
+
+@keyframes zoom {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.close {
+  position: absolute;
+  top: 20px; right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close:hover {
+  color: #bbb;
+}
+  </style>
+</head>
+<body>
+<!-- Modal Image Viewer -->
+<div id="imageModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+  <header>
+    <!-- Tombol Navigasi Interaktif -->
+    	<a href="index.html" class="home-btn" title="Kembali ke Beranda">Home</a>
+    <button class="top-btn" onclick="scrollToTop()">
+  <i class="bi bi-arrow-up"></i>
+</button>
+</button>
+    </div>
+  </header>
+
+  <!-- Kategori 1: Monitoring & Pengujian di Ruang QC -->
+  <section id="monitoring-qc">
+    <h2>Tim QC & Monitoring</h2>
+    <div class="gallery">
+      <div class="card">
+        <img src="monitoring1.jpg" alt="Pengambilan Sampel">
+        <div class="card-content">
+          <h3>Pengambilan Sampel</h3>
+          <p>Mengukur kadar padatan menggunakan Refractometer dan memeriksa viskositas dengan visco cup.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="monitoring2.jpg" alt="Pencatatan Data QC">
+        <div class="card-content">
+          <h3>Pencatatan Data QC</h3>
+          <p>Mencatat dan membuat laporan hasil pengecekan yang kemudian dikirimkan ke grup WhatsApp untuk koordinasi tim.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="monitoring3.jpg" alt="Pembersihan Vibrating Screen">
+        <div class="card-content">
+          <h3>Pembersihan Vibrating Screen</h3>
+          <p>Membersihkan Vibrating Screen setiap jam.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="monitoring4.jpg" alt="Pengelolaan Reject">
+        <div class="card-content">
+          <h3>Pengelolaan Reject</h3>
+          <p>Mengangkat dan membuang reject ke ember yang kemudian dibuang di area barat gudang starch.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="monitoring5.jpg" alt="Koordinasi Tim DCS">
+        <div class="card-content">
+          <h3>Koordinasi Tim DCS</h3>
+          <p>Berkoordinasi dengan tim DCS menggunakan alat komunikasi HT.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="monitoring6.jpg" alt="Klining Filter Cooker to Reaction Tank">
+        <div class="card-content">
+          <h3>Cleaning Filter Cooker to Reaction Tank</h3>
+          <p>Membersihkan filter cooker menuju reaction tank (tag number 6813 & 6814).</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="monitoring7.jpg" alt="Kalibrasi Flow Enzyme">
+        <div class="card-content">
+          <h3>Kalibrasi Flow Enzyme</h3>
+          <p>Melakukan kalibrasi flow enzyme saat memulai proses cooking.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="monitoring8.jpg" alt="Cleaning Area Vibrating">
+        <div class="card-content">
+          <h3>Cleaning Area Vibrating</h3>
+          <p>Membersihkan area vibrating dengan air.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kategori 2: Hopper -->
+  <section id="hopper">
+    <h2>Tim Hopper</h2>
+    <div class="gallery">
+      <div class="card">
+        <img src="hopper1.jpg" alt="Pembersihan Pallet Gudang Starch">
+        <div class="card-content">
+          <h3>Pembersihan Pallet Gudang Starch</h3>
+          <p>Membersihkan pallet gudang starch secara rutin.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="hopper2.jpg" alt="Angkat Jumbo Bag dengan Crane">
+        <div class="card-content">
+          <h3>Angkat Jumbo Bag dengan Crane</h3>
+          <p>Mengangkat jumbo bag menggunakan crane.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="hopper3.jpg" alt="Pengisian ke Hopper">
+        <div class="card-content">
+          <h3>Pengisian ke Hopper</h3>
+          <p>Membuka tutup bawah jumbo bag dan mengisinya ke dalam hopper.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="hopper4.jpg" alt="Pengelolaan Karung Jumbo Bag Kosong">
+        <div class="card-content">
+          <h3>Pengelolaan Karung Jumbo Bag Kosong</h3>
+          <p>Menangani karung jumbo bag kosong yang dibawa keluar gudang starch.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="hopper5.jpg" alt="Laporan Akhir Shift">
+        <div class="card-content">
+          <h3>Laporan Akhir Shift</h3>
+          <p>Menyusun laporan akhir shift mengenai konsumsi jumbo bag dan enzyme.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="hopper6.jpg" alt="Bantuan Tim Produksi">
+        <div class="card-content">
+          <h3>Bantuan Tim Produksi</h3>
+          <p>Ketika proses cooking berhenti dan tim produksi membutuhkan bantuan, tim Hopper bertanggung jawab membantu membersihkan sisa kertas di area reel dengan melakukan pengangkatan ke pulper reel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 - Ardita Rizki F</p>
+  </footer>
+  <script>
+    // Fungsi scroll ke atas
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Modal zoom image
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImage");
+
+document.querySelectorAll(".card img").forEach(img => {
+  img.addEventListener("click", function () {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    modalImg.alt = this.alt;
+  });
+});
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+  </script>
+  <script>
+  // Tombol scroll ke atas
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Munculkan tombol saat discroll
+  window.addEventListener('scroll', function () {
+    var btn = document.querySelector('.top-btn');
+    if (window.scrollY > 300) {
+      btn.style.display = 'block';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

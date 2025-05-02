@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parameter DCS - Starch Preparation</title>
+    <link rel="stylesheet" href="style.css">
+    	  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<style>
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1 {
+    color: #00d9ff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.image-box {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.image-box img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 2px solid #00d9ff;
+}
+
+.caption {
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: #ccc;
+}
+.image-box {
+  margin: 20px auto;
+  text-align: center;
+}
+.image-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: zoom-in;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+.caption {
+  color: white;
+  margin-top: 8px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 60px;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+.popup-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80%;
+}
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#popup-caption {
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+}
+</style>
+<body>
+    <div class="container">
+    	<div style="margin-bottom: 20px;">
+      <a href="index.html"
+         class="w3-button w3-light-blue w3-hover-blue w3-round-small"
+         style="text-decoration: none; display: inline-block;">
+        &larr; Kembali ke Beranda
+      </a>
+    </div>
+
+        <h1>Parameter DCS - Starch Preparation</h1>
+        <p>
+            Halaman ini menampilkan parameter sistem DCS (Distributed Control System) untuk area <strong>Starch Preparation</strong> pada proses produksi kertas. Sistem ini mengatur berbagai tahapan penting mulai dari pencampuran air, pereaksi enzim, pemanasan, hingga pengaliran ke tangki supply.
+        </p>
+        <p>
+            Tampilan parameter berikut memberikan visualisasi lengkap atas alur proses yang terjadi di unit <em>Starch Preparation</em> serta <em>Final Station</em>, termasuk aliran bahan, suhu, tekanan, dan status katup dalam sistem.
+        </p>
+
+        <div class="image-box">
+  <img src="dcsstarch_2.jpg" alt="DCS Starch Final Station" onclick="openPopup(this)">
+  <p class="caption">Gambar 1: Parameter DCS - Final Station</p>
+</div>
+
+<div class="image-box">
+  <img src="dcsstarch_1.jpg" alt="DCS Starch Preparation" onclick="openPopup(this)">
+  <p class="caption">Gambar 2: Parameter DCS - Starch Preparation</p>
+</div>
+
+<!-- Popup Container -->
+<div id="popup" class="popup" onclick="closePopup()">
+  <span class="close">&times;</span>
+  <img class="popup-content" id="popup-img">
+  <div id="popup-caption"></div>
+</div>
+    </div>
+    <script>
+function openPopup(img) {
+  const popup = document.getElementById("popup");
+  const popupImg = document.getElementById("popup-img");
+  const captionText = document.getElementById("popup-caption");
+
+  popup.style.display = "block";
+  popupImg.src = img.src;
+  captionText.innerHTML = img.alt;
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+</body>
+</html>

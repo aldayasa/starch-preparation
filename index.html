@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="xedni.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
   .toggle-content {
   display: none;
@@ -54,7 +55,35 @@ h1, h2 {
   margin-top: 1em;
   margin-bottom: 0.3em;
 }
+.card-link {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
 
+.card-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+.card-link a {
+  text-decoration: none;
+  color: #aad8ff;
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-link a:hover {
+  color: #ffffff;
+}
 .toggle-content {
   display: none;
   margin: 0 !important;
@@ -106,17 +135,18 @@ h1, h2 {
 }
 
 .w3-dropdown-content a:hover {
-  background-color: whitesmoke; /* Hover lebih gelap */
+  background-color: black; /* Hover lebih gelap */
 }
 .w3-dropdown-hover {
-  background-color: whitesmoke; /* Hover lebih gelap */
+  background-color: black; /* Hover lebih gelap */
   background-color: transparent!important; /* Warna latar belakang hitam */
   box-shadow: none!important;
+  position: relative;
 }
   body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background-image: url('background.jpg');
+    background-image: url('background.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -144,9 +174,8 @@ h1, h2 {
   }
 /* Untuk dropdown agar melayang */
 .w3-dropdown-content {
-  position: absolute;
-  background-color: rgba(0,0,0,0.8);
-  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border-radius: 6px;
 }
 
 /* Efek geser ke bawah + opacity */
@@ -178,7 +207,9 @@ h1, h2 {
   opacity: 1;
 }
 
-#whatit-content,
+#whatit-content p {
+  white-space: normal;
+}
 #auto-hide-footer
 #formula-content {
   background-color: rgba(0, 0, 0, 0.6); /* Warna gelap semi-transparan */
@@ -192,7 +223,7 @@ h1, h2 {
   border-radius: 12px;
   color: #ffffff;
   backdrop-filter: blur(2px);
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
 .formula-item {
@@ -205,7 +236,7 @@ h1, h2 {
 }
 
 .formula-item code {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.3);
   display: block;
   padding: 10px;
   border-radius: 8px;
@@ -224,12 +255,15 @@ h1, h2 {
     font-size: 1.2em;
   }
   .formula-content {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-    display: none;
-  }
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.formula-content.show {
+  display: block;
+  opacity: 1;
+}
   .example-box {
     background-color: rgba(255,255,255,0.1);
     padding: 12px;
@@ -276,76 +310,304 @@ h1, h2 {
   border-radius: 6px;
   font-weight: bold;
 }
+.scrollable-dropdown {
+  max-height: 125px; /* atur tinggi maksimal */
+  overflow-y: auto;  /* aktifkan scroll vertikal */
+}
+.jobdesk-wrapper:hover .jobdesk-submenu {
+  display: block;
+}
 
+.jobdesk-submenu {
+  display: none;
+  padding-left: 20px;
+  background-color: rgba(0,0,0,0.1);
+}
+.dropdown-hover-expand:hover .dropdown-submenu {
+  display: block;
+}
+
+.dropdown-submenu {
+  display: none;
+  padding-left: 20px;
+    background-color: rgba(0,0,0,0.1);
+}
+/* Paksa navbar desktop disembunyikan di layar kecil */
+@media (max-width: 768px) {
+  .navbar-desktop {
+    display: none !important;
+  }
+}
+
+/* Paksa navbar mobile disembunyikan di layar besar */
+@media (min-width: 769px) {
+  .navbar-mobile {
+    display: none !important;
+  }
+}
+.zoomable-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  cursor: zoom-in;
+  transition: 0.3s ease;
+  margin: auto;
+  display: block;
+}
+
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.85);
+}
+
+.image-modal .modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80%;
+  animation: zoom 0.4s ease;
+}
+
+@keyframes zoom {
+  from {transform: scale(0.5);}
+  to {transform: scale(1);}
+}
+
+.close-btn {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
 </style>
 </head>
 <body class="w3-black">
-<!-- Navbar untuk desktop dan tablet -->
-<div class="w3-top w3-hide-small">
+<!-- Navbar untuk desktop -->
+<div class="w3-top navbar-desktop">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="Starch Consumption.html" class="w3-bar-item w3-button" style="width:25% !important">STARCH CONSUMPTION</a>
-    <a href="pemakaian enzyme.html" class="w3-bar-item w3-button" style="width:25% !important">FLOW ENZYME</a>
-    <a href="Totalizer Starch.html" class="w3-bar-item w3-button" style="width:25% !important">TOTALIZER STARCH</a>
+    <a href="index.html" class="w3-bar-item w3-button">HOME</a>
+    <a href="about.html" class="w3-bar-item w3-button">ABOUT</a>
+
+    <!-- RUMUS -->
+    <div class="w3-dropdown-hover">
+      <button class="w3-button">FORMULA ▾</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4 scrollable-dropdown">
+        <a href="Starch Consumption.html" class="w3-bar-item w3-button">STARCH CONSUMPTION</a>
+        <a href="pemakaian enzyme.html" class="w3-bar-item w3-button">FLOW ENZYME</a>
+        <a href="Totalizer Starch.html" class="w3-bar-item w3-button">TOTALIZER</a>
+        <a href="alum.html" class="w3-bar-item w3-button">ALUM CONSUMPTION</a>
+        <a href="estimate.html" class="w3-bar-item w3-button">ESTIMATE STARCH</a>
+        <a href="atago.html" class="w3-bar-item w3-button">ATAGO SOLID</a>
+        <a href="retentiontime.html" class="w3-bar-item w3-button">RETENTION TIME</a>
+        <a href="Stock Flow Formula.html" class="w3-bar-item w3-button">STOCK FLOW CALC</a>
+      </div>
+    </div>
+
+    <!-- DOKUMEN -->
+    <div class="w3-dropdown-hover">
+      <button class="w3-button">DOCUMENT ▾</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <!-- Rutinitas Harian di atas -->
+        <a href="Rutinitas Harian.html" class="w3-bar-item w3-button">Rutinitas Harian</a>
+
+        <!-- SOP -->
+        <div class="dropdown-hover-expand">
+          <a href="#" class="w3-bar-item w3-button">SOP ▾</a>
+          <div class="dropdown-submenu w3-bar-block">
+            <a href="https://drive.google.com/file/d/1jSHzPUQt_GeQKSQuNmlJDI_pIQLcI3Io/view?usp=drivesdk" class="w3-bar-item w3-button">DCS</a>
+            <a href="https://drive.google.com/file/d/1hKj2Xa4wBXxIDTstsBEEKL-C4x4oBZTr/view?usp=drivesdk" class="w3-bar-item w3-button">Hopper</a>
+            <a href="https://drive.google.com/file/d/1hSEemISLoVc8DORYLY-NyKJaODIJ7yiG/view?usp=drivesdk" class="w3-bar-item w3-button">QC & Monitoring</a>
+          </div>
+        </div>
+
+        <!-- Flowsheet -->
+        <div class="dropdown-hover-expand">
+          <a href="#" class="w3-bar-item w3-button">Flowsheet ▾</a>
+          <div class="dropdown-submenu w3-bar-block">
+            <a href="DCS-STARCH.html" class="w3-bar-item w3-button">Starch Prep</a>
+    <a href="DCS-SP1.html" class="w3-bar-item w3-button">Stock Prep</a>
+    <a href="DCS-PM1.html" class="w3-bar-item w3-button">Paper Machine 1</a>
+          </div>
+        </div>
+
+        <!-- Workplace -->
+        <div class="dropdown-hover-expand">
+          <a href="#" class="w3-bar-item w3-button">Logsheet ▾</a>
+  <div class="dropdown-submenu w3-bar-block">
+    <a href="https://drive.google.com/file/d/1jdo3XqIGtLpbWShVZwZ87H4lk7rsEyVI/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Starch Prep</a>
+    <a href="https://drive.google.com/file/d/1jfZWl2XW_N14y0165srw87HADghynOad/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Final Station</a>
+    <a href="https://drive.google.com/file/d/1jgdXDZ4fP07eYEwg9Zhw6o5Bepn2sLhj/view?usp=drivesdk" class="w3-bar-item w3-button">Starch Lapangan</a>
+    <a href="https://drive.google.com/file/d/1jiId4C-qOgmfuCFs6FCKOnE_SrMAk301/view?usp=drivesdk" class="w3-bar-item w3-button">Starch QC</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KONTAK -->
+    <div class="w3-dropdown-hover">
+      <button class="w3-button">CONTACT ▾</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="https://wa.me/62895410571547" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://www.facebook.com/arditarizkif/" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+        <a href="https://www.instagram.com/mcardhy/" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://www.youtube.com/@arditarizkif" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Navbar untuk mobile -->
+<div class="w3-top navbar-mobile" id="myNavbar">
+  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-small" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
+    <a href="index.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">HOME</a>
+    <a href="about.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">ABOUT</a>
+
+    <div class="w3-dropdown-hover" style="flex: 0 0 auto;">
+      <button class="w3-button">FORMULA ▾</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4 scrollable-dropdown">
+        <a href="Starch Consumption.html" class="w3-bar-item w3-button">STARCH CONSUMPTION</a>
+        <a href="pemakaian enzyme.html" class="w3-bar-item w3-button">FLOW ENZYME</a>
+        <a href="Totalizer Starch.html" class="w3-bar-item w3-button">TOTALIZER</a>
+        <a href="alum.html" class="w3-bar-item w3-button">ALUM CONSUMPTION</a>
+        <a href="estimate.html" class="w3-bar-item w3-button">ESTIMATE STARCH</a>
+        <a href="atago.html" class="w3-bar-item w3-button">ATAGO SOLID</a>
+        <a href="retentiontime.html" class="w3-bar-item w3-button">RETENTION TIME</a>
+        <a href="Stock Flow Formula.html" class="w3-bar-item w3-button">STOCK FLOW CALC</a>
+        <a href="SSA.html" class="w3-bar-item w3-button">FLOW SSA</a>
+      </div>
+    </div>
+
+    <div class="w3-dropdown-hover" style="flex: 0 0 auto;">
+      <button class="w3-button">DOCUMENT ▾</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <div class="dropdown-hover-expand">
+        	<a href="Rutinitas Harian.html" class="w3-bar-item w3-button">Rutinitas Harian</a>
+  <a href="#" class="w3-bar-item w3-button">SOP ▾</a>
+  <div class="dropdown-submenu w3-bar-block">
+    <a href="https://drive.google.com/file/d/1jSHzPUQt_GeQKSQuNmlJDI_pIQLcI3Io/view?usp=drivesdk" class="w3-bar-item w3-button">DCS</a>
+    <a href="https://drive.google.com/file/d/1hKj2Xa4wBXxIDTstsBEEKL-C4x4oBZTr/view?usp=drivesdk" class="w3-bar-item w3-button">Hopper</a>
+    <a href="https://drive.google.com/file/d/1hSEemISLoVc8DORYLY-NyKJaODIJ7yiG/view?usp=drivesdk" class="w3-bar-item w3-button">QC & Monitoring</a>
   </div>
 </div>
 
-<!-- Navbar untuk mobile -->
-<div class="w3-top w3-hide-medium w3-hide-large" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="index.html" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="Starch Consumption.html" class="w3-bar-item w3-button" style="width:25% !important">STARCH CONSUMPTION</a>
-    <a href="pemakaian enzyme.html" class="w3-bar-item w3-button" style="width:25% !important">FLOW ENZYME</a>
-    <a href="Totalizer Starch.html" class="w3-bar-item w3-button" style="width:25% !important">TOTALIZER STARCH</a>
+<div class="dropdown-hover-expand">
+  <a href="#" class="w3-bar-item w3-button">Flowsheet ▾</a>
+  <div class="dropdown-submenu w3-bar-block">
+    <a href="DCS-STARCH.html" class="w3-bar-item w3-button">Starch Prep</a>
+    <a href="DCS-SP1.html" class="w3-bar-item w3-button">Stock Prep</a>
+    <a href="DCS-PM1.html" class="w3-bar-item w3-button">Paper Machine 1</a>
+  </div>
+</div>
+
+<div class="dropdown-hover-expand">
+  <a href="#" class="w3-bar-item w3-button">Logsheet ▾</a>
+  <div class="dropdown-submenu w3-bar-block">
+    <a href="https://drive.google.com/file/d/1jdo3XqIGtLpbWShVZwZ87H4lk7rsEyVI/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Starch Prep</a>
+    <a href="https://drive.google.com/file/d/1jfZWl2XW_N14y0165srw87HADghynOad/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Final Station</a>
+    <a href="https://drive.google.com/file/d/1jgdXDZ4fP07eYEwg9Zhw6o5Bepn2sLhj/view?usp=drivesdk" class="w3-bar-item w3-button">Starch Lapangan</a>
+    <a href="https://drive.google.com/file/d/1jiId4C-qOgmfuCFs6FCKOnE_SrMAk301/view?usp=drivesdk" class="w3-bar-item w3-button">Starch QC</a>
+  </div>
+</div>
+      </div>
+    </div>
+<div class="w3-dropdown-hover" style="flex: 0 0 auto;">
+  <button class="w3-button">CONTACT▾</button>
+  <div class="w3-dropdown-content w3-bar-block w3-card-4" style="right: 0; left: auto; min-width: 180px;">
+<a href="https://wa.me/62895410571547" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://www.facebook.com/arditarizkif/" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+        <a href="https://www.instagram.com/mcardhy/" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="https://www.youtube.com/@arditarizkif" class="w3-bar-item w3-button" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+  </div>
+</div>
   </div>
 </div>
 <div class="bg-overlay"></div>
 
 <!-- Page Content -->
-<div class="section w3-content w3-justify w3-text-grey w3-padding-16" id="starch">
-  <div class="w3-dropdown-hover" id="starch-menu">
-    <h2 class="w3-text-light-grey">Starch Preparation</h2>
-<div class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-opacity">
-	<a href="Stock Flow Formula.html" class="w3-bar-item w3-button">STOCK FLOW CALC</a>
-      <a href="alum.html" class="w3-bar-item w3-button">ALUM CONSUMPTION</a>
-      <a href="estimate.html" class="w3-bar-item w3-button">ESTIMATE STARCH</a>
-      <a href="atago.html" class="w3-bar-item w3-button">ATAGO SOLID</a>
-      <a href="retentiontime.html" class="w3-bar-item w3-button">RETENTION TIME</a>
-    </div>
+<div class="w3-content w3-justify w3-text-grey w3-padding-16" id="starch">
+  <h2 class="w3-text-light-grey" id="starch-title" style="cursor: pointer;">Starch Preparation</h2>
+  <div id="starch-content" class="fade-content" style="display: none;">
+  <div style="background-color: rgba(0,0,0,0.6); padding: 20px; border-radius: 12px; color: #fff;">
+  	<!-- Box Foto -->
+<div style="margin-top: 24px;">
+  <img src="pagecontent.jpg" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
+</div>
+    <p>Starch Preparation adalah tahap penting dalam proses produksi kertas. Tujuannya untuk menyiapkan campuran starch (pati), air, dan bahan kimia tambahan seperti alum dan enzim agar memiliki konsistensi dan kualitas sesuai standar sebelum digunakan dalam proses utama.</p>
+    
+    <h3 style="color: #aad8ff;">Alur Proses:</h3>
+    <ul style="margin-left: 20px;">
+      <li>Pencampuran starch dan air</li>
+      <li>Penambahan alum dan enzim</li>
+      <li>Pengukuran kadar padatan (dengan Atago Solid, Viscometer, dan pH Starch)</li>
+      <li>Distribusi ke tangki supply</li>
+    </ul>
+
+    <p>Kamu bisa melihat aktivitas pekerjaan harian lapangan melalui tautan berikut:</p>
+    <div style="display: flex; justify-content: center; margin-top: 16px;">
+  <div class="card-link">
+  	
+    <a href="Rutinitas Harian.html" target="_blank">
+      <i class="fas fa-images"></i> Rutinitas Harian
+    </a>
   </div>
+</div>
+  </div>
+</div>
 </div>
 
 
 
   <!-- About Section -->
 <div class="w3-content w3-justify w3-text-grey w3-padding-16" id="about-section">
-    <h2 class="w3-text-light-grey" id="whatit-title">What it is?</h2>
+    <h2 class="w3-text-light-grey" id="whatit-title">Why is starch important?</h2>
 <div id="whatit-content" class="fade-content" style="display: none;">
-  <hr style="width:100px" class="w3-opacity">
-    <p>The papermaking process consists of several main steps: stock preparation, sheet forming, pressing, drying, and surface finishing.  Starch is an important component of many paper qualities.  Starch consumption by weight in paper making and paper conversion processes ranks third after cellulose fiber and mineral pigments.  Starch is used as a flocculant and retention aid, as a binding agent, as a surface sizing agent, as a binder for coatings, and as an adhesive in corrugated board, laminate grades, and other products.  The main sources of starch are corn, potatoes, waxy corn, wheat, and tapioca.  Processed starch is available as powder or slightly aggregated pearl starch.  Unmodified (native) starch is rarely used in the paper industry, except as a binder in laminations and rolling processes.  Most starches used in papermaking are specialty products that have been modified through hydrolysis, oxidation, or controlled derivatization.  This chapter also covers various topics such as: starch application requirements, starch dispersion, environmental aspects of starch, analysis of starch in paper, and the use of starch in papermaking, for paper surface sizing, as a coating binder, as an adhesive in paper conversion, and special papers that  newer.
-    </p>
+  <div style="background-color: rgba(0, 0, 0, 0.6); padding: 20px; border-radius: 12px; color: #fff;">
+    <figure style="margin-bottom: 20px;">
+  <!-- Box Foto -->
+<div style="margin-top: 24px;">
+  <img src="sym-sizer.webp" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
+</div>
+  <figcaption style="margin-top: 8px; font-size: 0.95em; color: #555;">
+    Valmet SYM Sizer, mesin size press modern untuk perlakuan permukaan kertas dengan pati guna meningkatkan kekuatan, kelicinan, dan kualitas cetak.</figcaption>
+</figure>
+    <p>Proses pembuatan kertas terdiri dari beberapa langkah utama: persiapan bahan baku, pembentukan lembaran, pengepresan, pengeringan, dan penyelesaian permukaan. Pati adalah komponen penting dalam banyak jenis kertas. Konsumsi pati berdasarkan berat dalam proses pembuatan kertas dan pengolahan kertas menduduki peringkat ketiga setelah serat selulosa dan pigmen mineral.</p>
+    <p>Pati digunakan sebagai flocculant dan bahan penahan, agen pengikat, agen pelapis permukaan, pengikat untuk pelapisan, dan lem pada kertas bergelombang, grade laminasi, dan produk lainnya. Sumber utama pati adalah jagung, kentang, jagung lilin, gandum, dan tapioka.</p>
+  </div>
 </div>
   
   <!-- Portfolio Section -->
 <div class="section scroll-section w3-padding-16 w3-content" id="photos">
-    <h2 class="w3-text-light-grey" id="photos-title">Documentary</h2>
-
+<h2 class="w3-text-light-grey" id="photos-title">Kontrol Proses</h2>
 <div id="photos-content" class="fade-content" style="display: none;">
-  <div class="w3-row-padding w3-margin-top">
-    <div class="w3-third w3-padding">
-      <a href="https://drive.google.com/file/d/1hSEemISLoVc8DORYLY-NyKJaODIJ7yiG/view?usp=drivesdk" target="_blank" class="w3-button w3-block w3-white w3-border w3-hover-light-grey">
-        📄 QC & Vibrating Screen <br><small>(Job Desk Helper)</small>
-      </a>
-    </div>
-
-    <div class="w3-third w3-padding">
-      <a href="https://drive.google.com/file/d/1hKj2Xa4wBXxIDTstsBEEKL-C4x4oBZTr/view?usp=drivesdk" target="_blank" class="w3-button w3-block w3-white w3-border w3-hover-light-grey">
-        📄 Starch Isi Jumbo Bag <br><small>(Job Desk Helper)</small>
-      </a>
-    </div>
+  <div style="background-color: rgba(0, 0, 0, 0.6); padding: 20px; border-radius: 12px; color: #fff;">
+  <!-- Box Foto -->
+<div style="margin-top: 24px;">
+  <img src="endpage.jpg" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
+</div>
+  <p>
+      Dalam praktiknya, Starch Preparation memerlukan pemantauan berkelanjutan melalui berbagai alat ukur seperti Viscometer, Atago Refractometer untuk solid content, serta sistem DCS untuk pengawasan dan pengendalian otomatis. Operator bertugas mencatat data secara rutin, mengamati tren, dan melakukan penyesuaian terhadap aliran atau dosis bahan kimia sesuai kondisi di lapangan.
+    </p>
+    <p>
+      Proses ini tidak hanya mengandalkan pengamatan, tetapi juga perhitungan yang akurat dan cepat. Karena itu, di bagian selanjutnya kamu akan menemukan kumpulan rumus penting yang biasa digunakan untuk mendukung pengambilan keputusan teknis sehari-hari.
+    </p>
   </div>
 </div>
-
+</div>
+<!-- Modal Foto -->
+<div id="imageModal" class="image-modal" onclick="closeModal()">
+  <span class="close-btn">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
 <div class="section scroll-section w3-content w3-justify w3-text-grey w3-padding-16" id="formula">
   <h2 class="w3-text-light-grey" id="formula-title" style="cursor: pointer;">Starch Formula</h2>
   <hr style="display:none">
@@ -670,6 +932,7 @@ window.addEventListener("scroll", function () {
   document.addEventListener("DOMContentLoaded", () => {
     setupFadeToggle("whatit-title", "whatit-content");
     setupFadeToggle("photos-title", "photos-content");
+    setupFadeToggle("starch-title", "starch-content");
   });
 </script>
 <script>
@@ -693,10 +956,10 @@ window.addEventListener('scroll', function () {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".formula-toggle").forEach(toggle => {
-    toggle.addEventListener("click", () => {
-      const content = toggle.nextElementSibling;
-      content.style.display = content.style.display === "none" ? "block" : "none";
-    });
+  toggle.addEventListener("click", () => {
+    const content = toggle.nextElementSibling;
+    content.classList.toggle("show");
+  });
 document.getElementById("btn_1").addEventListener("click", function () {
   const starch = parseFloat(document.getElementById("starch1_1").value);
   const water = parseFloat(document.getElementById("water1_1").value);
@@ -945,6 +1208,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+</script>
+<script>
+function openModal(img) {
+  var modal = document.getElementById("imageModal");
+  var modalImg = document.getElementById("modalImage");
+  modal.style.display = "block";
+  modalImg.src = img.src;
+}
+
+function closeModal() {
+  var modal = document.getElementById("imageModal");
+  modal.style.display = "none";
+}
 </script>
 </body>
 </html>
