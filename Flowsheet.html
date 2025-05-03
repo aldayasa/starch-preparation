@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Operator DCS - PT Dayasa Aria Prima</title>
+    <style>
+        :root {
+            --primary-color: #61dafb;
+            --bg-dark: #0f0f0f;
+            --bg-section1: #002f4b;
+            --bg-section2: #222;
+            --bg-section3: #111;
+        }html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: #f4f4f4;
+        color: #333;
+    }
+
+    header {
+        background: var(--bg-dark);
+        padding: 15px 20px;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: top 0.3s ease-in-out;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 18px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .home-btn {
+        align-self: center;
+        background-color: var(--primary-color);
+        color: #000;
+        border: none;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .home-btn:hover {
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    nav a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+        position: relative;
+        padding: 5px 0;
+    }
+
+    nav a:hover {
+        color: #fff;
+    }
+
+    section {
+        padding: 90px 20px 40px;
+        min-height: 100vh;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    #dcs-paper-machine { background: linear-gradient(135deg, var(--bg-section1), #005c97); color: #fff; }
+    #dcs-stock-preparation { background: var(--bg-section2); color: #fff; }
+    #dcs-starch-preparation { background: var(--bg-section3); color: #fff; }
+
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.05);
+        padding: 16px;
+        margin: 10px auto;
+        border-radius: 8px;
+        max-width: 600px;
+        box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .section-image {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    ul { text-align: left; padding-left: 20px; }
+
+    footer {
+        background: var(--bg-dark);
+        text-align: center;
+        padding: 16px;
+        font-size: 12px;
+        color: #aaa;
+    }
+
+    #backToTopBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+        background-color: var(--primary-color);
+        color: #000;
+        border: none;
+        padding: 12px;
+        border-radius: 50%;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #backToTopBtn:hover {
+        background-color: #3498db;
+        color: #fff;
+    }
+</style>
+
+</head>
+<body>
+    <header id="header">
+        <h1>Operator DCS | PT Dayasa Aria Prima</h1>
+        <button class="home-btn" onclick="window.location.href='index.html'">Home</button>
+        <nav>
+            <a href="#dcs-paper-machine">Paper Machine</a>
+            <a href="#dcs-stock-preparation">Stock Prep</a>
+            <a href="#dcs-starch-preparation">Starch Prep</a>
+        </nav>
+    </header><section id="dcs-paper-machine">
+    <h2 class="section-title">DCS Paper Machine 1</h2>
+    <img src="dcspm1_1.jpg" alt="DCS Paper Machine 1" class="section-image">
+    	<img src="dcspm1_2.jpg" alt="DCS Paper Machine 1" class="section-image">
+    <div class="card">
+        <h3>Deskripsi Singkat</h3>
+        <p>Memantau dan mengontrol proses produksi kertas secara real-time. Mengatur kecepatan dan suhu demi kualitas produk optimal.</p>
+    </div>
+    <div class="card">
+        <h3>Tugas Utama</h3>
+        <ul>
+            <li>Monitor suhu, tekanan, kecepatan motor</li>
+            <li>Prosedur start/stop mesin</li>
+            <li>Penanganan alarm dan histori</li>
+            <li>Koordinasi dengan teknisi</li>
+        </ul>
+    </div>
+</section>
+
+<section id="dcs-stock-preparation">
+    <h2 class="section-title">DCS Stock Preparation 1</h2>
+    <img src="dcssp_1.jpg" class="section-image">
+    	<img src="dcssp_2.jpg" class="section-image">
+    <div class="card">
+        <h3>Deskripsi Singkat</h3>
+        <p>Mengontrol persiapan bahan baku untuk kertas, memastikan standar kualitas tercapai melalui kecepatan dan parameter sistem.</p>
+    </div>
+    <div class="card">
+        <h3>Tugas Utama</h3>
+        <ul>
+            <li>Atur aliran dan kualitas bahan baku</li>
+            <li>Monitor parameter sistem</li>
+            <li>Pastikan kelancaran produksi</li>
+        </ul>
+    </div>
+</section>
+
+<section id="dcs-starch-preparation">
+    <h2 class="section-title">DCS Starch Preparation</h2>
+    <img src="dcsstarch_1.jpg" alt="DCS Starch Preparation" class="section-image">
+    	    <img src="dcsstarch_2.jpg" alt="DCS Starch Preparation" class="section-image">
+    <div class="card">
+        <h3>Deskripsi Singkat</h3>
+        <p>Mengelola proses pengolahan pati, memastikan kualitas hasil dan efisiensi operasional tetap terjaga.</p>
+    </div>
+    <div class="card">
+        <h3>Tugas Utama</h3>
+        <ul>
+            <li>Monitor mutu pati</li>
+            <li>Stabilkan parameter proses</li>
+            <li>Koordinasi dengan tim produksi</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    &copy; 2025 PT Dayasa Aria Prima - Divisi DCS
+</footer>
+
+<button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+<script>
+    let lastScrollTop = 0;
+    const header = document.getElementById('header');
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    window.addEventListener('scroll', function () {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        header.style.top = scrollTop > lastScrollTop ? "-100px" : "0";
+        backToTopBtn.style.display = scrollTop > 300 ? "flex" : "none";
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+</script>
+
+</body>
+</html>
