@@ -665,14 +665,14 @@ h2 {
 <div class="formula-item">
 <h3 class="formula-toggle">3. Menghitung Flow</h3>
 <div class="formula-content">
-<pre><code>Flow = ((Level1 - Level2)% x Volume) / (Time2 - Time1)</code></pre>
+<pre><code>Flow = ((Level Awal - Level Akhir) × Volume) / (Waktu Akhir - Waktu Awal)</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
-<label>Level 1 (%): <input type="number" id="level1_3_3" /></label><br>
-<label>Level 2 (%): <input type="number" id="level2_3_3" /></label><br>
+<label>Level Awal (%): <input type="number" id="level1_3_3" /></label><br>
+<label>Level Akhir (%): <input type="number" id="level2_3_3" /></label><br>
 <label>Volume Tangki (m3): <input type="number" id="volume3_3" /></label><br>
-<label>Waktu 1 (menit): <input type="number" id="time1_3_3" /></label><br>
-<label>Waktu 2 (menit): <input type="number" id="time2_3_3" /></label><br>
+<label>Waktu Awal: <input type="time" id="time1_3_3" /></label><br>
+<label>Waktu Akhir: <input type="time" id="time2_3_3" /></label><br>
 <br><button id="btn_3">Hitung</button>
 <div id="result_3" style="margin-top:10px;"></div>
 </div>
@@ -696,10 +696,10 @@ h2 {
 <div class="formula-item">
 <h3 class="formula-toggle">5. Flow Waterglass</h3>
 <div class="formula-content">
-<pre><code>Flow = Flow ML1 x %Solid Storage x %Dosis / 14</code></pre>
+<pre><code>Flow = Flow Storage (m3/h) x %Solid Storage x %Dosis / 14</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
-<label>Flow ML1 (l/min): <input type="number" id="flow5_5" /></label><br>
+<label>Flow Storage (m3/h): <input type="number" id="flow5_5" /></label><br>
 <label>%Solid Storage: <input type="number" id="solid5_5" /></label><br>
 <label>%Dosis: <input type="number" id="dosis5_5" /></label><br>
 <br><button id="btn_5">Hitung</button>
@@ -729,13 +729,18 @@ h2 {
 <div class="formula-content">
 <pre><code>Solid Campuran = (Vol1 x Solid1 + Vol2 x Solid2) / (Vol1 + Vol2)</code></pre>
 <div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Volume 1: <input type="number" id="vol1_7_7" /></label><br>
-<label>Solid 1 (%): <input type="number" id="solid1_7_7" /></label><br>
-<label>Volume 2: <input type="number" id="vol2_7_7" /></label><br>
-<label>Solid 2 (%): <input type="number" id="solid2_7_7" /></label><br>
-<br><button id="btn_7">Hitung</button>
-<div id="result_7" style="margin-top:10px;"></div>
+  <strong>Campuran 1 (Tangki Final):</strong><br>
+  <label>Volume Tangki 1 (m³): <input type="number" id="vol1" step="0.01" /></label><br>
+  <label>Level 1 (%): <input type="number" id="level1" step="0.1" /></label><br>
+  <label>Solid 1 (%): <input type="number" id="solid1" step="0.1" /></label><br><br>
+
+  <strong>Campuran 2 (Tangki Tercampur Air):</strong><br>
+  <label>Volume Tangki 2 (m³): <input type="number" id="vol2" step="0.01" /></label><br>
+  <label>Level 2 (%): <input type="number" id="level2" step="0.1" /></label><br>
+  <label>Solid 2 (%): <input type="number" id="solid2" step="0.1" /></label><br><br>
+
+  <button id="btn_7">Hitung Solid Campuran</button>
+  <div id="result_7" style="margin-top:10px;"></div>
 </div>
 </div>
 </div>
@@ -842,7 +847,6 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
 </div>
 <footer id="auto-hide-footer">Ditulis oleh <strong>Ardita Rizki Fauzi</strong></footer>
 <script>
-
 let lastScroll = 0;
 const footer = document.getElementById("auto-hide-footer");
 
@@ -859,7 +863,6 @@ window.addEventListener("scroll", function () {
 
   lastScroll = currentScroll;
 });
-
 </script>
 <script>
   const starchMenu = document.getElementById("starch-menu");
@@ -956,24 +959,6 @@ window.addEventListener("scroll", function () {
   });
 </script>
 <script>
-let lastScrollTop = 0;
-const footer = document.getElementById('auto-hide-footer');
-
-window.addEventListener('scroll', function () {
-  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-  if (currentScroll > lastScrollTop) {
-    // Scroll ke bawah -> sembunyikan
-    footer.classList.add('hide');
-  } else {
-    // Scroll ke atas -> tampilkan
-    footer.classList.remove('hide');
-  }
-
-  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Cegah nilai negatif
-});
-</script>
-<script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".formula-toggle").forEach(toggle => {
   toggle.addEventListener("click", () => {
@@ -1012,9 +997,21 @@ document.getElementById("btn_3").addEventListener("click", function () {
   const level1 = parseFloat(document.getElementById("level1_3_3").value);
   const level2 = parseFloat(document.getElementById("level2_3_3").value);
   const volume = parseFloat(document.getElementById("volume3_3").value); // input dalam m³
-  const time1 = parseFloat(document.getElementById("time1_3_3").value);
-  const time2 = parseFloat(document.getElementById("time2_3_3").value);
+
+  // Ambil waktu dan konversi ke menit
+  const timeStr1 = document.getElementById("time1_3_3").value;
+  const timeStr2 = document.getElementById("time2_3_3").value;
   const result = document.getElementById("result_3");
+
+  if (!timeStr1 || !timeStr2) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi waktu yang valid.</span>";
+    return;
+  }
+
+  const [hours1, minutes1] = timeStr1.split(":").map(Number);
+  const [hours2, minutes2] = timeStr2.split(":").map(Number);
+  const time1 = hours1 * 60 + minutes1;
+  const time2 = hours2 * 60 + minutes2;
 
   if (
     isNaN(level1) || isNaN(level2) ||
@@ -1025,8 +1022,20 @@ document.getElementById("btn_3").addEventListener("click", function () {
     return;
   }
 
+  // Validasi jika time2 lebih kecil dari time1
+  if (time2 < time1) {
+    result.innerHTML = "<span style='color:salmon;'>Waktu Akhir harus lebih besar dari Waktu Awal.</span>";
+    return;
+  }
+
+  // Validasi level1 harus lebih besar dari level2
+  if (level1 <= level2) {
+    result.innerHTML = "<span style='color:salmon;'>Level Awal harus lebih besar dari Level Akhir.</span>";
+    return;
+  }
+
   const deltaLevel = (level1 - level2) / 100;
-  const deltaTime = time2 - time1; // menit
+  const deltaTime = time2 - time1; // dalam menit
   const flow_m3_per_min = (deltaLevel * volume) / deltaTime;
   const flow_m3_per_hour = flow_m3_per_min * 60;
   const flow_l_per_min = flow_m3_per_min * 1000;
@@ -1082,18 +1091,36 @@ document.getElementById("btn_6").addEventListener("click", function() {
   const flowAir = (flow_m3h * (solid - target)) / target;
   document.getElementById("result_6").innerText = "Flow Air = " + flowAir.toFixed(2) + " m³/h";
 });
-document.getElementById("btn_7").addEventListener("click", function() {
-  const v1 = parseFloat(document.getElementById("vol1_7_7").value);
-  const s1 = parseFloat(document.getElementById("solid1_7_7").value);
-  const v2 = parseFloat(document.getElementById("vol2_7_7").value);
-  const s2 = parseFloat(document.getElementById("solid2_7_7").value);
+document.getElementById("btn_7").addEventListener("click", function () {
+  const vol1 = parseFloat(document.getElementById("vol1").value);
+  const level1 = parseFloat(document.getElementById("level1").value) / 100; // konversi level ke desimal
+  const solid1 = parseFloat(document.getElementById("solid1").value);
+
+  const vol2 = parseFloat(document.getElementById("vol2").value);
+  const level2 = parseFloat(document.getElementById("level2").value) / 100; // konversi level ke desimal
+  const solid2 = parseFloat(document.getElementById("solid2").value);
+
   const result = document.getElementById("result_7");
-  if ([v1, s1, v2, s2].some(isNaN)) {
-    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+
+  // Validasi input
+  if ([vol1, level1, solid1, vol2, level2, solid2].some(isNaN)) {
+    result.innerHTML = "<span style='color:salmon;'>Mohon isi semua nilai dengan benar.</span>";
     return;
   }
-  const solid = (v1 * s1 + v2 * s2) / (v1 + v2);
-  result.innerHTML = `Hasil: <strong>${solid.toFixed(1)}%</strong>`;
+
+  // Menghitung Volume aktual berdasarkan Volume x Level
+  const actualVol1 = vol1 * level1;
+  const actualVol2 = vol2 * level2;
+
+  // Menghitung Solid Campuran
+  const solidMix = (
+    (actualVol1 * solid1) + (actualVol2 * solid2)
+  ) / (actualVol1 + actualVol2);
+
+  // Menampilkan hasil
+  result.innerHTML = `
+    Solid Campuran: <strong>${solidMix.toFixed(1)}%</strong>
+  `;
 });
 document.getElementById("btn_8").addEventListener("click", function() {
   const naoh = parseFloat(document.getElementById("naoh8_8").value);
