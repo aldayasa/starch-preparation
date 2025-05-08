@@ -1,0 +1,159 @@
+<!DOCTYPE html><html>
+<head>
+  <title>Chemical - Starch Preparation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 20px 80px;
+    }
+    h2 {
+      color: #61dafb;
+      margin-bottom: 30px;
+    }
+    .card {
+      background-color: #1e1e1e;
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+    .card img {
+      cursor: zoom-in;
+      border-radius: 12px 12px 0 0;
+    }
+    .btn-home, .btn-top {
+      position: fixed;
+      bottom: 20px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      z-index: 1000;
+    }
+    .btn-home {
+      left: 20px;
+      background-color: #61dafb;
+      color: #000;
+    }
+    .btn-top {
+      right: 20px;
+      background-color: #fff;
+      color: #000;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+    }
+    #modalContent {
+      max-width: 90%;
+      max-height: 80%;
+      margin: 5% auto;
+      display: block;
+      border-radius: 8px;
+      animation: zoomIn 0.4s ease;
+    }
+    .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: white;
+      font-size: 36px;
+      cursor: pointer;
+    }
+    @keyframes zoomIn {
+      from {transform: scale(0.7); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center">Bahan Kimia di Starch & Stock Preparation</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4"><div class="col">
+    <div class="card text-white">
+      <img src="img/enzyme.jpg" class="card-img-top" alt="Enzyme Amylase" onclick="openModal(this)">
+      <div class="card-body">
+        <h5 class="card-title">Enzyme Amylase</h5>
+        <p class="card-text">Digunakan di tangki cooker untuk menghidrolisis pati menjadi unit yang lebih kecil, meningkatkan kelarutan dan performa starch. Disuplai dari enzyme tank dengan kontrol suhu di jet cooker.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card text-white">
+      <img src="img/alum.jpg" class="card-img-top" alt="Aluminium Sulfat" onclick="openModal(this)">
+      <div class="card-body">
+        <h5 class="card-title">Aluminium Sulfat</h5>
+        <p class="card-text">Koagulan untuk mengatur pH dan membantu pengendapan kotoran mikroskopis. Dosis dikontrol dan ditambahkan di inlet final tank.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card text-white">
+      <img src="img/sizing.jpg" class="card-img-top" alt="Surface Sizing Agent" onclick="openModal(this)">
+      <div class="card-body">
+        <h5 class="card-title">Surface Sizing Agent</h5>
+        <p class="card-text">Agen pelapis untuk meningkatkan kekuatan permukaan kertas. Dicampur bersama starch di final tank sebelum disalurkan ke size press.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card text-white">
+      <img src="img/defoamer.jpg" class="card-img-top" alt="Defoamer" onclick="openModal(this)">
+      <div class="card-body">
+        <h5 class="card-title">Defoamer</h5>
+        <p class="card-text">Mencegah dan menghilangkan busa berlebih yang bisa mengganggu proses produksi. Diberikan di inlet final tank bersama alum dan sizing agent.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card text-white">
+      <img src="img/retention.jpg" class="card-img-top" alt="Retention Agent" onclick="openModal(this)">
+      <div class="card-body">
+        <h5 class="card-title">Retention Agent</h5>
+        <p class="card-text">Digunakan di outlet primary screen untuk membantu retensi filler dan fiber pada lembaran kertas serta meningkatkan efisiensi penggunaan bahan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card text-white">
+      <img src="img/wetend.jpg" class="card-img-top" alt="Wet-End Starch" onclick="openModal(this)">
+      <div class="card-body">
+        <h5 class="card-title">Wet-End Starch</h5>
+        <p class="card-text">Starch dengan formulasi khusus untuk wet end, ditambahkan di inlet machine chest untuk meningkatkan kekuatan kering (dry strength) dan bonding antar serat.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  </div>  <!-- Modal Gambar -->  <div id="imageModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <img id="modalContent" alt="Zoomed Image">
+  </div>
+<button class="btn-home" onclick="location.href='index.html'">Home</button>
+<button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
+
+  <script>
+    function openModal(img) {
+      document.getElementById("imageModal").style.display = "block";
+      document.getElementById("modalContent").src = img.src;
+    }
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+  </script></body>
+</html>

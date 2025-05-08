@@ -1,0 +1,130 @@
+<!-- equipment.html (interaktif dengan Bootstrap & tambahan lengkap) --><!DOCTYPE html><html>
+<head>
+  <title>Equipment - Starch Preparation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 20px 80px;
+    }
+    h2 {
+      color: #61dafb;
+      margin-bottom: 30px;
+    }
+    .card {
+      background-color: #1e1e1e;
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+    .card img {
+      cursor: zoom-in;
+      border-radius: 12px 12px 0 0;
+    }
+    .btn-home, .btn-top {
+      position: fixed;
+      bottom: 20px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      z-index: 1000;
+    }
+    .btn-home {
+      left: 20px;
+      background-color: #61dafb;
+      color: #000;
+    }
+    .btn-top {
+      right: 20px;
+      background-color: #fff;
+      color: #000;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.85);
+    }
+    #modalContent {
+      max-width: 90%;
+      max-height: 80%;
+      margin: 5% auto;
+      display: block;
+      border-radius: 8px;
+      animation: zoomIn 0.4s ease;
+    }
+    .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: white;
+      font-size: 36px;
+      cursor: pointer;
+    }
+    @keyframes zoomIn {
+      from {transform: scale(0.7); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center">Equipment Starch Preparation</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <!-- Daftar alat -->
+      <script>
+        const equipmentList = [
+          ["Tangki Hopper", "hopper_tank.jpg", "Tempat penampungan awal starch dari jumbo bag."],
+          ["Screw & Elevator", "screw_elevator.jpg", "Mengangkat starch dari hopper ke tahap berikutnya secara otomatis."],
+          ["Tangki & Pompa Enzyme", "enzyme_tank.jpg", "Digunakan untuk dosing dan distribusi enzim cair."],
+          ["Tangki Cooker", "cooker_tank.jpg", "Memasak starch dengan suhu tinggi untuk gelatinisasi pati."],
+          ["Filter 6813 & 6814", "filter6813.jpg", "Filter kasar untuk menyaring kotoran sebelum masuk jet cooker."],
+          ["Jet Cooker 1", "jetcooker1.jpg", "Pemanasan starch dengan steam langsung untuk proses gelatinisasi."],
+          ["Tangki Reaction", "reaction_tank.jpg", "Tempat reaksi antara starch dan enzyme untuk meningkatkan kelarutan."],
+          ["Jet Cooker 2", "jetcooker2.jpg", "Jet cooker tahap akhir untuk mencapai suhu reaksi optimal."],
+          ["Tangki Storage", "storage_tank.jpg", "Tempat penyimpanan sementara starch hasil olahan."],
+          ["Pressure Filter", "pressure_filter.jpg", "Menyaring starch dengan tekanan untuk menghilangkan kontaminan halus."],
+          ["Final Tank 1 (Bottom)", "final1.jpg", "Tangki akhir bagian bawah untuk menampung starch siap pakai."],
+          ["Final Tank 2 (Top)", "final2.jpg", "Tangki atas yang mengatur distribusi ke final tank bawah."],
+          ["Vibrating Screen VB1B, VB2B", "vb1b.jpg", "Filter getar di jalur bawah, penyaring kotoran starch sebelum masuk final tank."],
+          ["Vibrating Screen VB1T, VB2T", "vb1t.jpg", "Filter getar di jalur atas, berfungsi sebagai pre-screen starch."],
+          ["Tangki Aluminium Sulfat", "alum_tank.jpg", "Menampung larutan alum untuk keperluan pengolahan wet-end."],
+          ["Tangki Soda", "soda_tank.jpg", "Digunakan untuk menaikkan pH larutan starch jika dibutuhkan."],
+          ["Tangki Wet-End Starch", "wetend_tank.jpg", "Tangki khusus supply starch ke wet-end paper machine."]
+        ];document.write(equipmentList.map(e => `
+      <div class="col">
+        <div class="card text-white">
+          <img src="img/${e[1]}" class="card-img-top" alt="${e[0]}" onclick="openModal(this)">
+          <div class="card-body">
+            <h5 class="card-title">${e[0]}</h5>
+            <p class="card-text">${e[2]}</p>
+          </div>
+        </div>
+      </div>
+    `).join(""));
+  </script>
+</div>
+
+  </div>  <!-- Tombol Navigasi --><button class="btn-home" onclick="location.href='index.html'">Home</button> <button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
+
+  <!-- Modal Gambar -->  <div id="imageModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <img id="modalContent" alt="Zoomed Image">
+  </div>  <script>
+    function openModal(img) {
+      document.getElementById("imageModal").style.display = "block";
+      document.getElementById("modalContent").src = img.src;
+    }
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+  </script></body>
+</html>

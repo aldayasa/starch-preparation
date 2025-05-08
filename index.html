@@ -7,7 +7,18 @@
 <link rel="stylesheet" href="xedni.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
+	@media (max-width: 600px) {
+  h1, h2 {
+    font-size: 1.5rem;
+    h2 i.fa {
+    font-size: 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    word-spacing: -1px;
+  }
+}
   .toggle-content {
   display: none;
 }
@@ -99,7 +110,12 @@ h2 {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
-
+.toggle-icon {
+  transition: transform 0.3s ease;
+}
+.toggle-icon.rotate {
+  transform: rotate(180deg);
+}
 .w3-row-padding img {
   margin-bottom: 0 px;
 }
@@ -215,13 +231,33 @@ h2 {
 #whatit-content p {
   white-space: normal;
 }
-#auto-hide-footer
+#auto-hide-footer {
+  width: 100%;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}
 #formula-content {
   background-color: rgba(0, 0, 0, 0.6); /* Warna gelap semi-transparan */
   padding: 20px;
   border-radius: 10px;
   color: #fff; /* Pastikan teks kontras */
 }
+/* Animasi buka */
+.formula-content {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Saat terbuka */
+.formula-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Saat ditutup (tanpa visible class) => fade out terjadi sebelum display none dijalankan di JS */
 .formula-box {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 20px;
@@ -253,12 +289,23 @@ h2 {
 .formula-item {
     margin-bottom: 30px;
   }
-  .formula-toggle {
-    color: #aad8ff;
-    cursor: pointer;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-  }
+.formula-toggle {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.formula-toggle:hover {
+  color: #aad8ff;
+}
+
+.toggle-icon {
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.rotate {
+  transform: rotate(90deg);
+}
   .formula-content {
   display: none;
   opacity: 0;
@@ -395,18 +442,49 @@ h2 {
   font-weight: bold;
   cursor: pointer;
 }
+.image-wrapper {
+  max-width: 500px;      /* Batasi lebar maksimum */
+  margin: 24px auto;     /* Tengah dan beri jarak atas */
+}
+
+.zoomable-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+}
+@media (max-width: 600px) {
+  .image-wrapper {
+    max-width: 90%;
+  }
+}
+.fade-content.visible {
+  animation: fadeInSection 0.8s ease;
+}
+
+@keyframes fadeInSection {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body class="w3-black">
 <!-- Navbar untuk desktop -->
 <div class="w3-top navbar-desktop">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="index.html" class="w3-bar-item w3-button">HOME</a>
-    <a href="about.html" class="w3-bar-item w3-button">ABOUT</a>
+    <a href="index.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">
+  <i class="fas fa-house" style="margin-right: 6px;"></i> HOME
+</a>
+<a href="about.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">
+  <i class="fas fa-user" style="margin-right: 6px;"></i> ABOUT
+</a>
 
     <!-- RUMUS -->
     <div class="w3-dropdown-hover">
-      <button class="w3-button">FORMULA ▾</button>
+      <button class="w3-button">
+  <i class="bi bi-calculator"></i> FORMULA <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
+</button>
       <div class="w3-dropdown-content w3-bar-block w3-card-4 scrollable-dropdown">
         <a href="Starch Consumption.html" class="w3-bar-item w3-button">STARCH CONSUMPTION</a>
         <a href="pemakaian enzyme.html" class="w3-bar-item w3-button">FLOW ENZYME</a>
@@ -421,14 +499,21 @@ h2 {
 
     <!-- DOKUMEN -->
     <div class="w3-dropdown-hover">
-      <button class="w3-button">DOCUMENT ▾</button>
+      <button class="w3-button">
+  <i class="fas fa-folder-open" style="margin-right: 6px;"></i> DOCUMENT <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
+</button>
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
         <!-- Rutinitas Harian di atas -->
-        <a href="Rutinitas Harian.html" class="w3-bar-item w3-button">Rutinitas Harian</a>
+        <a href="Rutinitas Harian.html" class="w3-bar-item w3-button">
+      <i class="fas fa-calendar-day" style="margin-right: 6px;"></i> Rutinitas Harian
+    </a>
 
         <!-- SOP -->
         <div class="dropdown-hover-expand">
-          <a href="#" class="w3-bar-item w3-button">SOP ▾</a>
+          <a href="#" class="w3-bar-item w3-button">
+  <i class="fas fa-file-alt" style="margin-right: 6px;"></i> SOP 
+  <i class="fas fa-caret-right" style="float: right;"></i>
+</a>
           <div class="dropdown-submenu w3-bar-block">
             <a href="https://drive.google.com/file/d/1jSHzPUQt_GeQKSQuNmlJDI_pIQLcI3Io/view?usp=drivesdk" class="w3-bar-item w3-button">DCS</a>
             <a href="https://drive.google.com/file/d/1hKj2Xa4wBXxIDTstsBEEKL-C4x4oBZTr/view?usp=drivesdk" class="w3-bar-item w3-button">Hopper</a>
@@ -438,7 +523,10 @@ h2 {
 
         <!-- Flowsheet -->
         <div class="dropdown-hover-expand">
-          <a href="#" class="w3-bar-item w3-button">Flowsheet ▾</a>
+          <a href="#" class="w3-bar-item w3-button">
+    <i class="fas fa-diagram-project" style="margin-right: 6px;"></i> Flowsheet
+    <i class="fas fa-caret-right" style="float:right;"></i>
+  </a>
           <div class="dropdown-submenu w3-bar-block">
             <a href="DCS-STARCH.html" class="w3-bar-item w3-button">Starch Prep</a>
     <a href="DCS-SP1.html" class="w3-bar-item w3-button">Stock Prep</a>
@@ -448,7 +536,10 @@ h2 {
 
         <!-- Workplace -->
         <div class="dropdown-hover-expand">
-          <a href="#" class="w3-bar-item w3-button">Logsheet ▾</a>
+          <a href="#" class="w3-bar-item w3-button">
+    <i class="fas fa-clipboard-list" style="margin-right: 6px;"></i> Logsheet
+    <i class="fas fa-caret-right" style="float:right;"></i>
+  </a>
   <div class="dropdown-submenu w3-bar-block">
     <a href="https://drive.google.com/file/d/1jdo3XqIGtLpbWShVZwZ87H4lk7rsEyVI/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Starch Prep</a>
     <a href="https://drive.google.com/file/d/1jfZWl2XW_N14y0165srw87HADghynOad/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Final Station</a>
@@ -458,10 +549,28 @@ h2 {
         </div>
       </div>
     </div>
+    
+<div class="w3-dropdown-hover">
+  <button class="w3-button">
+    <i class="bi bi-tools" style="margin-right: 6px;"></i>
+    TECHNICAL <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
+  </button>
+  <div class="w3-dropdown-content w3-bar-block w3-card-4">
+    <a href="equipment.html" class="w3-bar-item w3-button">
+      <i class="bi bi-hammer" style="margin-right: 8px;"></i> Equipment
+    </a>
+    <a href="chemical.html" class="w3-bar-item w3-button">
+      <i class="bi bi-droplet-half" style="margin-right: 8px;"></i> Chemical
+    </a>
+    <a href="quality-control.html" class="w3-bar-item w3-button">
+      <i class="bi bi-graph-up-arrow" style="margin-right: 8px;"></i> Quality Control
+    </a>
+  </div>
+</div>
 
     <!-- KONTAK -->
     <div class="w3-dropdown-hover">
-      <button class="w3-button">CONTACT ▾</button>
+      <button class="w3-button">CONTACT <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i></button>
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
         <a href="https://wa.me/62895410571547" class="w3-bar-item w3-button"  ><i class="fab fa-whatsapp"></i> WhatsApp</a>
         <a href="https://www.facebook.com/arditarizkif/" class="w3-bar-item w3-button"  ><i class="fab fa-facebook"></i> Facebook</a>
@@ -474,11 +583,17 @@ h2 {
 <!-- Navbar untuk mobile -->
 <div class="w3-top navbar-mobile" id="myNavbar">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-small" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
-    <a href="index.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">HOME</a>
-    <a href="about.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">ABOUT</a>
+    <a href="index.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">
+  <i class="fas fa-house" style="margin-right: 6px;"></i> HOME
+</a>
+<a href="about.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">
+  <i class="fas fa-user" style="margin-right: 6px;"></i> ABOUT
+</a>
 
     <div class="w3-dropdown-hover" style="flex: 0 0 auto;">
-      <button class="w3-button">FORMULA ▾</button>
+      <button class="w3-button">
+  <i class="bi bi-calculator"></i> FORMULA <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
+</button>
       <div class="w3-dropdown-content w3-bar-block w3-card-4 scrollable-dropdown">
         <a href="Starch Consumption.html" class="w3-bar-item w3-button">STARCH CONSUMPTION</a>
         <a href="pemakaian enzyme.html" class="w3-bar-item w3-button">FLOW ENZYME</a>
@@ -493,11 +608,18 @@ h2 {
     </div>
 
     <div class="w3-dropdown-hover" style="flex: 0 0 auto;">
-      <button class="w3-button">DOCUMENT ▾</button>
+<button class="w3-button">
+  <i class="fas fa-folder-open" style="margin-right: 6px;"></i> DOCUMENT <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
+</button>
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
         <div class="dropdown-hover-expand">
-        	<a href="Rutinitas Harian.html" class="w3-bar-item w3-button">Rutinitas Harian</a>
-  <a href="#" class="w3-bar-item w3-button">SOP ▾</a>
+        	 <a href="Rutinitas Harian.html" class="w3-bar-item w3-button">
+      <i class="fas fa-calendar-day" style="margin-right: 6px;"></i> Rutinitas Harian
+    </a>
+  <a href="#" class="w3-bar-item w3-button">
+  <i class="fas fa-file-alt" style="margin-right: 6px;"></i> SOP 
+  <i class="fas fa-caret-right" style="float: right;"></i>
+</a>
   <div class="dropdown-submenu w3-bar-block">
     <a href="https://drive.google.com/file/d/1jSHzPUQt_GeQKSQuNmlJDI_pIQLcI3Io/view?usp=drivesdk" class="w3-bar-item w3-button">DCS</a>
     <a href="https://drive.google.com/file/d/1hKj2Xa4wBXxIDTstsBEEKL-C4x4oBZTr/view?usp=drivesdk" class="w3-bar-item w3-button">Hopper</a>
@@ -506,7 +628,10 @@ h2 {
 </div>
 
 <div class="dropdown-hover-expand">
-  <a href="#" class="w3-bar-item w3-button">Flowsheet ▾</a>
+   <a href="#" class="w3-bar-item w3-button">
+    <i class="fas fa-diagram-project" style="margin-right: 6px;"></i> Flowsheet
+    <i class="fas fa-caret-right" style="float:right;"></i>
+  </a>
   <div class="dropdown-submenu w3-bar-block">
     <a href="DCS-STARCH.html" class="w3-bar-item w3-button">Starch Prep</a>
     <a href="DCS-SP1.html" class="w3-bar-item w3-button">Stock Prep</a>
@@ -515,7 +640,10 @@ h2 {
 </div>
 
 <div class="dropdown-hover-expand">
-  <a href="#" class="w3-bar-item w3-button">Logsheet ▾</a>
+   <a href="#" class="w3-bar-item w3-button">
+    <i class="fas fa-clipboard-list" style="margin-right: 6px;"></i> Logsheet
+    <i class="fas fa-caret-right" style="float:right;"></i>
+  </a>
   <div class="dropdown-submenu w3-bar-block">
     <a href="https://drive.google.com/file/d/1jdo3XqIGtLpbWShVZwZ87H4lk7rsEyVI/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Starch Prep</a>
     <a href="https://drive.google.com/file/d/1jfZWl2XW_N14y0165srw87HADghynOad/view?usp=drivesdk" class="w3-bar-item w3-button">DCS Final Station</a>
@@ -525,9 +653,31 @@ h2 {
 </div>
       </div>
     </div>
+    
 <div class="w3-dropdown-hover" style="flex: 0 0 auto;">
-  <button class="w3-button">CONTACT▾</button>
+  <button class="w3-button">
+    <i class="bi bi-tools" style="margin-right: 6px;"></i>
+    TECHNICAL <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
+  </button>
   <div class="w3-dropdown-content w3-bar-block w3-card-4" style="right: 0; left: auto; min-width: 180px;">
+    <a href="equipment.html" class="w3-bar-item w3-button">
+      <i class="bi bi-hammer" style="margin-right: 6px;"></i> Equipment
+    </a>
+    <a href="chemical.html" class="w3-bar-item w3-button">
+      <i class="bi bi-droplet-half" style="margin-right: 6px;"></i> Chemical
+    </a>
+    <a href="quality-control.html" class="w3-bar-item w3-button">
+      <i class="bi bi-graph-up-arrow" style="margin-right: 6px;"></i> Quality Control
+    </a>
+  </div>
+</div>
+
+<div class="w3-dropdown-hover" style="flex: 0 0 auto;">
+  <button class="w3-button">
+    <i class="fas fa-address-book" style="margin-right: 6px;"></i>
+    CONTACT <i class="fas fa-caret-down" style="margin-left: 4px;"></i>
+  </button>
+  <div class="w3-dropdown-content w3-bar-block w3-card-4" style="right: 0; left: auto; min-width: 200px;">
 <a href="https://wa.me/62895410571547" class="w3-bar-item w3-button"  ><i class="fab fa-whatsapp"></i> WhatsApp</a>
         <a href="https://www.facebook.com/arditarizkif/" class="w3-bar-item w3-button"  ><i class="fab fa-facebook"></i> Facebook</a>
         <a href="https://www.instagram.com/mcardhy/" class="w3-bar-item w3-button"  ><i class="fab fa-instagram"></i> Instagram</a>
@@ -541,16 +691,20 @@ h2 {
 <!-- Page Content -->
 <div class="w3-content w3-justify w3-text-grey w3-padding-16" id="starch">
   <h2 class="w3-text-light-grey" id="starch-title" style="cursor: pointer;">
-  Starch Preparation
-  <i id="starch-icon" class="fa-solid fa-plus" style="margin-left:8px; font-size: 16px;"></i>
+  <i class="fa fa-flask" style="margin-right:8px;"></i> 
+  Persiapan Starch: Fondasi Awal Produksi Kertas Berkualitas
+  <i class="fa-solid fa-chevron-down toggle-icon" id="starch-icon" style="margin-left:8px; font-size: 19px;"></i>
 </h2>
-  <div id="starch-content" class="fade-content" style="display: none;">
+<p style="font-size: 0.5em; color: #ccc;">Klik judul untuk melihat detail informasinya</p>
+  <div id="starch-content" class="fade-content visible" style="display: block;">
   <div style="background-color: rgba(0,0,0,0.6); padding: 20px; border-radius: 12px; color: #fff;">
   	<!-- Box Foto -->
-<div style="margin-top: 24px;">
+<div class="image-wrapper">
   <img src="pagecontent.jpg" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
 </div>
-    <p>Starch Preparation adalah tahap penting dalam proses produksi kertas. Tujuannya untuk menyiapkan campuran starch (pati), air, dan bahan kimia tambahan seperti alum dan enzim agar memiliki konsistensi dan kualitas sesuai standar sebelum digunakan dalam proses utama.</p>
+    <p>
+  Tahap persiapan starch adalah proses awal yang menentukan keberhasilan pembuatan kertas. Di sini, campuran antara pati, air, dan bahan kimia seperti alum serta enzim disesuaikan secara presisi untuk menghasilkan larutan berkualitas tinggi. Konsistensi, solid content, dan kestabilan formula harus terkontrol sebelum masuk ke tahapan produksi utama.
+</p>
     
     <h3 style="color: #aad8ff;">Alur Proses:</h3>
     <ul style="margin-left: 20px;">
@@ -577,22 +731,25 @@ h2 {
 
   <!-- About Section -->
 <div class="w3-content w3-justify w3-text-grey w3-padding-16" id="about-section">
-    <h2 class="w3-text-light-grey" id="whatit-title" style="cursor: pointer;">
-  Starch dalam Industri Kertas
-  <i id="whatit-icon" class="fa-solid fa-plus" style="margin-left:8px; font-size: 16px;"></i>
+<h2 class="w3-text-light-grey" id="whatit-title" style="cursor: pointer;">
+  <i class="fa fa-industry" aria-hidden="true" style="margin-right:8px;"></i>
+  Peran Strategis Pati dalam Proses Produksi Kertas
+  <i id="whatit-icon" class="fa-solid fa-chevron-down toggle-icon" style="margin-left:8px; font-size: 19px;"></i>
 </h2>
+	<p style="font-size: 0.5em; color: #ccc;">Klik judul untuk melihat detail informasinya</p>
 <div id="whatit-content" class="fade-content" style="display: none;">
   <div style="background-color: rgba(0, 0, 0, 0.6); padding: 20px; border-radius: 12px; color: #fff;">
     <figure style="margin-bottom: 20px;">
   <!-- Box Foto -->
-<div style="margin-top: 24px;">
+<div class="image-wrapper">
   <img src="sym-sizer.webp" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
 </div>
   <figcaption style="margin-top: 8px; font-size: 0.95em; color: #555;">
     Valmet SYM Sizer, mesin size press modern untuk perlakuan permukaan kertas dengan pati guna meningkatkan kekuatan, kelicinan, dan kualitas cetak.</figcaption>
 </figure>
-    <p>Proses pembuatan kertas terdiri dari beberapa langkah utama: persiapan bahan baku, pembentukan lembaran, pengepresan, pengeringan, dan penyelesaian permukaan. Pati adalah komponen penting dalam banyak jenis kertas. Konsumsi pati berdasarkan berat dalam proses pembuatan kertas dan pengolahan kertas menduduki peringkat ketiga setelah serat selulosa dan pigmen mineral.</p>
-    <p>Pati digunakan sebagai flocculant dan bahan penahan, agen pengikat, agen pelapis permukaan, pengikat untuk pelapisan, dan lem pada kertas bergelombang, grade laminasi, dan produk lainnya. Sumber utama pati adalah jagung, kentang, jagung lilin, gandum, dan tapioka.</p>
+    <p>
+  Pati bukan hanya bahan tambahan; ia merupakan komponen vital dalam meningkatkan kekuatan, daya rekat, dan kemampuan cetak kertas. Dalam industri modern, penggunaan starch menempati posisi ketiga terbanyak setelah selulosa dan pigmen. Dari pengikat serat hingga pelapis permukaan, aplikasi pati sangat luas dan menentukan kualitas akhir produk kertas.
+</p>
  <p>Kamu bisa melihat flowsheet DCS melalui tautan berikut:</p>
    <div class="card-link">
     <a href="flowsheet.html"  >
@@ -606,22 +763,23 @@ h2 {
   
   <!-- Portfolio Section -->
 <div class="section scroll-section w3-padding-16 w3-content" id="photos">
-<h2 class="w3-text-light-grey" id="photos-title">
-  Kontrol Proses
-  <i id="photos-icon" class="fa-solid fa-plus" style="margin-left:8px; font-size: 16px;"></i>
+<h2 class="w3-text-light-grey" id="photos-title" style="cursor: pointer;">
+  <i class="fa fa-sliders" aria-hidden="true" style="margin-right:8px;"></i>
+  Sistem Kontrol & Pemantauan Proses Starch Secara Real-Time
+  <i id="photos-icon" class="fa-solid fa-chevron-down toggle-icon" style="margin-left:8px; font-size: 19px;"></i>
 </h2>
+	<p style="font-size: 0.5em; color: #ccc;">Klik judul untuk melihat detail informasinya</p>
+<p>
 <div id="photos-content" class="fade-content" style="display: none;">
   <div style="background-color: rgba(0, 0, 0, 0.6); padding: 20px; border-radius: 12px; color: #fff;">
   <!-- Box Foto -->
-<div style="margin-top: 24px;">
+<div class="image-wrapper">
   <img src="endpage.jpg" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
 </div>
   <p>
-      Dalam praktiknya, Starch Preparation memerlukan pemantauan berkelanjutan melalui berbagai alat ukur seperti Viscometer, Atago Refractometer untuk solid content, serta sistem DCS untuk pengawasan dan pengendalian otomatis. Operator bertugas mencatat data secara rutin, mengamati tren, dan melakukan penyesuaian terhadap aliran atau dosis bahan kimia sesuai kondisi di lapangan.
-    </p>
-    <p>
-      Proses ini tidak hanya mengandalkan pengamatan, tetapi juga perhitungan yang akurat dan cepat. Karena itu, di bagian selanjutnya kamu akan menemukan kumpulan rumus penting yang biasa digunakan untuk mendukung pengambilan keputusan teknis sehari-hari.
-    </p>
+  Monitoring proses dilakukan menggunakan alat seperti Viscometer, Atago Refractometer, dan sistem DCS. Operator bertugas mencatat tren, mengevaluasi konsistensi, dan melakukan penyesuaian terhadap aliran atau dosis bahan sesuai kondisi aktual. Proses ini menggabungkan observasi lapangan dengan analisis data untuk menjamin performa optimal.
+</p>
+
     <p>Kamu bisa melihat standar operasional prosedur pekerjaan melalui tautan berikut:</p>
     <div class="card-link">
     <a href="https://drive.google.com/drive/folders/1kgCD6YJzX__dqGRVOOHqc3bS1E4CCgkN"  >
@@ -638,17 +796,25 @@ h2 {
   <img class="modal-content" id="modalImage">
 </div>
 <div class="section scroll-section w3-content w3-justify w3-text-grey w3-padding-16" id="formula">
-  <h2 class="w3-text-light-grey" id="formula-title" style="cursor: pointer;">
-  Starch Formula
-  <i id="formula-icon" class="fa-solid fa-plus" style="margin-left:8px; font-size: 16px;"></i>
+<h2 class="w3-text-light-grey" id="formula-title" style="cursor: pointer;">
+  <i class="fa fa-calculator" aria-hidden="true" style="margin-right:8px;"></i>
+  Kalkulator Interaktif: Rumus Penting untuk Perhitungan Starch
+  <i id="formula-icon" class="fa-solid fa-chevron-down toggle-icon" style="margin-left:8px; font-size: 19px;"></i>
 </h2>
+	<p style="font-size: 0.5em; color: #ccc;">Klik judul untuk melihat detail informasinya</p>
   <hr style="display:none">
-
 <div id="formula-content" class="fade-content" style="display: none;">
   <div class="formula-box">
+  	<p>
+  Gunakan alat bantu perhitungan ini untuk mendapatkan nilai-nilai penting seperti solid content, flow rate, retention time, dan dosis kimia secara cepat dan akurat. Formula ini dirancang khusus untuk kebutuhan teknis di lapangan dan membantu pengambilan keputusan dalam waktu nyata.
+</p>
+
     <div class="formula-item">
-<h3 class="formula-toggle">1. Rumus Solid</h3>
+<h3 class="formula-toggle">1. Rumus Solid &nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung persentase solid dalam campuran starch dan air untuk mengetahui konsentrasi larutan.</p>
 <pre><code>Solid = Starch / (Starch + Water)</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
@@ -661,8 +827,11 @@ h2 {
 </div>
 
 <div class="formula-item">
-  <h3 class="formula-toggle">2. Flow Starch Elevator</h3>
+  <h3 class="formula-toggle">2. Flow Starch Elevator &nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
   <div class="formula-content">
+  	<p class="formula-desc">Digunakan untuk memperkirakan debit aliran starch berdasarkan nilai solid dan flow air.</p>
     <pre><code>Flow = [Solid × Flow Water / (1 - Solid)] × 1.1</code></pre>
     <div class="example-box">
       <strong>Masukkan nilai:</strong><br>
@@ -675,8 +844,11 @@ h2 {
 </div>
 
 <div class="formula-item">
-<h3 class="formula-toggle">3. Menghitung Flow</h3>
+<h3 class="formula-toggle">3. Menghitung Flow&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung debit cairan dalam tangki berdasarkan perubahan level dan durasi waktu.</p>
 <pre><code>Flow = ((Level Awal - Level Akhir) × Volume) / (Waktu Akhir - Waktu Awal)</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
@@ -692,8 +864,11 @@ h2 {
 </div>
 
 <div class="formula-item">
-  <h3 class="formula-toggle">4. Retention Time</h3>
+  <h3 class="formula-toggle">4. Retention Time&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
   <div class="formula-content">
+  	<p class="formula-desc">Menentukan waktu retensi larutan dalam tangki reaksi berdasarkan volume dan laju aliran.</p>
     <pre><code>Retention Time (menit) = (Volume × Level%) / (Flow / 60)</code></pre>
     <div class="example-box">
       <strong>Masukkan nilai:</strong><br>
@@ -706,8 +881,11 @@ h2 {
 </div>
 
 <div class="formula-item">
-<h3 class="formula-toggle">5. Flow Waterglass</h3>
+<h3 class="formula-toggle">5. Flow Waterglass&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung kebutuhan flow waterglass sesuai dengan konsentrasi dan dosis yang diinginkan.</p>
 <pre><code>Flow = Flow Storage (m3/h) x %Solid Storage x %Dosis / 14</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
@@ -722,8 +900,11 @@ h2 {
 
 
 <div class="formula-item">
-  <h3 class="formula-toggle">6. Rumus Pengenceran</h3>
+  <h3 class="formula-toggle">6. Rumus Pengenceran&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
   <div class="formula-content">
+  	<p class="formula-desc">Menghitung berapa banyak air yang dibutuhkan untuk mengencerkan larutan ke target solid tertentu.</p>
     <pre><code>Flow Air (m³/h) = [(Flow × (%Solid - %Target)) / %Target]</code></pre>
     <div class="example-box">
       <strong>Masukkan nilai:</strong><br>
@@ -737,8 +918,11 @@ h2 {
 </div>
 
 <div class="formula-item">
-<h3 class="formula-toggle">7. Rumus Pencampuran</h3>
+<h3 class="formula-toggle">7. Rumus Pencampuran&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung solid akhir dari dua larutan berbeda yang dicampurkan dengan volume dan solid masing-masing.</p>
 <pre><code>Solid Campuran = (Vol1 x Solid1 + Vol2 x Solid2) / (Vol1 + Vol2)</code></pre>
 <div class="example-box">
   <strong>Campuran 1 (Tangki Final):</strong><br>
@@ -758,8 +942,11 @@ h2 {
 </div>
 
 <div class="formula-item">
-<h3 class="formula-toggle">8. Solid NaOH</h3>
+<h3 class="formula-toggle">8. Solid NaOH&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung persentase solid larutan NaOH setelah dicampur dengan air.</p>
 <pre><code>Solid = Total NaOH x 48% / (Total NaOH + Total Water)</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
@@ -772,8 +959,11 @@ h2 {
 </div>
 
 <div class="formula-item">
-  <h3 class="formula-toggle">9. Konversi Flow</h3>
+  <h3 class="formula-toggle">9. Konversi Flow&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
   <div class="formula-content">
+  	<p class="formula-desc">Melakukan konversi satuan antara liter/menit dan meter kubik/jam sesuai kebutuhan perhitungan.</p>
     <pre><code>l/min → m³/h: Flow × 60 ÷ 1000  
 m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
     <div class="example-box">
@@ -793,8 +983,11 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
 
 
 <div class="formula-item">
-<h3 class="formula-toggle">10. PPM Enzyme</h3>
+<h3 class="formula-toggle">10. PPM Enzyme&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung konsentrasi enzim dalam aliran starch menggunakan satuan PPM (part per million).</p>
 <pre><code>PPM = (Flow Enzyme / Flow Starch) x 1000</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
@@ -807,8 +1000,11 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
 </div>
 
 <div class="formula-item">
-  <h3 class="formula-toggle">11. Starch Bonedry Flow</h3>
+  <h3 class="formula-toggle">11. Starch Bonedry Flow&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
   <div class="formula-content">
+  	<p class="formula-desc">Menghitung aliran bonedry starch dari dua sumber aliran berdasarkan solid, flow, dan densitas.</p>
     <pre><code>Flow (kg/h) = [(SolidTop × FlowTop) + (SolidBottom × FlowBottom)] × Density × 10</code></pre>
     <div class="example-box">
       <strong>Masukkan nilai:</strong><br>
@@ -826,8 +1022,11 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
 
 
 <div class="formula-item">
-<h3 class="formula-toggle">12. Starch Consumption</h3>
+<h3 class="formula-toggle">12. Starch Consumption&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung konsumsi starch per ton kertas berdasarkan laju produksi dan flow bonedry.</p>
 <pre><code>Consumption = Bonedry Flow / Paper Production Rate</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
@@ -840,8 +1039,11 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
 </div>
 
 <div class="formula-item">
-<h3 class="formula-toggle">13. Density Starch (%)</h3>
+<h3 class="formula-toggle">13. Density Starch (%)&nbsp;
+  <i class="fa fa-chevron-right toggle-icon"></i>
+</h3>
 <div class="formula-content">
+	<p class="formula-desc">Menghitung densitas larutan starch berdasarkan nilai solid menggunakan pendekatan umum industri.</p>
 <pre><code>Density = 100 / (100 - solid + (solid / 1.65))</code></pre>
 <div class="example-box">
 <strong>Masukkan nilai:</strong><br>
@@ -851,9 +1053,30 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
 </div>
 </div>
 </div>
+<div style="text-align:center; margin-top: 24px;">
+  <a href="#formula-title" id="close-all-formulas" style="color:#aad8ff; cursor:pointer;">
+  ↑ Kembali ke daftar rumus
+</a>
+</div>
  </div>
 </div>
  </div>
+<div style="margin-top: 48px; padding: 24px; background-color: rgba(255, 255, 255, 0.05); border-radius: 12px; text-align: center; color: #aad8ff; font-size: 1.05rem; line-height: 1.6;">
+  <p style="margin-bottom: 16px;">
+    Punya pertanyaan seputar pengolahan starch, ingin diskusi formula baru, atau punya saran fitur?
+  </p>
+  <a href="https://wa.me/62895410571547" target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 6px;">
+    <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+  </a>
+  <a href="about.html" style="display: inline-block; background-color: #2196F3; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 6px;">
+    Tentang Saya
+  </a>
+</div>
+<div style="text-align: center; margin-top: 32px;">
+  <a href="#starch" style="color: #aad8ff; font-size: 1.2rem; text-decoration: none;">
+    ↑ Kembali ke atas
+  </a>
+</div>
 
 <!-- END PAGE CONTENT -->
 </div>
@@ -987,6 +1210,7 @@ window.addEventListener("scroll", function () {
       const isVisible = contentEl.offsetParent !== null;
       iconEl.classList.toggle('fa-plus', !isVisible);
       iconEl.classList.toggle('fa-minus', isVisible);
+      iconEl.classList.toggle('rotate');
     };
 
     // Tambahkan event click jika kamu pakai toggle manual di <h2>
@@ -1297,6 +1521,42 @@ document.addEventListener("DOMContentLoaded", function () {
         content.classList.add("hidden");
       }
     });
+  });
+});
+document.querySelectorAll('.formula-toggle').forEach((title) => {
+  const container = title.closest('.formula-item');
+  const content = container.querySelector('.formula-content');
+  const icon = title.querySelector('.toggle-icon');
+
+  title.addEventListener('click', () => {
+    const isVisible = content.classList.contains('visible');
+
+    if (isVisible) {
+  content.classList.remove('visible');
+  icon?.classList.remove('rotate');
+  setTimeout(() => {
+    content.style.display = 'none';
+  }, 300); // tunggu animasi selesai
+      if (icon) icon.classList.remove('rotate');
+    } else {
+      content.style.display = 'block';
+      setTimeout(() => content.classList.add('visible'), 10);
+      if (icon) icon.classList.add('rotate');
+    }
+  });
+});
+document.getElementById("close-all-formulas").addEventListener("click", () => {
+  document.querySelectorAll(".formula-item").forEach(item => {
+    const content = item.querySelector(".formula-content");
+    const icon = item.querySelector(".toggle-icon");
+
+    if (content && content.classList.contains("visible")) {
+      content.classList.remove("visible");
+      icon?.classList.remove("rotate");
+      setTimeout(() => {
+        content.style.display = 'none';
+      }, 300);
+    }
   });
 });
 </script>
