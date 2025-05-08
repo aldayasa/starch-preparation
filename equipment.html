@@ -82,22 +82,23 @@
       <!-- Daftar alat -->
       <script>
         const equipmentList = [
-          ["Tangki Hopper", "hopper3.jpg", "Tempat penampungan awal starch dari jumbo bag."],
-          ["Screw & Elevator", "screw_elevator.jpg", "Mengangkat starch dari hopper ke tahap berikutnya secara otomatis."],
-          ["Pompa Enzyme", "monitoring7.jpg", "Digunakan untuk dosing enzim ke tangki cooker."],
-          ["Tangki Cooker", "cooker_tank.jpg", "Tempat untuk proses mixing starch, air, dam enzyme"],
-          ["Filter 6813 & 6814", "filter6813.jpg", "Filter kasar untuk menyaring kotoran sebelum masuk jet cooker."],
-          ["Jet Cooker 1", "jetcooker1.jpg", "Memasak starch untuk gelatinisasi pati dan pengaktifan enzyme."],
-          ["Tangki Reaction", "reaction_tank.jpg", "Tempat reaksi antara starch dan enzyme untuk meningkatkan kelarutan."],
-          ["Jet Cooker 2", "jetcooker2.jpg", "Pemanasan starch dengan steam dengan suhu tinggi guna menonaktifkan kinerja enzyme."],
-          ["Tangki Storage", "storage_tank.jpg", "Tempat penyimpanan sementara starch hasil olahan."],
-          ["Pressure Filter", "pressure_filter.jpg", "Menyaring starch dengan tekanan untuk menghilangkan kontaminan halus."],
-          ["Final Tank 1 (Bottom)", "final1.jpg", "Tangki akhir bagian bawah untuk menampung starch siap pakai."],
-          ["Final Tank 2 (Top)", "final2.jpg", "Tangki atas yang mengatur distribusi ke final tank applicator top sizer."],
-          ["Vibrating Screen VB1B, VB2B", "vb1b.jpg", "Filter getar di jalur bawah, penyaring kotoran starch sebelum masuk final tank."],
-          ["Vibrating Screen VB1T, VB2T", "vb1t.jpg", "Filter getar di jalur atas, sebelum masuk final tank."],
-          ["Pompa Aluminium Sulfat", "alum_pump.jpg", "Menampung larutan alum untuk keperluan dilusi surface sizing agent."],
-          ["Tangki Soda", "soda_tank.jpg", "Digunakan untuk cleaning wire dan felt jika dibutuhkan"],
+          [
+  ["Tangki Hopper", "hopper3.jpg", "Unit penerima awal starch dari jumbo bag yang berfungsi sebagai buffer sebelum proses transfer mekanis."],
+  ["Screw & Elevator", "screw_elevator.jpg", "Sistem transportasi mekanis untuk memindahkan starch secara vertikal dari hopper menuju unit proses berikutnya."],
+  ["Pompa Enzyme", "monitoring7.jpg", "Pompa dosing untuk injeksi enzim secara presisi ke dalam tangki cooker sesuai kebutuhan reaksi."],
+  ["Tangki Cooker", "cooker_tank.jpg", "Vessel pencampur yang menghomogenkan larutan starch, air, dan enzim sebelum tahap pemanasan intensif."],
+  ["Filter 6813 & 6814", "filter6813.jpg", "Sistem filtrasi awal untuk mengeliminasi partikel kasar sebelum larutan masuk ke jet cooker."],
+  ["Jet Cooker 1", "jetcooker1.jpg", "Perangkat pemanas bertekanan tinggi untuk gelatinisasi starch dan aktivasi enzim melalui injeksi steam langsung."],
+  ["Tangki Reaction", "reaction_tank.jpg", "Tangki reaksi untuk proses hidrolisis parsial starch oleh enzim guna meningkatkan kelarutan dan viskositas."],
+  ["Jet Cooker 2", "jetcooker2.jpg", "Jet cooker tahap akhir untuk peningkatan suhu cepat dalam rangka deaktivasi enzim."],
+  ["Tangki Storage", "storage_tank.jpg", "Tangki penampung sementara untuk starch hasil proses sebelum tahap filtrasi lanjutan atau distribusi akhir."],
+  ["Pressure Filter", "pressure_filter.jpg", "Unit filtrasi bertekanan tertutup untuk memisahkan partikel mikro dari larutan starch."],
+  ["Final Tank 1 (Bottom)", "final1.jpg", "Tangki akhir bagian bawah sebagai reservoir utama untuk starch siap aplikasi ke sistem sizing."],
+  ["Final Tank 2 (Top)", "final2.jpg", "Tangki atas yang mengatur aliran distribusi starch ke top sizer secara terkontrol."],
+  ["Vibrating Screen VB1B, VB2B", "vb1b.jpg", "Unit penyaring getar jalur bawah untuk menghilangkan impuritas sebelum masuk ke final tank bawah."],
+  ["Vibrating Screen VB1T, VB2T", "vb1t.jpg", "Unit penyaring getar jalur atas untuk memastikan kemurnian starch sebelum masuk ke final tank atas."]
+          ["Pompa Aluminium Sulfat", "alum_pump.jpg", "Memompa larutan alum untuk mendukung proses pelarutan dan aktivasi surface sizing agent pada sistem surface sizing."],
+          ["Tangki NaOH", "soda_tank.jpg", "Tempat penyimpanan NaOH yang disiapkan untuk keperluan pembersihan wire dan felt apabila diperlukan."],
           ["Tangki Wet-End Starch", "wetend_tank.jpg", "Tangki khusus supply starch ke wet-end paper machine jika dibutuhkan."]
         ];document.write(equipmentList.map(e => `
       <div class="col">
