@@ -181,7 +181,7 @@ h2 {
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4); /* Semi-gelap untuk kontras teks */
+    background-color: rgba(0,0,0,0.7); /* Semi-gelap untuk kontras teks */
     z-index: -1;
     animation: fadeIn 2s ease-in-out;
     backdrop-filter: blur(2px); /* Efek blur */
@@ -195,7 +195,7 @@ h2 {
   }
 /* Untuk dropdown agar melayang */
 .w3-dropdown-content {
-  background-color: rgba(0, 0, 0, 0.8) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
   border-radius: 6px;
 }
 
@@ -467,6 +467,152 @@ h2 {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 50px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  transition: opacity 0.5s;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  font-size: 30px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.modal img {
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 20px; right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+.status-panel {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  margin-top: 16px;
+}
+
+.status-title {
+  font-size: 1.3em;
+  color: #aad8ff;
+  margin-bottom: 12px;
+}
+
+.status-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.status-table th, .status-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+.status-ok {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.status-warning {
+  color: #FFC107;
+  font-weight: bold;
+}
+
+.status-danger {
+  color: #F44336;
+  font-weight: bold;
+}
+.tagline-box {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.tagline-item {
+  background: linear-gradient(to right, #1a1a1a, #2a2a2a);
+  color: #aad8ff;
+  border: 1px solid #4caf50;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.tagline-item i {
+  font-size: 1.2em;
+  color: #4caf50;
+}
+
+.tagline-item:hover {
+  transform: translateY(-2px);
+  background-color: #333;
+}
 </style>
 </head>
 <body class="w3-black">
@@ -511,7 +657,7 @@ h2 {
         <!-- SOP -->
         <div class="dropdown-hover-expand">
           <a href="#" class="w3-bar-item w3-button">
-  <i class="fas fa-file-alt" style="margin-right: 6px;"></i> SOP 
+  <i class="fas fa-file-alt" style="margin-right: 6px;"></i> Standar Operasional &nbsp;
   <i class="fas fa-caret-right" style="float: right;"></i>
 </a>
           <div class="dropdown-submenu w3-bar-block">
@@ -524,13 +670,13 @@ h2 {
         <!-- Flowsheet -->
         <div class="dropdown-hover-expand">
           <a href="#" class="w3-bar-item w3-button">
-    <i class="fas fa-diagram-project" style="margin-right: 6px;"></i> Flowsheet
+    <i class="fas fa-diagram-project" style="margin-right: 6px;"></i> Alur Proses Starch
     <i class="fas fa-caret-right" style="float:right;"></i>
   </a>
           <div class="dropdown-submenu w3-bar-block">
-            <a href="DCS-STARCH.html" class="w3-bar-item w3-button">Starch Prep</a>
-    <a href="DCS-SP1.html" class="w3-bar-item w3-button">Stock Prep</a>
-    <a href="DCS-PM1.html" class="w3-bar-item w3-button">Paper Machine 1</a>
+            <a href="starch-mixing.html" class="w3-bar-item w3-button">Starch Mixing</a>
+    <a href="starch-reaction.html" class="w3-bar-item w3-button">Starch Reaction</a>
+    <a href="starch-application.html" class="w3-bar-item w3-button">Starch Application</a>
           </div>
         </div>
 
@@ -607,17 +753,18 @@ h2 {
       </div>
     </div>
 
-    <div class="w3-dropdown-hover" style="flex: 0 0 auto;">
-<button class="w3-button">
-  <i class="fas fa-folder-open" style="margin-right: 6px;"></i> DOCUMENT <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
-</button>
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <div class="dropdown-hover-expand">
+<div class="w3-dropdown-hover document-dropdown" style="flex: 0 0 auto;">
+  <button class="w3-button">
+    <i class="fas fa-folder-open" style="margin-right: 6px;"></i> DOCUMENT
+    <i class="fas fa-caret-down" style="margin-left: 4px;"></i>
+  </button>
+  <div class="w3-dropdown-content w3-bar-block w3-card-4" style="right: 0; left: auto; min-width: 200px;">
+    <div class="dropdown-hover-expand">
         	 <a href="Rutinitas Harian.html" class="w3-bar-item w3-button">
       <i class="fas fa-calendar-day" style="margin-right: 6px;"></i> Rutinitas Harian
     </a>
   <a href="#" class="w3-bar-item w3-button">
-  <i class="fas fa-file-alt" style="margin-right: 6px;"></i> SOP 
+  <i class="fas fa-file-alt" style="margin-right: 6px;"></i> Standar Operasional &nbsp;
   <i class="fas fa-caret-right" style="float: right;"></i>
 </a>
   <div class="dropdown-submenu w3-bar-block">
@@ -629,13 +776,13 @@ h2 {
 
 <div class="dropdown-hover-expand">
    <a href="#" class="w3-bar-item w3-button">
-    <i class="fas fa-diagram-project" style="margin-right: 6px;"></i> Flowsheet
+    <i class="fas fa-diagram-project" style="margin-right: 6px;"></i> Alur Proses Starch
     <i class="fas fa-caret-right" style="float:right;"></i>
   </a>
   <div class="dropdown-submenu w3-bar-block">
-    <a href="DCS-STARCH.html" class="w3-bar-item w3-button">Starch Prep</a>
-    <a href="DCS-SP1.html" class="w3-bar-item w3-button">Stock Prep</a>
-    <a href="DCS-PM1.html" class="w3-bar-item w3-button">Paper Machine 1</a>
+    <a href="starch-mixing.html" class="w3-bar-item w3-button">Starch Mixing</a>
+    <a href="starch-reaction.html" class="w3-bar-item w3-button">Starch Reaction</a>
+    <a href="starch-application.html" class="w3-bar-item w3-button">Starch Application</a>
   </div>
 </div>
 
@@ -699,9 +846,31 @@ h2 {
   <div id="starch-content" class="fade-content visible" style="display: block;">
   <div style="background-color: rgba(0,0,0,0.6); padding: 20px; border-radius: 12px; color: #fff;">
   	<!-- Box Foto -->
-<div class="image-wrapper">
-  <img src="pagecontent.jpg" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
+<div class="slider-container">
+  <div class="slides" id="slideGallery">
+    <!-- Duplikat terakhir (untuk loop) -->
+    <div class="slide"><img src="hopper3.jpg" alt="Process 3" onclick="openModal(this)" /></div>
+
+    <!-- Asli -->
+    <div class="slide"><img src="monitoring1.jpg" alt="Starch Process" onclick="openModal(this)" /></div>
+    <div class="slide"><img src="monitoring3.jpg" alt="Process 2" onclick="openModal(this)" /></div>
+    <div class="slide"><img src="monitoring6.jpg" alt="Process 3" onclick="openModal(this)" /></div>
+    <div class="slide"><img src="hopper3.jpg" alt="Process 4" onclick="openModal(this)" /></div>
+
+    <!-- Duplikat pertama (untuk loop) -->
+    <div class="slide"><img src="monitoring1.jpg" alt="Starch Process" onclick="openModal(this)" /></div>
+  </div>
+
+  <button class="nav prev" onclick="moveSlide(-1)">&#10094;</button>
+  <button class="nav next" onclick="moveSlide(1)">&#10095;</button>
 </div>
+
+<!-- Modal -->
+<div id="imageModal" class="modal hidden">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modalImage" />
+</div>
+
     <p>
   Tahap persiapan starch adalah proses awal yang menentukan keberhasilan pembuatan kertas. Di sini, campuran antara pati, air, dan bahan kimia seperti alum serta enzim disesuaikan secara presisi untuk menghasilkan larutan berkualitas tinggi. Konsistensi, solid content, dan kestabilan formula harus terkontrol sebelum masuk ke tahapan produksi utama.
 </p>
@@ -714,12 +883,12 @@ h2 {
       <li>Distribusi ke tangki supply</li>
     </ul>
 
-    <p>Kamu bisa melihat aktivitas pekerjaan harian lapangan melalui tautan berikut:</p>
+    <p>Klik tautan dibawah untuk melihat lebih lengkap peralatan utama dalam proses persiapan starch.
+</p>
     <div style="display: flex; justify-content: center; margin-top: 16px;">
-  <div class="card-link">
-  	
-    <a href="Rutinitas Harian.html">
-      <i class="fas fa-images"></i> Rutinitas Harian
+  <div class="card-link">	
+    <a href="equipment.html">
+      <i class="bi-gear"></i> Equipment
     </a>
   </div>
 </div>
@@ -750,14 +919,14 @@ h2 {
     <p>
   Pati bukan hanya bahan tambahan; ia merupakan komponen vital dalam meningkatkan kekuatan, daya rekat, dan kemampuan cetak kertas. Dalam industri modern, penggunaan starch menempati posisi ketiga terbanyak setelah selulosa dan pigmen. Dari pengikat serat hingga pelapis permukaan, aplikasi pati sangat luas dan menentukan kualitas akhir produk kertas.
 </p>
- <p>Kamu bisa melihat flowsheet DCS melalui tautan berikut:</p>
-   <div class="card-link">
-    <a href="flowsheet.html"  >
-      <i class="fas fa-images"></i> Flowsheet 
-    <div style="display: flex; justify-content: center; margin-top: 16px;">
+ <p>Klik tautan di bawah untuk melihat daftar bahan kimia yang digunakan dalam persiapan starch, beserta fungsi dan aplikasinya.</p>
+   <div style="display: flex; justify-content: center; margin-top: 16px;">
+  <div class="card-link">	
+    <a href="chemical.html">
+      <i class="bi-droplet"></i> Chemical
     </a>
-    </div>
-    </div>
+  </div>
+</div>
   </div>
 </div>
   
@@ -773,27 +942,54 @@ h2 {
 <div id="photos-content" class="fade-content" style="display: none;">
   <div style="background-color: rgba(0, 0, 0, 0.6); padding: 20px; border-radius: 12px; color: #fff;">
   <!-- Box Foto -->
-<div class="image-wrapper">
-  <img src="endpage.jpg" alt="Starch Process" class="zoomable-image" onclick="openModal(this)">
+<!-- Panel Parameter Proses -->
+<div class="status-panel">
+  <h3 class="status-title">Status Pemantauan Proses</h3>
+  <table class="status-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Nilai</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Temp. Tangki Reaction</td>
+        <td>68°C</td>
+        <td><span class="status-warning">Perlu Penyesuaian</span></td>
+      </tr>
+      <tr>
+        <td>Viscositas</td>
+        <td>5-15 cps</td>
+        <td><span class="status-ok">Stabil</span></td>
+      </tr>
+      <tr>
+        <td>Solid Content</td>
+        <td>28%</td>
+        <td><span class="status-ok">Stabil</span></td>
+      </tr>
+      <tr>
+        <td>pH Starch</td>
+        <td>4.8</td>
+        <td><span class="status-danger">Terlalu Rendah</span></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
   <p>
   Monitoring proses dilakukan menggunakan alat seperti Viscometer, Atago Refractometer, dan sistem DCS. Operator bertugas mencatat tren, mengevaluasi konsistensi, dan melakukan penyesuaian terhadap aliran atau dosis bahan sesuai kondisi aktual. Proses ini menggabungkan observasi lapangan dengan analisis data untuk menjamin performa optimal.
 </p>
 
-    <p>Kamu bisa melihat standar operasional prosedur pekerjaan melalui tautan berikut:</p>
-    <div class="card-link">
-    <a href="https://drive.google.com/drive/folders/1kgCD6YJzX__dqGRVOOHqc3bS1E4CCgkN"  >
-      <i class="fas fa-images"></i> SOP Pekerjaan 
-    <div style="display: flex; justify-content: center; margin-top: 16px;">
+    <p>Klik tautan di bawah untuk melihat dokumentasi visual pengujian mutu kertas, termasuk Ring Crush, Concora, dan lainnya.</p>
+       <div style="display: flex; justify-content: center; margin-top: 16px;">
+  <div class="card-link">	
+    <a href="quality-control.html">
+      <i class="bi bi-clipboard-check"></i> Quality Control 
     </a>
-    </div>
   </div>
 </div>
 </div>
-<!-- Modal Foto -->
-<div id="imageModal" class="image-modal" onclick="closeModal()">
-  <span class="close-btn">&times;</span>
-  <img class="modal-content" id="modalImage">
 </div>
 <div class="section scroll-section w3-content w3-justify w3-text-grey w3-padding-16" id="formula">
 <h2 class="w3-text-light-grey" id="formula-title" style="cursor: pointer;">
@@ -805,6 +1001,11 @@ h2 {
   <hr style="display:none">
 <div id="formula-content" class="fade-content" style="display: none;">
   <div class="formula-box">
+  	<div class="tagline-box">
+  <div class="tagline-item"><i class="bi bi-shield-check"></i> Safety</div>
+  <div class="tagline-item"><i class="bi bi-award"></i> Quality</div>
+  <div class="tagline-item"><i class="bi bi-graph-up-arrow"></i> Quantity</div>
+</div>
   	<p>
   Gunakan alat bantu perhitungan ini untuk mendapatkan nilai-nilai penting seperti solid content, flow rate, retention time, dan dosis kimia secara cepat dan akurat. Formula ini dirancang khusus untuk kebutuhan teknis di lapangan dan membantu pengambilan keputusan dalam waktu nyata.
 </p>
@@ -1071,12 +1272,13 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
   <a href="about.html" style="display: inline-block; background-color: #2196F3; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 6px;">
     Tentang Saya
   </a>
-</div>
-<div style="text-align: center; margin-top: 32px;">
-  <a href="#starch" style="color: #aad8ff; font-size: 1.2rem; text-decoration: none;">
+  <div style="text-align: center; margin-top: 32px;">
+  <a href="#starch" onclick="hideContentSections()" style="color: #aad8ff; font-size: 1.2rem; text-decoration: none;">
     ↑ Kembali ke atas
   </a>
 </div>
+</div>
+
 
 <!-- END PAGE CONTENT -->
 </div>
@@ -1561,17 +1763,93 @@ document.getElementById("close-all-formulas").addEventListener("click", () => {
 });
 </script>
 <script>
+	let currentIndex = 1;
+let isTransitioning = false;
+
+const slides = document.getElementById("slideGallery");
+const slideCount = slides.children.length;
+
+function updateSlidePosition() {
+  const slideWidth = slides.children[0].offsetWidth;
+  slides.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+}
+
+window.addEventListener("resize", updateSlidePosition); // jaga responsif
+
+// Pindah slide
+function moveSlide(step) {
+  if (isTransitioning) return;
+
+  isTransitioning = true;
+  const slideWidth = slides.children[0].offsetWidth;
+
+  currentIndex += step;
+  slides.style.transition = "transform 0.5s ease-in-out";
+  slides.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+
+  slides.addEventListener("transitionend", handleLoop, { once: true });
+}
+
+// Looping logic
+function handleLoop() {
+  const slideWidth = slides.children[0].offsetWidth;
+
+  // Reset jika di duplikat
+  if (currentIndex === 0) {
+    slides.style.transition = "none";
+    currentIndex = slideCount - 2;
+    slides.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+  } else if (currentIndex === slideCount - 1) {
+    slides.style.transition = "none";
+    currentIndex = 1;
+    slides.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+  }
+
+  setTimeout(() => {
+    isTransitioning = false;
+  }, 50); // sedikit delay untuk jaga-jaga
+}
+
+// Modal zoom
 function openModal(img) {
-  var modal = document.getElementById("imageModal");
-  var modalImg = document.getElementById("modalImage");
-  modal.style.display = "block";
-  modalImg.src = img.src;
+  document.getElementById("imageModal").classList.remove("hidden");
+  document.getElementById("modalImage").src = img.src;
 }
 
 function closeModal() {
-  var modal = document.getElementById("imageModal");
-  modal.style.display = "none";
+  document.getElementById("imageModal").classList.add("hidden");
 }
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  let currentIndex = 1;
+  const slideContainer = document.getElementById("slideGallery");
+  const slides = document.querySelectorAll("#slideGallery .slide");
+  const totalSlides = slides.length;
+
+  function moveSlide(n) {
+    currentIndex += n;
+    slideContainer.style.transition = "transform 0.5s ease-in-out";
+    slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Handle infinite loop
+    setTimeout(() => {
+      if (currentIndex >= totalSlides - 1) {
+        slideContainer.style.transition = "none";
+        currentIndex = 1;
+        slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+      } else if (currentIndex <= 0) {
+        slideContainer.style.transition = "none";
+        currentIndex = totalSlides - 2;
+        slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+    }, 2500);
+  }
+
+  setInterval(() => {
+    moveSlide(1);
+  }, 5000);
+});
 </script>
 </body>
 </html>

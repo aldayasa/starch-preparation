@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starch Mixing - Alur Proses</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #00d9ff;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .image-box {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .image-box img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 2px solid #00d9ff;
+      cursor: zoom-in;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .caption {
+      margin-top: 0.5rem;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      padding-top: 60px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+    }
+
+    .popup-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #popup-caption {
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <a href="index.html" style="display: inline-block; background-color: rgba(79, 195, 247, 0.15); color: #4fc3f7; padding: 10px 18px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: background-color 0.3s ease;">
+        <i class="fa fa-home" style="margin-right: 6px;"></i> Kembali ke Beranda
+      </a>
+    </div>
+
+    <h1>Starch Mixing – Tahap Pencampuran Awal</h1>
+
+    <p>
+      Tahap ini merupakan langkah pertama dalam proses <strong>Starch Preparation</strong>, yaitu pencampuran air dan starch mentah dalam tangki pencampur. Kontrol DCS digunakan untuk mengatur rasio bahan, membuka katup, serta memantau level, suhu, dan kecepatan agitasi.
+    </p>
+    <p>
+      Berikut adalah tampilan sistem DCS yang memvisualisasikan parameter-parameter utama saat proses pencampuran awal berlangsung. Operator dapat memantau jalannya flowrate, status pompa, hingga target level pencampuran dari layar kontrol ini.
+    </p>
+
+<div class="image-box">
+  <img src="hopper3.jpg" alt="Proses pengisian starch dari jumbo bag ke hopper" onclick="openPopup(this)">
+  <p class="caption">Gambar 1: Pengisian starch kering dari jumbo bag ke hopper awal</p>
+</div>
+
+<div class="image-box">
+  <img src="starchmix_2.jpg" alt="Tampilan DCS saat pencampuran starch, air, dan enzyme" onclick="openPopup(this)">
+  <p class="caption">Gambar 2: Monitoring DCS pencampuran starch dengan air dan enzyme</p>
+</div>
+    <!-- Popup -->
+    <div id="popup" class="popup" onclick="closePopup()">
+      <span class="close">&times;</span>
+      <img class="popup-content" id="popup-img">
+      <div id="popup-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(img) {
+      const popup = document.getElementById("popup");
+      const popupImg = document.getElementById("popup-img");
+      const captionText = document.getElementById("popup-caption");
+
+      popup.style.display = "block";
+      popupImg.src = img.src;
+      captionText.innerHTML = img.alt;
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+  </script>
+</body>
+</html>

@@ -82,27 +82,27 @@
       <!-- Daftar alat -->
       <script>
         const equipmentList = [
-          ["Tangki Hopper", "hopper_tank.jpg", "Tempat penampungan awal starch dari jumbo bag."],
+          ["Tangki Hopper", "hopper3.jpg", "Tempat penampungan awal starch dari jumbo bag."],
           ["Screw & Elevator", "screw_elevator.jpg", "Mengangkat starch dari hopper ke tahap berikutnya secara otomatis."],
-          ["Tangki & Pompa Enzyme", "enzyme_tank.jpg", "Digunakan untuk dosing dan distribusi enzim cair."],
-          ["Tangki Cooker", "cooker_tank.jpg", "Memasak starch dengan suhu tinggi untuk gelatinisasi pati."],
+          ["Pompa Enzyme", "monitoring7.jpg", "Digunakan untuk dosing enzim ke tangki cooker."],
+          ["Tangki Cooker", "cooker_tank.jpg", "Tempat untuk proses mixing starch, air, dam enzyme"],
           ["Filter 6813 & 6814", "filter6813.jpg", "Filter kasar untuk menyaring kotoran sebelum masuk jet cooker."],
-          ["Jet Cooker 1", "jetcooker1.jpg", "Pemanasan starch dengan steam langsung untuk proses gelatinisasi."],
+          ["Jet Cooker 1", "jetcooker1.jpg", "Memasak starch untuk gelatinisasi pati dan pengaktifan enzyme."],
           ["Tangki Reaction", "reaction_tank.jpg", "Tempat reaksi antara starch dan enzyme untuk meningkatkan kelarutan."],
-          ["Jet Cooker 2", "jetcooker2.jpg", "Jet cooker tahap akhir untuk mencapai suhu reaksi optimal."],
+          ["Jet Cooker 2", "jetcooker2.jpg", "Pemanasan starch dengan steam dengan suhu tinggi guna menonaktifkan kinerja enzyme."],
           ["Tangki Storage", "storage_tank.jpg", "Tempat penyimpanan sementara starch hasil olahan."],
           ["Pressure Filter", "pressure_filter.jpg", "Menyaring starch dengan tekanan untuk menghilangkan kontaminan halus."],
           ["Final Tank 1 (Bottom)", "final1.jpg", "Tangki akhir bagian bawah untuk menampung starch siap pakai."],
-          ["Final Tank 2 (Top)", "final2.jpg", "Tangki atas yang mengatur distribusi ke final tank bawah."],
+          ["Final Tank 2 (Top)", "final2.jpg", "Tangki atas yang mengatur distribusi ke final tank applicator top sizer."],
           ["Vibrating Screen VB1B, VB2B", "vb1b.jpg", "Filter getar di jalur bawah, penyaring kotoran starch sebelum masuk final tank."],
-          ["Vibrating Screen VB1T, VB2T", "vb1t.jpg", "Filter getar di jalur atas, berfungsi sebagai pre-screen starch."],
-          ["Tangki Aluminium Sulfat", "alum_tank.jpg", "Menampung larutan alum untuk keperluan pengolahan wet-end."],
-          ["Tangki Soda", "soda_tank.jpg", "Digunakan untuk menaikkan pH larutan starch jika dibutuhkan."],
-          ["Tangki Wet-End Starch", "wetend_tank.jpg", "Tangki khusus supply starch ke wet-end paper machine."]
+          ["Vibrating Screen VB1T, VB2T", "vb1t.jpg", "Filter getar di jalur atas, sebelum masuk final tank."],
+          ["Pompa Aluminium Sulfat", "alum_pump.jpg", "Menampung larutan alum untuk keperluan dilusi surface sizing agent."],
+          ["Tangki Soda", "soda_tank.jpg", "Digunakan untuk cleaning wire dan felt jika dibutuhkan"],
+          ["Tangki Wet-End Starch", "wetend_tank.jpg", "Tangki khusus supply starch ke wet-end paper machine jika dibutuhkan."]
         ];document.write(equipmentList.map(e => `
       <div class="col">
         <div class="card text-white">
-          <img src="img/${e[1]}" class="card-img-top" alt="${e[0]}" onclick="openModal(this)">
+    <img src="${e[1]}" class="card-img-top" alt="${e[0]}" onclick="openModal(this)">
           <div class="card-body">
             <h5 class="card-title">${e[0]}</h5>
             <p class="card-text">${e[2]}</p>
@@ -113,7 +113,10 @@
   </script>
 </div>
 
-  </div>  <!-- Tombol Navigasi --><button class="btn-home" onclick="location.href='index.html'">Home</button> <button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
+  </div>  
+<!-- Tombol Navigasi -->
+<button class="btn-home" onclick="location.href='index.html#starch-content'">Home</button>
+<button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
 
   <!-- Modal Gambar -->  <div id="imageModal">
     <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -126,5 +129,6 @@
     function closeModal() {
       document.getElementById("imageModal").style.display = "none";
     }
-  </script></body>
+  </script>
+</body>
 </html>
