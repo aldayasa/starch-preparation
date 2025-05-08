@@ -1,7 +1,8 @@
-<!-- equipment.html (interaktif dengan Bootstrap & tambahan lengkap) --><!DOCTYPE html><html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <title>Equipment - Starch Preparation</title>
   <meta charset="UTF-8">
+  <title>Equipment - Starch Preparation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -78,51 +79,53 @@
 <body>
   <div class="container">
     <h2 class="text-center">Equipment Starch Preparation</h2>
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-      <!-- Daftar alat -->
-      <script>
-        const equipmentList = [
-          [
-  ["Tangki Hopper", "hopper3.jpg", "Unit penerima awal starch dari jumbo bag yang berfungsi sebagai buffer sebelum proses transfer mekanis."],
-  ["Screw & Elevator", "screw_elevator.jpg", "Sistem transportasi mekanis untuk memindahkan starch secara vertikal dari hopper menuju unit proses berikutnya."],
-  ["Pompa Enzyme", "monitoring7.jpg", "Pompa dosing untuk injeksi enzim secara presisi ke dalam tangki cooker sesuai kebutuhan reaksi."],
-  ["Tangki Cooker", "cooker_tank.jpg", "Vessel pencampur yang menghomogenkan larutan starch, air, dan enzim sebelum tahap pemanasan intensif."],
-  ["Filter 6813 & 6814", "filter6813.jpg", "Sistem filtrasi awal untuk mengeliminasi partikel kasar sebelum larutan masuk ke jet cooker."],
-  ["Jet Cooker 1", "jetcooker1.jpg", "Perangkat pemanas bertekanan tinggi untuk gelatinisasi starch dan aktivasi enzim melalui injeksi steam langsung."],
-  ["Tangki Reaction", "reaction_tank.jpg", "Tangki reaksi untuk proses hidrolisis parsial starch oleh enzim guna meningkatkan kelarutan dan viskositas."],
-  ["Jet Cooker 2", "jetcooker2.jpg", "Jet cooker tahap akhir untuk peningkatan suhu cepat dalam rangka deaktivasi enzim."],
-  ["Tangki Storage", "storage_tank.jpg", "Tangki penampung sementara untuk starch hasil proses sebelum tahap filtrasi lanjutan atau distribusi akhir."],
-  ["Pressure Filter", "pressure_filter.jpg", "Unit filtrasi bertekanan tertutup untuk memisahkan partikel mikro dari larutan starch."],
-  ["Final Tank 1 (Bottom)", "final1.jpg", "Tangki akhir bagian bawah sebagai reservoir utama untuk starch siap aplikasi ke sistem sizing."],
-  ["Final Tank 2 (Top)", "final2.jpg", "Tangki atas yang mengatur aliran distribusi starch ke top sizer secara terkontrol."],
-  ["Vibrating Screen VB1B, VB2B", "vb1b.jpg", "Unit penyaring getar jalur bawah untuk menghilangkan impuritas sebelum masuk ke final tank bawah."],
-  ["Vibrating Screen VB1T, VB2T", "vb1t.jpg", "Unit penyaring getar jalur atas untuk memastikan kemurnian starch sebelum masuk ke final tank atas."]
-          ["Pompa Aluminium Sulfat", "alum_pump.jpg", "Memompa larutan alum untuk mendukung proses pelarutan dan aktivasi surface sizing agent pada sistem surface sizing."],
-          ["Tangki NaOH", "soda_tank.jpg", "Tempat penyimpanan NaOH yang disiapkan untuk keperluan pembersihan wire dan felt apabila diperlukan."],
-          ["Tangki Wet-End Starch", "wetend_tank.jpg", "Tangki khusus supply starch ke wet-end paper machine jika dibutuhkan."]
-        ];document.write(equipmentList.map(e => `
+    <div id="equipmentContainer" class="row row-cols-1 row-cols-md-2 g-4"></div>
+  </div>
+
+  <!-- Tombol Navigasi -->
+  <button class="btn-home" onclick="location.href='index.html#starch-content'">Home</button>
+  <button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
+
+  <!-- Modal Gambar -->
+  <div id="imageModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <img id="modalContent" alt="Zoomed Image">
+  </div>
+
+  <script>
+    const equipmentList = [
+      ["Tangki Hopper", "hopper3.jpg", "Unit penerima awal starch dari jumbo bag yang berfungsi sebagai buffer sebelum proses transfer mekanis."],
+      ["Screw & Elevator", "screw_elevator.jpg", "Sistem transportasi mekanis untuk memindahkan starch secara vertikal dari hopper menuju unit proses berikutnya."],
+      ["Pompa Enzyme", "monitoring7.jpg", "Pompa dosing untuk injeksi enzim secara presisi ke dalam tangki cooker sesuai kebutuhan reaksi."],
+      ["Tangki Cooker", "Cooker_tank.jpg", "Vessel pencampur yang menghomogenkan larutan starch, air, dan enzim sebelum tahap pemanasan intensif."],
+      ["Filter 6813 & 6814", "Filter6813.jpg", "Sistem filtrasi awal untuk mengeliminasi partikel kasar sebelum larutan masuk ke jet cooker."],
+      ["Jet Cooker 1", "Jetcooker1.jpg", "Perangkat pemanas bertekanan tinggi untuk gelatinisasi starch dan aktivasi enzim melalui injeksi steam langsung."],
+      ["Tangki Reaction", "Reaction_tank.jpg", "Tangki reaksi untuk proses hidrolisis parsial starch oleh enzim guna meningkatkan kelarutan dan viskositas."],
+      ["Jet Cooker 2", "Jetcooker2.jpg", "Jet cooker tahap akhir untuk peningkatan suhu cepat dalam rangka deaktivasi enzim."],
+      ["Tangki Storage", "storage_tank.jpg", "Tangki penampung sementara untuk starch hasil proses sebelum tahap filtrasi lanjutan atau distribusi akhir."],
+      ["Pressure Filter", "pressure_filter.jpg", "Unit filtrasi bertekanan tertutup untuk memisahkan partikel mikro dari larutan starch."],
+      ["Final Tank 1 (Bottom)", "Final1.jpg", "Tangki akhir bagian bawah sebagai reservoir utama untuk starch siap aplikasi ke sistem sizing."],
+      ["Final Tank 2 (Top)", "Final2.jpg", "Tangki atas yang mengatur aliran distribusi starch ke top sizer secara terkontrol."],
+      ["Vibrating Screen VB1B, VB2B", "Vb1b.jpg", "Unit penyaring getar jalur bawah untuk menghilangkan impuritas sebelum masuk ke final tank bawah."],
+      ["Vibrating Screen VB1T, VB2T", "Vb1t.jpg", "Unit penyaring getar jalur atas untuk memastikan kemurnian starch sebelum masuk ke final tank atas."],
+      ["Pompa Aluminium Sulfat", "Alum_pump.jpg", "Memompa larutan alum untuk mendukung proses pelarutan dan aktivasi surface sizing agent pada sistem surface sizing."],
+      ["Tangki NaOH", "Soda_tank.jpg", "Tangki penyimpanan NaOH yang digunakan sebagai solusi pembersih wire dan felt pada kondisi tertentu."],
+      ["Tangki Wet-End Starch", "Wetend_tank.jpg", "Tangki khusus untuk suplai starch ke wet-end paper machine bila diperlukan."]
+    ];
+
+    const container = document.getElementById("equipmentContainer");
+    container.innerHTML = equipmentList.map(e => `
       <div class="col">
         <div class="card text-white">
-    <img src="${e[1]}" class="card-img-top" alt="${e[0]}" onclick="openModal(this)">
+          <img src="${e[1]}" class="card-img-top" alt="${e[0]}" onclick="openModal(this)">
           <div class="card-body">
             <h5 class="card-title">${e[0]}</h5>
             <p class="card-text">${e[2]}</p>
           </div>
         </div>
       </div>
-    `).join(""));
-  </script>
-</div>
+    `).join("");
 
-  </div>  
-<!-- Tombol Navigasi -->
-<button class="btn-home" onclick="location.href='index.html#starch-content'">Home</button>
-<button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
-
-  <!-- Modal Gambar -->  <div id="imageModal">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <img id="modalContent" alt="Zoomed Image">
-  </div>  <script>
     function openModal(img) {
       document.getElementById("imageModal").style.display = "block";
       document.getElementById("modalContent").src = img.src;
