@@ -849,16 +849,16 @@ h2 {
 <div class="slider-container">
   <div class="slides" id="slideGallery">
     <!-- Duplikat terakhir (untuk loop) -->
-    <div class="slide"><img src="hopper3.jpg" alt="Process 3" onclick="openModal(this)" /></div>
+    <div class="slide"><img src="hopper3.jpg" alt="Process 4" /></div>
 
     <!-- Asli -->
-    <div class="slide"><img src="monitoring1.jpg" alt="Starch Process" onclick="openModal(this)" /></div>
-    <div class="slide"><img src="monitoring3.jpg" alt="Process 2" onclick="openModal(this)" /></div>
-    <div class="slide"><img src="monitoring6.jpg" alt="Process 3" onclick="openModal(this)" /></div>
-    <div class="slide"><img src="hopper3.jpg" alt="Process 4" onclick="openModal(this)" /></div>
+    <div class="slide"><img src="monitoring1.jpg" alt="Starch Process" /></div>
+    <div class="slide"><img src="monitoring3.jpg" alt="Process 2" /></div>
+    <div class="slide"><img src="monitoring6.jpg" alt="Process 3" /></div>
+    <div class="slide"><img src="hopper3.jpg" alt="Process 4" /></div>
 
     <!-- Duplikat pertama (untuk loop) -->
-    <div class="slide"><img src="monitoring1.jpg" alt="Starch Process" onclick="openModal(this)" /></div>
+    <div class="slide"><img src="monitoring1.jpg" alt="Starch Process" /></div>
   </div>
 
   <button class="nav prev" onclick="moveSlide(-1)">&#10094;</button>
@@ -1821,35 +1821,93 @@ function closeModal() {
 }
 </script>
 <script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
-  let currentIndex = 1;
-  const slideContainer = document.getElementById("slideGallery");
-  const slides = document.querySelectorAll("#slideGallery .slide");
-  const totalSlides = slides.length;
+  // === FORMULA TOGGLE ===
+  document.querySelectorAll(".formula-toggle").forEach(toggle => {
+    const container = toggle.closest('.formula-item');
+    const content = container.querySelector('.formula-content');
+    const icon = toggle.querySelector('.toggle-icon');
 
-  function moveSlide(n) {
-    currentIndex += n;
-    slideContainer.style.transition = "transform 0.5s ease-in-out";
-    slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+    toggle.addEventListener('click', () => {
+      const isVisible = content.classList.contains('visible');
+      if (isVisible) {
+        content.classList.remove('visible');
+        icon?.classList.remove('rotate');
+        setTimeout(() => {
+          content.style.display = 'none';
+        }, 300);
+      } else {
+        const inputs = content.querySelectorAll("input[type='number']");
+        inputs.forEach(input => input.value = "");
+        const resultDiv = content.querySelector("[id^='result_']");
+        if (resultDiv) resultDiv.innerHTML = "";
 
-    // Handle infinite loop
-    setTimeout(() => {
-      if (currentIndex >= totalSlides - 1) {
-        slideContainer.style.transition = "none";
-        currentIndex = 1;
-        slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-      } else if (currentIndex <= 0) {
-        slideContainer.style.transition = "none";
-        currentIndex = totalSlides - 2;
-        slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        content.style.display = 'block';
+        setTimeout(() => content.classList.add('visible'), 10);
+        icon?.classList.add('rotate');
       }
-    }, 2500);
+    });
+  });
+
+  document.getElementById("close-all-formulas")?.addEventListener("click", () => {
+    document.querySelectorAll(".formula-item").forEach(item => {
+      const content = item.querySelector(".formula-content");
+      const icon = item.querySelector(".toggle-icon");
+      if (content && content.classList.contains("visible")) {
+        content.classList.remove("visible");
+        icon?.classList.remove("rotate");
+        setTimeout(() => {
+          content.style.display = 'none';
+        }, 300);
+      }
+    });
+  });
+
+  // === SLIDE GALLERY ===
+  let galleryIndex = 1;
+  const slides = document.getElementById("slideGallery");
+  const slideCount = slides.children.length;
+
+  function updateSlidePosition() {
+    const slideWidth = slides.children[0].offsetWidth;
+    slides.style.transform = `translateX(-${slideWidth * galleryIndex}px)`;
   }
 
-  setInterval(() => {
-    moveSlide(1);
-  }, 5000);
+  function moveGallerySlide(step) {
+    if (!slides) return;
+    galleryIndex += step;
+    slides.style.transition = "transform 0.5s ease-in-out";
+    updateSlidePosition();
+
+    slides.addEventListener("transitionend", function handleLoop() {
+      slides.removeEventListener("transitionend", handleLoop);
+      const slideWidth = slides.children[0].offsetWidth;
+
+      if (galleryIndex === 0) {
+        slides.style.transition = "none";
+        galleryIndex = slideCount - 2;
+        slides.style.transform = `translateX(-${slideWidth * galleryIndex}px)`;
+      } else if (galleryIndex === slideCount - 1) {
+        slides.style.transition = "none";
+        galleryIndex = 1;
+        slides.style.transform = `translateX(-${slideWidth * galleryIndex}px)`;
+      }
+    });
+  }
+
+  window.addEventListener("resize", updateSlidePosition);
+  setInterval(() => moveGallerySlide(1), 5000);
 });
+
+// === MODAL ZOOM ===
+function openModal(img) {
+  document.getElementById("imageModal").classList.remove("hidden");
+  document.getElementById("modalImage").src = img.src;
+}
+function closeModal() {
+  document.getElementById("imageModal").classList.add("hidden");
+}
 </script>
 </body>
 </html>
