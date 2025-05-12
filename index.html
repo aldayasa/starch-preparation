@@ -363,6 +363,17 @@ h2 {
   border-radius: 6px;
   font-weight: bold;
 }
+.formula-desc {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border-left: 4px solid #4caf50;
+  padding: 15px 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  font-size: 1em;
+  line-height: 1.6;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
 .scrollable-dropdown {
   max-height: 125px; /* atur tinggi maksimal */
   overflow-y: auto;  /* aktifkan scroll vertikal */
@@ -628,9 +639,21 @@ h2 {
 </a>
 
     <!-- RUMUS -->
-    <a href="https://rumus-starch.netlify.app/index.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">
+    <div class="w3-dropdown-hover">
+      <button class="w3-button">
   <i class="bi bi-calculator"></i> FORMULA <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
-    </a>
+</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4 scrollable-dropdown">
+        <a href="Starch Consumption.html" class="w3-bar-item w3-button">STARCH CONSUMPTION</a>
+        <a href="pemakaian enzyme.html" class="w3-bar-item w3-button">FLOW ENZYME</a>
+        <a href="Totalizer Starch.html" class="w3-bar-item w3-button">TOTALIZER</a>
+        <a href="alum.html" class="w3-bar-item w3-button">ALUM CONSUMPTION</a>
+        <a href="estimate.html" class="w3-bar-item w3-button">ESTIMATE STARCH</a>
+        <a href="atago.html" class="w3-bar-item w3-button">ATAGO SOLID</a>
+        <a href="retentiontime.html" class="w3-bar-item w3-button">RETENTION TIME</a>
+        <a href="Stock Flow Formula.html" class="w3-bar-item w3-button">STOCK FLOW CALC</a>
+      </div>
+    </div>
 
     <!-- DOKUMEN -->
     <div class="w3-dropdown-hover">
@@ -725,10 +748,22 @@ h2 {
   <i class="fas fa-user" style="margin-right: 6px;"></i> ABOUT
 </a>
 
-    <a href="https://rumus-starch.netlify.app/index.html" class="w3-bar-item w3-button" style="flex: 0 0 auto;">
+    <div class="w3-dropdown-hover" style="flex: 0 0 auto;">
+      <button class="w3-button">
   <i class="bi bi-calculator"></i> FORMULA <i class="bi bi-caret-down-fill" style="margin-left: 4px;"></i>
-    </a>
-      
+</button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4 scrollable-dropdown">
+        <a href="Starch Consumption.html" class="w3-bar-item w3-button">STARCH CONSUMPTION</a>
+        <a href="pemakaian enzyme.html" class="w3-bar-item w3-button">FLOW ENZYME</a>
+        <a href="Totalizer Starch.html" class="w3-bar-item w3-button">TOTALIZER</a>
+        <a href="alum.html" class="w3-bar-item w3-button">ALUM CONSUMPTION</a>
+        <a href="estimate.html" class="w3-bar-item w3-button">ESTIMATE STARCH</a>
+        <a href="atago.html" class="w3-bar-item w3-button">ATAGO SOLID</a>
+        <a href="retentiontime.html" class="w3-bar-item w3-button">RETENTION TIME</a>
+        <a href="Stock Flow Formula.html" class="w3-bar-item w3-button">STOCK FLOW CALC</a>
+        <a href="SSA.html" class="w3-bar-item w3-button">FLOW SSA</a>
+      </div>
+    </div>
 
 <div class="w3-dropdown-hover document-dropdown" style="flex: 0 0 auto;">
   <button class="w3-button">
@@ -1187,9 +1222,9 @@ m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
     <div class="example-box">
       <strong>Masukkan nilai:</strong><br>
       <label>Solid Top (%): <input type="number" id="solidTop11" step="any" /></label><br>
-      <label>Flow Top (m³/h): <input type="number" id="flowTop11" step="any" /></label><br>
+      <label>Total Flow Top (m³/h): <input type="number" id="flowTop11" step="any" /></label><br>
       <label>Solid Bottom (%): <input type="number" id="solidBottom11" step="any" /></label><br>
-      <label>Flow Bottom (m³/h): <input type="number" id="flowBottom11" step="any" /></label><br>
+      <label>Total Flow Bottom (m³/h): <input type="number" id="flowBottom11" step="any" /></label><br>
       <label>Density (ton/m³): <input type="number" id="density11" step="any" value="1.1" /></label><br><br>
 
       <button id="btn_11">Hitung</button>
@@ -1438,7 +1473,7 @@ document.getElementById("btn_2").addEventListener("click", function() {
   }
 
   const flow = (solid * flowWater) / (1 - solid) * 1.1;
-  document.getElementById("result_2").innerText = "Flow = " + flow.toFixed(2) + " l/min";
+  document.getElementById("result_2").innerText = "Flow = " + flow.toFixed(2) + " kg/min";
 });
 document.getElementById("btn_3").addEventListener("click", function () {
   const level1 = parseFloat(document.getElementById("level1_3_3").value);
@@ -1513,17 +1548,23 @@ document.getElementById("btn_4").addEventListener("click", function () {
 
     document.getElementById("result_4").innerHTML = `Retention Time: ${retentionTime.toFixed(1)} menit`;
 });
-document.getElementById("btn_5").addEventListener("click", function() {
-  const flow = parseFloat(document.getElementById("flow5_5").value);
-  const solid = parseFloat(document.getElementById("solid5_5").value);
-  const dosis = parseFloat(document.getElementById("dosis5_5").value);
-  const result = document.getElementById("result_5");
-  if ([flow, solid, dosis].some(isNaN)) {
-    result.innerHTML = "<span style='color:salmon;'>Mohon isi angka yang valid.</span>";
+document.getElementById("btn_5").addEventListener("click", function () {
+  var flowStorage = parseFloat(document.getElementById("flow5_5").value);
+  var solid = parseFloat(document.getElementById("solid5_5").value);
+  var dosis = parseFloat(document.getElementById("dosis5_5").value);
+
+  if (isNaN(flowStorage) || isNaN(solid) || isNaN(dosis)) {
+    document.getElementById("result_5").innerText = "Masukkan nilai yang valid.";
     return;
   }
-  const output = flow * solid * dosis / 14;
-  result.innerHTML = `Hasil: <strong>${output.toFixed(1)} l/min</strong>`;
+
+  // Rumus: Flow = Flow Storage × %Solid × %Dosis / 14
+  var flowM3PerHour = (flowStorage * solid * dosis) / 14 / 100; // cukup dibagi 100 sekali untuk persen
+
+  // Konversi ke L/min
+  var flowLPerMin = (flowM3PerHour * 1000) / 60;
+
+  document.getElementById("result_5").innerText = "Flow Waterglass = " + flowLPerMin.toFixed(1) + " L/min";
 });
 document.getElementById("btn_6").addEventListener("click", function() {
   const flow_m3h = parseFloat(document.getElementById("flow6_6").value);
