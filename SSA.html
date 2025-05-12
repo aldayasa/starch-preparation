@@ -1,205 +1,278 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Flow Surface Sizing Agent</title>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css" rel="stylesheet">
+    	<link rel="stylesheet" href="sweetalert2.css">
+<script src="script.js" type="text/javascript"></script>
+<script type="text/javascript" src="sweetalert2.js"></script>
+    <title>Kalkulator SSA</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #181818;
+            color: #f1f1f1;
+            padding: 15px;
+            margin: 0;
         }
 
-        .container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-        }
+ .container {
+    max-width: 300px;
+    margin: 80px auto 0 auto; /* kasih ruang 80px dari atas agar tidak ketabrak navbar */
+    padding: 18px;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
 
         h1 {
-            color: #333;
-        }
+    color: #f1c40f;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 80px; /* Supaya turun dari bawah navbar */
+}
 
         label {
             display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
+            margin-top: 8px;
+            color: #ddd;
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        input, select, button {
+            width: 50%;
+            padding: 8px;
+            margin-top: 8px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: #f1f1f1;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        input:focus, select:focus, button:focus {
+            outline: none;
+            border-color: #f1c40f;
         }
 
         button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
+            border: none;
+            margin-top: 15px;
         }
 
         button:hover {
-            background-color: #0056b3;
-        }
-
-        button:active {
-            background-color: #003f7f;
+            background-color: #2980b9;
         }
 
         h2 {
-            margin-top: 20px;
-            color: #333;
+            margin-top: 18px;
+            color: #f1c40f;
         }
 
-        p {
-            font-size: 18px;
-            color: #555;
+        #result {
+            padding: 8px;
+            margin-top: 16px;
+            background-color: #34495e;
+            border-radius: 2px;
+            font-size: 16px;
+            text-align: center;
+            color: #f1f1f1;
+            width: 48%;
         }
 
-        button:nth-of-type(2) {
-            background-color: #28a745;
+        .reset-button {
+            background-color: #e74c3c;
+            margin-top: 14px;
         }
 
-        button:nth-of-type(2):hover {
-            background-color: #218838;
+        .reset-button:hover {
+            background-color: #c0392b;
         }
+/* Navbar wrapper */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #222;
+      z-index: 1000;
+    }
 
-        button:nth-of-type(3) {
-            background-color: #dc3545;
-        }
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+    }
 
-        button:nth-of-type(3):hover {
-            background-color: #c82333;
-        }
+    .navbar-brand {
+      color: #f1c40f;
+    font-size: 26px;
+    float: left;
+    font-weight: bold;
+    cursor: pointer;
+    }
+
+    .navbar-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: block;
+    }
+
+/* Default menu disembunyikan */
+.navbar-menu {
+  max-height: 0;
+  overflow-y: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: #333;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  width: 200px;
+  border-radius: 8px;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-menu.open {
+  max-height: 300px; /* Sesuaikan tinggi menu maksimal */
+  overflow-y: auto;
+}
+.navbar-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #fff;
+  text-decoration: none;
+  text-align: left; /* Tambahkan ini */
+}
+
+.navbar-menu a:hover {
+  background-color: #555;
+}
+    .navbar-menu.show {
+      max-height: 225px;
+      overflow-y: auto;
+    }
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      .navbar-menu {
+        display: block;
+        max-height: 300px;
+        overflow-y: scroll;
+      }
+    }
+    .home-link {
+  background-color: #f1c40f;
+  color: #111;
+  font-weight: bold;
+  border-radius: 4px;
+  margin: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.home-icon {
+  width: 20px;       /* Sesuaikan dengan ukuran gambar */
+  height: 20px;
+  margin-right: 8px;
+}
+footer {
+    width: 300px;
+    margin: 20px auto 0 auto; /* atas 20px, kiri-kanan auto agar ke tengah */
+    text-align: center;
+    color: #888;
+}
     </style>
 </head>
+<header class="navbar">
+  <div id="navbar-placeholder"></div>
+</header>
 <body>
-    <div class="container">
-        <h1>Kalkulator Flow Surface Sizing Agent</h1>
-        <button onclick="window.location.href='index.html';">Home</button>
-        <button onclick="resetForm()">Reset</button>
-        <label for="mode">Pilih Mode Perhitungan:</label>
-        <select id="mode" onchange="toggleInputs()">
-            <option value="flow">Hitung Flow (cc/min)</option>
-            <option value="kgPerTon">Hitung Konsumsi Bahan per Ton Kertas (kg/ton)</option>
-        </select>
+<h1>Flow Surface Sizing Agent</h1>
+<div class="container">
+    <button class="reset-button" onclick="resetForm()">Reset</button>
 
-        <div id="flowInputs" class="calculationInputs">
-            <label for="kgPerTon">Konsumsi Bahan per Ton Kertas (kg/ton):</label>
-            <input type="number" id="kgPerTon" placeholder="Masukkan konsumsi bahan per ton (kg/ton)" />
+    <label for="mode">Pilih Mode Perhitungan:</label>
+    <select id="mode" onchange="toggleInputs()">
+        <option value="flow">Hitung Flow (cc/min)</option>
+        <option value="kgPerTon">Hitung Konsumsi (kg/ton)</option>
+    </select>
 
-            <label for="productionRate">Laju Produksi (ton/jam):</label>
-            <input type="number" id="productionRate" placeholder="Masukkan laju produksi (ton/jam)" />
-        </div>
+    <div id="flowInputs">
+        <label for="kgPerTon">Konsumsi per Ton (kg/ton):</label>
+        <input type="number" id="kgPerTon">
 
-        <div id="kgPerTonInputs" class="calculationInputs" style="display:none;">
-            <label for="flow">Flow Surface Sizing Agent (cc/min):</label>
-            <input type="number" id="flow" placeholder="Masukkan flow surface sizing agent (cc/min)" />
-
-            <label for="productionRate2">Laju Produksi (ton/jam):</label>
-            <input type="number" id="productionRate2" placeholder="Masukkan laju produksi (ton/jam)" />
-        </div>
-
-        <button onclick="hitung()">Hitung</button>
-
-        <h2>Hasil</h2>
-        <p id="result">Hasil: <span id="resultValue">0</span></p>
+        <label for="productionRate">Laju Produksi (ton/jam):</label>
+        <input type="number" id="productionRate">
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
-    <script>
-        function toggleInputs() {
-    const mode = document.getElementById('mode').value;
-    if (mode === 'flow') {
-        document.getElementById('kgPerTonInputs').style.display = 'none';
-        document.getElementById('flowInputs').style.display = 'block';
-    } else {
-        document.getElementById('kgPerTonInputs').style.display = 'block';
-        document.getElementById('flowInputs').style.display = 'none';
-    }
-}
+    <div id="kgPerTonInputs" style="display:none;">
+        <label for="flow">Flow (cc/min):</label>
+        <input type="number" id="flow">
 
-function hitung() {
-    const mode = document.getElementById('mode').value;
-    if (mode === 'flow') {
-        const kgPerTon = parseFloat(document.getElementById('kgPerTon').value);
-        const productionRate = parseFloat(document.getElementById('productionRate').value);
+        <label for="productionRate2">Laju Produksi (ton/jam):</label>
+        <input type="number" id="productionRate2">
+    </div>
 
-        if (!kgPerTon || !productionRate || kgPerTon <= 0 || productionRate <= 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Input tidak valid',
-                text: 'Harap masukkan nilai yang valid untuk konsumsi bahan dan laju produksi!',
-            });
-            return;
+    <button onclick="hitung()">Hitung</button>
+
+    <h2>Hasil</h2>
+    <p id="result">Hasil: <span id="resultValue">0</span></p>
+</div>
+<footer style="margin-top: 40px;">
+    <i>&copy; Ardita Rizki F</i>
+  </footer>
+<script>
+    function toggleInputs() {
+        var mode = document.getElementById('mode').value;
+        if (mode === 'flow') {
+            document.getElementById('flowInputs').style.display = 'block';
+            document.getElementById('kgPerTonInputs').style.display = 'none';
+        } else {
+            document.getElementById('flowInputs').style.display = 'none';
+            document.getElementById('kgPerTonInputs').style.display = 'block';
         }
-
-        // Menghitung flow (cc/min) berdasarkan konsumsi bahan per ton kertas
-        const flow = (kgPerTon * productionRate) / 0.06; // Flow in cc/min
-
-        document.getElementById('resultValue').textContent = flow.toFixed(2) + ' cc/min';
-    } else if (mode === 'kgPerTon') {
-        const flow = parseFloat(document.getElementById('flow').value);
-        const productionRate = parseFloat(document.getElementById('productionRate2').value);
-
-        if (!flow || !productionRate || flow <= 0 || productionRate <= 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Input tidak valid',
-                text: 'Harap masukkan nilai yang valid untuk flow dan laju produksi!',
-            });
-            return;
-        }
-
-        // Menghitung konsumsi bahan per ton kertas (kg/ton) berdasarkan flow
-        const kgPerTon = (flow * 0.06) / productionRate;
-
-        document.getElementById('resultValue').textContent = kgPerTon.toFixed(2) + ' kg/ton';
+        document.getElementById("resultValue").textContent = '0';
     }
-}
 
-function resetForm() {
-    Swal.fire({
-        title: 'Apakah Anda yakin ingin mereset?',
-        text: "Semua data yang dimasukkan akan dihapus.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#28a745',
-        cancelButtonColor: '#dc3545',
-        confirmButtonText: 'Ya, Reset!',
-        cancelButtonText: 'Batal'
-    }).then((result) => {
-        if (result.isConfirmed) {
+    function hitung() {
+        var mode = document.getElementById('mode').value;
+
+        if (mode === 'flow') {
+            var kgPerTon = parseFloat(document.getElementById('kgPerTon').value);
+            var productionRate = parseFloat(document.getElementById('productionRate').value);
+            if (isNaN(kgPerTon) || isNaN(productionRate) || kgPerTon <= 0 || productionRate <= 0) {
+                alert('Isien datae sing bener cok!');
+                return;
+            }
+            var flow = (kgPerTon * productionRate) / 0.06;
+            document.getElementById('resultValue').textContent = flow.toFixed(0) + ' cc/min';
+        } else {
+            var flowVal = parseFloat(document.getElementById('flow').value);
+            var productionRate2 = parseFloat(document.getElementById('productionRate2').value);
+            if (isNaN(flowVal) || isNaN(productionRate2) || flowVal <= 0 || productionRate2 <= 0) {
+                alert('Isien datae sing bener cok!');
+                return;
+            }
+            var kgPerTon = (flowVal * 0.06) / productionRate2;
+            document.getElementById('resultValue').textContent = kgPerTon.toFixed(2) + ' kg/ton';
+        }
+    }
+
+    function resetForm() {
+        if (confirm("Temenan Mbok Reset?")) {
             document.getElementById("kgPerTon").value = '';
             document.getElementById("productionRate").value = '';
             document.getElementById("flow").value = '';
             document.getElementById("productionRate2").value = '';
             document.getElementById("resultValue").textContent = '0';
         }
-    });
-}
-    </script>
+    }
+</script>
 </body>
 </html>

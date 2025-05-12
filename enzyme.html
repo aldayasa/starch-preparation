@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="xedni.css">
+<script src="script.js" type="text/javascript"></script>
+  <title>Kalkulator Enzim - Dark Mode</title>
+  <style>
+    * {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #181818;
+  color: #f1f1f1;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  color: #f1c40f;
+  text-align: center;
+  font-size: 22px;
+  margin-top: 60px;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  color: #ddd;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid #555;
+  padding: 8px;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+  margin-top: 6px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #f1c40f;
+}
+
+input[readonly] {
+  background-color: #222;
+}
+
+/* Buttons */
+button,
+input[type="button"],
+input[type="reset"] {
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  margin-top: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  max-width: 200px;
+}
+
+button:hover,
+input[type="button"]:hover {
+  background-color: #2980b9;
+}
+
+input[type="reset"] {
+  background-color: #e74c3c;
+}
+
+input[type="reset"]:hover {
+  background-color: #c0392b;
+}
+
+/* Container */
+.container {
+  max-width: 400px;
+  width: 90%;
+  margin: 80px auto 0 auto;
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 208, 0.4);
+}
+
+/* Result Section */
+#hasil,
+#result {
+  margin-top: 25px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffeb3b;
+  text-align: center;
+}
+
+/* Navbar */
+.navbar {
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #1e1e1e;
+  z-index: 999;
+}
+
+/* Back to Top Button */
+#backToTop {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  z-index: 9999;
+  padding: 5px 10px;
+  font-size: 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  width: auto;
+  min-width: 0;
+  box-sizing: content-box;
+  display: inline-block;
+  margin: 0;
+}
+
+  </style>
+  
+</head>
+<header class="navbar">
+  <div id="navbar-placeholder"></div>
+</header><br>
+<body>
+	<h2>Pemakaian Enzim</h2>
+  <div class="container">
+    <label>Jam Mulai Masak (HH.MM):</label>
+    <input type="number" id="start" placeholder="Contoh: 09:45">
+
+    <label>Jam Selesai Masak (HH.MM):</label>
+    <input type="number" id="end" placeholder="Contoh: 11:20">
+
+    <label>Konsumsi Enzim (ml/menit):</label>
+    <input type="number" id="rate" placeholder="Contoh: 10 ml/min">
+<br>
+    <button onclick="hitung()">Hitung</button>
+
+    <p id="hasil"></p>
+  </div>
+<footer style="margin-top: 40px;">
+    <i>&copy; Ardita Rizki F</i>
+  </footer>
+  <script type="text/javascript">
+    function hitung() {
+      var start = document.getElementById('start').value;
+      var end = document.getElementById('end').value;
+      var rate = parseFloat(document.getElementById('rate').value);
+
+      if (!start || !end || isNaN(rate)) {
+        document.getElementById('hasil').innerText = "Isi semua kolom dengan benar.";
+        return;
+      }
+
+      var startParts = start.split(".");
+      var endParts = end.split(".");
+
+      if (startParts.length < 2 || endParts.length < 2) {
+        document.getElementById('hasil').innerText = "Format jam salah. Gunakan HH.MM.";
+        return;
+      }
+
+      var startHour = parseInt(startParts[0], 10);
+      var startMin = parseInt(startParts[1], 10);
+      var endHour = parseInt(endParts[0], 10);
+      var endMin = parseInt(endParts[1], 10);
+
+      var startTotal = startHour * 60 + startMin;
+      var endTotal = endHour * 60 + endMin;
+
+      var durasi = endTotal - startTotal;
+      if (durasi <= 0) {
+        document.getElementById('hasil').innerText = "Jam selesai harus lebih besar dari jam mulai.";
+        return;
+      }
+
+      var total = durasi * rate;
+      document.getElementById('hasil').innerText = "Total enzim: " + total.toFixed(0) + " ml";
+    }
+  </script>
+</body>
+</html>
