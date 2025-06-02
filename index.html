@@ -625,6 +625,14 @@ h2 {
   transform: translateY(-2px);
   background-color: #333;
 }
+.category-heading {
+  font-size: 1.875rem; /* Tailwind's text-3xl */
+  font-weight: 700;    /* Tailwind's font-bold */
+  color: #facc15;      /* Tailwind's text-yellow-400 */
+  margin-top: 2.5rem;  /* Tailwind's mt-10 */
+  margin-bottom: 1.5rem; /* Tailwind's mb-6 */
+  text-align: center;  /* Tailwind's text-center */
+}
 </style>
 </head>
 <body class="w3-black">
@@ -1009,258 +1017,338 @@ h2 {
   Gunakan alat bantu perhitungan ini untuk mendapatkan nilai-nilai penting seperti solid content, flow rate, retention time, dan dosis kimia secara cepat dan akurat. Formula ini dirancang khusus untuk kebutuhan teknis di lapangan dan membantu pengambilan keputusan dalam waktu nyata.
 </p>
 
-    <div class="formula-item">
-<h3 class="formula-toggle">1. Rumus Solid &nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung persentase solid dalam campuran starch dan air untuk mengetahui konsentrasi larutan.</p>
-<pre><code>Solid = Starch / (Starch + Water)</code></pre>
-<div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Starch (kg): <input type="number" id="starch1_1" /></label><br>
-<label>Water (liter): <input type="number" id="water1_1" /></label><br>
-<br><button id="btn_1">Hitung</button>
-<div id="result_1" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
+<h2 class="category-heading">Perhitungan Dasar Pati</h2>
 
-<div class="formula-item">
-  <h3 class="formula-toggle">2. Flow Starch Elevator &nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-  <div class="formula-content">
-  	<p class="formula-desc">Digunakan untuk memperkirakan debit aliran starch berdasarkan nilai solid dan flow air.</p>
-    <pre><code>Flow = [Solid × Flow Water / (1 - Solid)] × 1.1</code></pre>
-    <div class="example-box">
-      <strong>Masukkan nilai:</strong><br>
-      <label>Solid (%): <input type="number" id="solid2_2" /></label><br>
-      <label>Flow Water (l/min): <input type="number" id="flowwater2_2" /></label><br><br>
-      <button id="btn_2">Hitung</button>
-      <div id="result_2" style="margin-top:10px;"></div>
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-calculator-fill text-2xl mr-3"></i>  Rumus Solid &nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung persentase solid dalam campuran pati dan air.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung persentase solid dalam campuran starch dan air untuk mengetahui konsentrasi larutan.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Solid = Starch / (Starch + Water)</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Starch (kg): <input type="number" id="starch1_1" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-starch1_1" class="error-message"></div>
+          <label>Water (liter): <input type="number" id="water1_1" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-water1_1" class="error-message"></div>
+          <button id="btn_1" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_1" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="formula-item">
-<h3 class="formula-toggle">3. Menghitung Flow&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung debit cairan dalam tangki berdasarkan perubahan level dan durasi waktu.</p>
-<pre><code>Flow = ((Level Awal - Level Akhir) × Volume) / (Waktu Akhir - Waktu Awal)</code></pre>
-<div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Level Awal (%): <input type="number" id="level1_3_3" /></label><br>
-<label>Level Akhir (%): <input type="number" id="level2_3_3" /></label><br>
-<label>Volume Tangki (m3): <input type="number" id="volume3_3" /></label><br>
-<label>Waktu Awal: <input type="time" id="time1_3_3" /></label><br>
-<label>Waktu Akhir: <input type="time" id="time2_3_3" /></label><br>
-<br><button id="btn_3">Hitung</button>
-<div id="result_3" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
-
-<div class="formula-item">
-  <h3 class="formula-toggle">4. Retention Time&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-  <div class="formula-content">
-  	<p class="formula-desc">Menentukan waktu retensi larutan dalam tangki reaksi berdasarkan volume dan laju aliran.</p>
-    <pre><code>Retention Time (menit) = (Volume × Level%) / (Flow / 60)</code></pre>
-    <div class="example-box">
-      <strong>Masukkan nilai:</strong><br>
-      <label>Flow FIC-6881 (m³/h): <input type="number" id="flow4_4" /></label><br>
-      <label>Level Reaction Tank (%): <input type="number" id="level4_4" /></label><br><br>
-      <button id="btn_4">Hitung</button>
-      <div id="result_4" style="margin-top:10px;"></div>
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-droplet-fill text-2xl mr-3"></i> 1 Density Starch (%)&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung densitas larutan pati berdasarkan nilai solid.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung densitas larutan starch berdasarkan nilai solid menggunakan pendekatan umum industri.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Density = 100 / (100 - solid + (solid / 1.65))</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Solid (%): <input type="number" id="solid13_13" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solid13_13" class="error-message"></div>
+          <button id="btn_13" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_13" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="formula-item">
-<h3 class="formula-toggle">5. Flow Waterglass&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung kebutuhan flow waterglass sesuai dengan konsentrasi dan dosis yang diinginkan.</p>
-<pre><code>Flow = Flow Storage (m3/h) x %Solid Storage x %Dosis / 14</code></pre>
-<div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Flow Storage (m3/h): <input type="number" id="flow5_5" /></label><br>
-<label>%Solid Storage: <input type="number" id="solid5_5" /></label><br>
-<label>%Dosis: <input type="number" id="dosis5_5" /></label><br>
-<br><button id="btn_5">Hitung</button>
-<div id="result_5" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
+    <h2 class="text-3xl font-bold text-yellow-400 mb-6 mt-10 text-center category-heading">Manajemen Aliran</h2>
 
-
-<div class="formula-item">
-  <h3 class="formula-toggle">6. Rumus Pengenceran&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-  <div class="formula-content">
-  	<p class="formula-desc">Menghitung berapa banyak air yang dibutuhkan untuk mengencerkan larutan ke target solid tertentu.</p>
-    <pre><code>Flow Air (m³/h) = [(Flow × (%Solid - %Target)) / %Target]</code></pre>
-    <div class="example-box">
-      <strong>Masukkan nilai:</strong><br>
-      <label>Flow (m³/h): <input type="number" id="flow6_6" /></label><br>
-      <label>%Solid Content: <input type="number" id="solid6_6" /></label><br>
-      <label>%Target Solid: <input type="number" id="target6_6" /></label><br><br>
-      <button id="btn_6">Hitung</button>
-      <div id="result_6" style="margin-top:10px;"></div>
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-arrow-right-circle-fill text-2xl mr-3"></i>  Flow Starch Elevator &nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Memperkirakan debit aliran pati berdasarkan nilai solid dan flow air.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Digunakan untuk memperkirakan debit aliran starch berdasarkan nilai solid dan flow air.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Flow = [Solid × Flow Water / (1 - Solid)] × 1.1</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Solid (%): <input type="number" id="solid2_2" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solid2_2" class="error-message"></div>
+          <label>Flow Water (l/min): <input type="number" id="flowwater2_2" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-flowwater2_2" class="error-message"></div>
+          <button id="btn_2" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_2" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="formula-item">
-<h3 class="formula-toggle">7. Rumus Pencampuran&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung solid akhir dari dua larutan berbeda yang dicampurkan dengan volume dan solid masing-masing.</p>
-<pre><code>Solid Campuran = (Vol1 x Solid1 + Vol2 x Solid2) / (Vol1 + Vol2)</code></pre>
-<div class="example-box">
-  <strong>Campuran 1 (Tangki Final):</strong><br>
-  <label>Volume Tangki 1 (m³): <input type="number" id="vol1" step="0.01" /></label><br>
-  <label>Level 1 (%): <input type="number" id="level1" step="0.1" /></label><br>
-  <label>Solid 1 (%): <input type="number" id="solid1" step="0.1" /></label><br><br>
-
-  <strong>Campuran 2 (Tangki Tercampur Air):</strong><br>
-  <label>Volume Tangki 2 (m³): <input type="number" id="vol2" step="0.01" /></label><br>
-  <label>Level 2 (%): <input type="number" id="level2" step="0.1" /></label><br>
-  <label>Solid 2 (%): <input type="number" id="solid2" step="0.1" /></label><br><br>
-
-  <button id="btn_7">Hitung Solid Campuran</button>
-  <div id="result_7" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
-
-<div class="formula-item">
-<h3 class="formula-toggle">8. Solid NaOH&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung persentase solid larutan NaOH setelah dicampur dengan air.</p>
-<pre><code>Solid = Total NaOH x 48% / (Total NaOH + Total Water)</code></pre>
-<div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Total NaOH (kg): <input type="number" id="naoh8_8" /></label><br>
-<label>Total Water (liter): <input type="number" id="air8_8" /></label><br>
-<br><button id="btn_8">Hitung</button>
-<div id="result_8" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
-
-<div class="formula-item">
-  <h3 class="formula-toggle">9. Konversi Flow&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-  <div class="formula-content">
-  	<p class="formula-desc">Melakukan konversi satuan antara liter/menit dan meter kubik/jam sesuai kebutuhan perhitungan.</p>
-    <pre><code>l/min → m³/h: Flow × 60 ÷ 1000  
-m³/h → l/min: Flow × 1000 ÷ 60</code></pre>
-    <div class="example-box">
-      <strong>Masukkan nilai:</strong><br>
-      <label>Flow (angka): <input type="number" id="flow9_9" /></label><br>
-      <label>Pilih konversi:
-        <select id="conversionType9">
-          <option value="lpm_to_m3h">l/min → m³/h</option>
-          <option value="m3h_to_lpm">m³/h → l/min</option>
-        </select>
-      </label><br><br>
-      <button id="btn_9">Hitung</button>
-      <div id="result_9" style="margin-top:10px;"></div>
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-arrow-left-right text-2xl mr-3"></i>  Konversi Flow&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Melakukan konversi satuan antara liter/menit dan meter kubik/jam.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Melakukan konversi satuan antara liter/menit dan meter kubik/jam sesuai kebutuhan perhitungan.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">l/min → m³/h = Flow × 60 ÷ 1000  
+m³/h → l/min = Flow × 1000 ÷ 60</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Flow (angka): <input type="number" id="flow9_9" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-flow9_9" class="error-message"></div>
+          <label>Pilih konversi:
+            <select id="conversionType9" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark">
+              <option value="lpm_to_m3h">l/min → m³/h</option>
+              <option value="m3h_to_lpm">m³/h → l/min</option>
+            </select>
+          </label><br>
+          <button id="btn_9" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_9" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-
-<div class="formula-item">
-<h3 class="formula-toggle">10. PPM Enzyme&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung konsentrasi enzim dalam aliran starch menggunakan satuan PPM (part per million).</p>
-<pre><code>PPM = (Flow Enzyme / Flow Starch) x 1000</code></pre>
-<div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Flow Enzyme (l/min): <input type="number" id="enzyme10_10" /></label><br>
-<label>Flow Starch (kg/min): <input type="number" id="starch10_10" /></label><br>
-<br><button id="btn_10">Hitung</button>
-<div id="result_10" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
-
-<div class="formula-item">
-  <h3 class="formula-toggle">11. Starch Bonedry Flow&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-  <div class="formula-content">
-  	<p class="formula-desc">Menghitung aliran bonedry starch dari dua sumber aliran berdasarkan solid, flow, dan densitas.</p>
-    <pre><code>Flow (kg/h) = [(SolidTop × FlowTop) + (SolidBottom × FlowBottom)] × Density × 10</code></pre>
-    <div class="example-box">
-      <strong>Masukkan nilai:</strong><br>
-      <label>Solid Top (%): <input type="number" id="solidTop11" step="any" /></label><br>
-      <label>Total Flow Top (m³/h): <input type="number" id="flowTop11" step="any" /></label><br>
-      <label>Solid Bottom (%): <input type="number" id="solidBottom11" step="any" /></label><br>
-      <label>Total Flow Bottom (m³/h): <input type="number" id="flowBottom11" step="any" /></label><br>
-      <label>Density (ton/m³): <input type="number" id="density11" step="any" value="1.1" /></label><br><br>
-
-      <button id="btn_11">Hitung</button>
-      <div id="result_11" style="margin-top:10px;"></div>
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-speedometer2 text-2xl mr-3"></i>  Menghitung Flow&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung debit cairan dalam tangki berdasarkan perubahan level dan durasi waktu.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung debit cairan dalam tangki berdasarkan perubahan level dan durasi waktu.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Flow = ((Level Awal - Level Akhir) × Volume) / (Waktu Akhir - Waktu Awal)</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Level Awal (%): <input type="number" id="level1_3_3" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-level1_3_3" class="error-message"></div>
+          <label>Level Akhir (%): <input type="number" id="level2_3_3" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-level2_3_3" class="error-message"></div>
+          <label>Volume Tangki (m3): <input type="number" id="volume3_3" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-volume3_3" class="error-message"></div>
+          <label>Waktu Awal (HH.MM): <input type="number" id="time1_3_3" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-time1_3_3" class="error-message"></div>
+          <label>Waktu Akhir (HH.MM): <input type="number" id="time2_3_3" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-time2_3_3" class="error-message"></div>
+          <button id="btn_3" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_3" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
+    <h2 class="text-3xl font-bold text-yellow-400 mb-6 mt-10 text-center category-heading">Dosis & Konsumsi</h2>
 
-<div class="formula-item">
-<h3 class="formula-toggle">12. Starch Consumption&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung konsumsi starch per ton kertas berdasarkan laju produksi dan flow bonedry.</p>
-<pre><code>Consumption = Bonedry Flow / Paper Production Rate</code></pre>
-<div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Bonedry Flow (kg/h): <input type="number" id="bdf12_12" /></label><br>
-<label>Paper Prod. Rate (t/h): <input type="number" id="rate12_12" /></label><br>
-<br><button id="btn_12">Hitung</button>
-<div id="result_12" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-lightning-charge-fill text-2xl mr-2"></i>  Flow Waterglass
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung kebutuhan flow waterglass sesuai konsentrasi dan dosis.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung kebutuhan flow waterglass sesuai dengan konsentrasi dan dosis yang diinginkan.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Flow = Flow Storage (m3/h) x %Solid Storage x %Dosis / 14</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Flow Storage (m3/h): <input type="number" id="flow5_5" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-flow5_5" class="error-message"></div>
+          <label>%Solid Storage: <input type="number" id="solid5_5" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solid5_5" class="error-message"></div>
+          <label>%Dosis: <input type="number" id="dosis5_5" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-dosis5_5" class="error-message"></div>
+          <button id="btn_5" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_5" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
 
-<div class="formula-item">
-<h3 class="formula-toggle">13. Density Starch (%)&nbsp;
-  <i class="fa fa-chevron-right toggle-icon"></i>
-</h3>
-<div class="formula-content">
-	<p class="formula-desc">Menghitung densitas larutan starch berdasarkan nilai solid menggunakan pendekatan umum industri.</p>
-<pre><code>Density = 100 / (100 - solid + (solid / 1.65))</code></pre>
-<div class="example-box">
-<strong>Masukkan nilai:</strong><br>
-<label>Solid (%): <input type="number" id="solid13_13" /></label><br>
-<br><button id="btn_13">Hitung</button>
-<div id="result_13" style="margin-top:10px;"></div>
-</div>
-</div>
-</div>
-<div style="text-align:center; margin-top: 24px;">
-  <a href="#formula-title" id="close-all-formulas" style="color:#aad8ff; cursor:pointer;">
-  ↑ Kembali ke daftar rumus
-</a>
-</div>
- </div>
-</div>
- </div>
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-water text-2xl mr-3"></i>  Rumus Pengenceran&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung air yang dibutuhkan untuk mengencerkan larutan ke target solid.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung berapa banyak air yang dibutuhkan untuk mengencerkan larutan ke target solid tertentu.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Flow Air (m³/h) = [(Flow × (%Solid - %Target)) / %Target]</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Flow (m³/h): <input type="number" id="flow6_6" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-flow6_6" class="error-message"></div>
+          <label>%Solid Content: <input type="number" id="solid6_6" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solid6_6" class="error-message"></div>
+          <label>%Target Solid: <input type="number" id="target6_6" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-target6_6" class="error-message"></div>
+          <button id="btn_6" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_6" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-boxes text-2xl mr-3"></i>  Rumus Pencampuran&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung solid akhir dari dua larutan berbeda yang dicampurkan.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung solid akhir dari dua larutan berbeda yang dicampurkan dengan volume dan solid masing-masing.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Solid Campuran = (Vol1 x Solid1 + Vol2 x Solid2) / (Vol1 + Vol2)</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Campuran 1 (Tangki Final):</strong><br>
+          <label>Volume Tangki 1 (m³): <input type="number" id="vol1" step="0.01" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-vol1" class="error-message"></div>
+          <label>Level 1 (%): <input type="number" id="level1" step="0.1" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-level1" class="error-message"></div>
+          <label>Solid 1 (%): <input type="number" id="solid1" step="0.1" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solid1" class="error-message"></div>
+          <strong>Campuran 2 (Tangki Tercampur Air):</strong><br>
+          <label>Volume Tangki 2 (m³): <input type="number" id="vol2" step="0.01" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-vol2" class="error-message"></div>
+          <label>Level 2 (%): <input type="number" id="level2" step="0.1" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-level2" class="error-message"></div>
+          <label>Solid 2 (%): <input type="number" id="solid2" step="0.1" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solid2" class="error-message"></div>
+          <button id="btn_7" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_7" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-box-fill text-2xl mr-3"></i>  Solid NaOH&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung persentase solid larutan NaOH setelah dicampur air.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung persentase solid larutan NaOH setelah dicampur dengan air.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Solid = Total NaOH x 48% / (Total NaOH + Total Water)</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Total NaOH (kg): <input type="number" id="naoh8_8" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-naoh8_8" class="error-message"></div>
+          <label>Total Water (liter): <input type="number" id="air8_8" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-air8_8" class="error-message"></div>
+          <button id="btn_8" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_8" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-percent text-2xl mr-3"></i>  PPM Enzyme&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung konsentrasi enzim dalam aliran pati dalam PPM.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung konsentrasi enzim dalam aliran starch menggunakan satuan PPM (part per million).
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">PPM = (Flow Enzyme / Flow Starch) x 1000</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Flow Enzyme (l/min): <input type="number" id="enzyme10_10" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-enzyme10_10" class="error-message"></div>
+          <label>Flow Starch (kg/min): <input type="number" id="starch10_10" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-starch10_10" class="error-message"></div>
+          <button id="btn_10" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_10" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-graph-up text-2xl mr-3"></i> 1 Starch Bonedry Flow&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung aliran pati bonedry dari dua sumber aliran.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung aliran bonedry starch dari dua sumber aliran berdasarkan solid, flow, dan densitas.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Flow (kg/h) = [(SolidTop × FlowTop) + (SolidBottom × FlowBottom)] × Density × 10</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Solid Top (%): <input type="number" id="solidTop11" step="any" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solidTop11" class="error-message"></div>
+          <label>Total Flow Top (m³/h): <input type="number" id="flowTop11" step="any" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-flowTop11" class="error-message"></div>
+          <label>Solid Bottom (%): <input type="number" id="solidBottom11" step="any" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-solidBottom11" class="error-message"></div>
+          <label>Total Flow Bottom (m³/h): <input type="number" id="flowBottom11" step="any" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-flowBottom11" class="error-message"></div>
+          <label>Density (ton/m³): <input type="number" id="density11" step="any" value="1.1" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-density11" class="error-message"></div>
+          <button id="btn_11" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_11" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-bar-chart-fill text-2xl mr-3"></i> 1 Starch Consumption&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menghitung konsumsi pati per ton kertas berdasarkan laju produksi.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menghitung konsumsi starch per ton kertas berdasarkan laju produksi dan flow bonedry.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Consumption = Bonedry Flow / Paper Production Rate</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Bonedry Flow (kg/h): <input type="number" id="bdf12_12" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-bdf12_12" class="error-message"></div>
+          <label>Paper Prod. Rate (t/h): <input type="number" id="rate12_12" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-rate12_12" class="error-message"></div>
+          <button id="btn_12" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_12" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-item bg-gray-800 rounded-xl shadow-lg p-5 mb-8">
+      <h3 class="formula-toggle flex items-center text-blue-200 cursor-pointer transition-colors duration-300 hover:text-blue-400">
+        <i class="bi bi-clock-history text-2xl mr-3"></i>  Retention Time&nbsp;
+        <i class="fa fa-chevron-right toggle-icon transition-transform duration-300"></i>
+      </h3>
+      <p class="text-gray-400 text-sm mt-2 formula-summary">Menentukan waktu retensi larutan dalam tangki reaksi.</p>
+      <div class="formula-content bg-black/60 p-5 rounded-lg text-white backdrop-blur-sm custom-shadow-dark mt-4">
+        <p class="formula-desc bg-gray-900 text-gray-200 border-l-4 border-green-500 p-4 px-5 my-5 rounded-lg text-base leading-relaxed shadow-md max-w-full box-border break-words">
+          Menentukan waktu retensi larutan dalam tangki reaksi berdasarkan volume dan laju aliran.
+        </p>
+        <pre><code class="bg-white/10 p-2.5 rounded-lg block whitespace-pre-wrap font-mono text-yellow-50 max-w-full overflow-x-auto box-border break-words">Retention Time (menit) = (Volume × Level%) / (Flow / 60)</code></pre>
+        <div class="example-box bg-white/10 p-4 border-l-4 border-blue-400 rounded-lg text-base text-blue-50 mt-2.5 block mb-3 w-full max-w-md">
+          <strong>Masukkan nilai:</strong><br>
+          <label>Flow FIC-6881 (m³/h): <input type="number" id="flow4_4" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-flow4_4" class="error-message"></div>
+          <label>Level Reaction Tank (%): <input type="number" id="level4_4" class="my-1.5 px-2.5 py-1.5 rounded border-none bg-white/10 text-white w-40 text-base focus-border-yellow-dark" /></label><br>
+          <div id="error-level4_4" class="error-message"></div>
+          <button id="btn_4" class="bg-blue-600 text-white p-2.5 px-4.5 border-none rounded-lg font-bold cursor-pointer transition-all duration-300 text-base mt-2.5 btn-blue-hover-dark">Hitung</button>
+          <div id="result_4" class="mt-3 bg-white/10 p-2.5 px-3.5 rounded-md font-bold text-base text-center max-w-md"></div>
+        </div>
+      </div>
+    </div>
 <div style="margin-top: 48px; padding: 24px; background-color: rgba(255, 255, 255, 0.05); border-radius: 12px; text-align: center; color: #aad8ff; font-size: 1.05rem; line-height: 1.6;">
   <p style="margin-bottom: 16px;">
     Punya pertanyaan seputar pengolahan starch, ingin diskusi formula baru, atau punya saran fitur?
