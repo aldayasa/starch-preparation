@@ -54,7 +54,7 @@
 	border-radius: 5px;
 	padding: 10px;
 	min-height: 15px;
-	mid-width: 60px;
+	min-width: 60px;
 }
 
 .button:hover {
@@ -73,7 +73,7 @@ input[type=submit], input[type=reset], input[type=number], input[type=text] {
 	border-radius: 5px;
 	padding: 10px;
 	min-height: 15px;
-	mid-width: 60px;
+	min-width: 60px;
 }
 
 input[type=submit]:hover, input[type=reset]:hover {
