@@ -1,149 +1,91 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
+  <title>Equipment | StarchPrep</title>
   <meta charset="UTF-8">
-  <title>Equipment - Starch Preparation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FYZ91YW3FC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FYZ91YW3FC');
-</script>
-
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
-      background-color: #0f0f0f;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 40px 20px 80px;
-    }
-    h2 {
-      color: #61dafb;
-      margin-bottom: 30px;
-    }
-    .card {
-      background-color: #1e1e1e;
-      border: none;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-    }
-    .card img {
-      cursor: zoom-in;
-      border-radius: 12px 12px 0 0;
-    }
-    .btn-home, .btn-top {
-      position: fixed;
-      bottom: 20px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 30px;
-      font-weight: bold;
-      z-index: 1000;
-    }
-    .btn-home {
-      left: 20px;
-      background-color: #61dafb;
-      color: #000;
-    }
-    .btn-top {
-      right: 20px;
-      background-color: #fff;
-      color: #000;
-    }
-    #imageModal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.85);
-    }
-    #modalContent {
-      max-width: 90%;
-      max-height: 80%;
-      margin: 5% auto;
-      display: block;
-      border-radius: 8px;
-      animation: zoomIn 0.4s ease;
-    }
-    .close-btn {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      color: white;
-      font-size: 36px;
-      cursor: pointer;
-    }
-    @keyframes zoomIn {
-      from {transform: scale(0.7); opacity: 0;}
-      to {transform: scale(1); opacity: 1;}
-    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f8fafc; }
+    [v-cloak] { display: none; }
+    .bg-hero { position: fixed; inset: 0; z-index: -1; background-image: url('background.webp'); background-size: cover; background-position: center; }
+    .bg-overlay { position: fixed; inset: 0; background: linear-gradient(to bottom, rgba(11,15,25,0.85), rgba(11,15,25,0.95)); z-index: -1; backdrop-filter: blur(8px); }
+    .glass-card { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+    .glass-card:hover { border-color: rgba(245, 158, 11, 0.5); transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(245,158,11,0.3); }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h2 class="text-center">Equipment Starch Preparation</h2>
-    <div id="equipmentContainer" class="row row-cols-1 row-cols-md-2 g-4"></div>
+<body class="antialiased">
+
+<div id="app" v-cloak class="min-h-screen flex flex-col relative pb-20">
+  <div class="bg-hero"></div><div class="bg-overlay"></div>
+
+  <div class="max-w-7xl mx-auto w-full px-4 pt-8 pb-4">
+    <a href="index.html" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-amber-400 px-5 py-2.5 rounded-xl transition-all font-bold text-xs border border-white/10 shadow-lg backdrop-blur-sm">
+      <i class="fa fa-arrow-left"></i> Kembali ke Dashboard
+    </a>
+    <div class="text-center mt-8 mb-12">
+      <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">Equipment <span class="text-amber-400">Inventory</span></h1>
+      <p class="text-gray-400 text-sm max-w-2xl mx-auto">Dokumentasi teknis perlengkapan operasional pada sistem Starch Preparation.</p>
+    </div>
   </div>
 
-  <!-- Tombol Navigasi -->
-  <button class="btn-home" onclick="location.href='index.html#starch-content'">Home</button>
-  <button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
-
-  <!-- Modal Gambar -->
-  <div id="imageModal">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <img id="modalContent" alt="Zoomed Image">
-  </div>
-
-  <script>
-    const equipmentList = [
-      ["Tangki Hopper", "hopper3.jpg", "Unit penerima awal starch dari jumbo bag yang berfungsi sebagai buffer sebelum proses transfer mekanis."],
-      ["Screw & Elevator", "screw_elevator.jpg", "Sistem transportasi mekanis untuk memindahkan starch secara vertikal dari hopper menuju unit proses berikutnya."],
-      ["Pompa Enzyme", "monitoring7.jpg", "Pompa dosing untuk injeksi enzim secara presisi ke dalam tangki cooker sesuai kebutuhan reaksi."],
-      ["Tangki Cooker", "Cooker_tank.jpg", "Vessel pencampur yang menghomogenkan larutan starch, air, dan enzim sebelum tahap pemanasan intensif."],
-      ["Filter 6813 & 6814", "Filter6813.jpg", "Sistem filtrasi awal untuk mengeliminasi partikel kasar sebelum larutan masuk ke jet cooker."],
-      ["Jet Cooker 1", "Jetcooker1.jpg", "Perangkat pemanas bertekanan tinggi untuk gelatinisasi starch dan aktivasi enzim melalui injeksi steam langsung."],
-      ["Tangki Reaction", "Reaction_tank.jpg", "Tangki reaksi untuk proses hidrolisis parsial starch oleh enzim guna meningkatkan kelarutan dan viskositas."],
-      ["Jet Cooker 2", "Jetcooker2.jpg", "Jet cooker tahap akhir untuk peningkatan suhu cepat dalam rangka deaktivasi enzim."],
-      ["Tangki Storage", "storage_tank.jpg", "Tangki penampung sementara untuk starch hasil proses sebelum tahap filtrasi lanjutan atau distribusi akhir."],
-      ["Pressure Filter", "pressure_filter.jpg", "Unit filtrasi bertekanan tertutup untuk memisahkan partikel mikro dari larutan starch."],
-      ["Final Tank 1 (Bottom)", "Final1.jpg", "Tangki akhir bagian bawah sebagai reservoir utama untuk starch siap aplikasi ke sistem sizing."],
-      ["Final Tank 2 (Top)", "Final2.jpg", "Tangki atas yang mengatur aliran distribusi starch ke top sizer secara terkontrol."],
-      ["Vibrating Screen VB1B, VB2B", "Vb1b.jpg", "Unit penyaring getar jalur bawah untuk menghilangkan impuritas sebelum masuk ke final tank bawah."],
-      ["Vibrating Screen VB1T, VB2T", "Vb1t.jpg", "Unit penyaring getar jalur atas untuk memastikan kemurnian starch sebelum masuk ke final tank atas."],
-      ["Pompa Aluminium Sulfat", "Alum_pump.jpg", "Memompa larutan alum untuk mendukung proses pelarutan dan aktivasi surface sizing agent pada sistem surface sizing."],
-      ["Tangki NaOH", "Soda_tank.jpg", "Tangki penyimpanan NaOH yang digunakan sebagai solusi pembersih wire dan felt pada kondisi tertentu."],
-      ["Tangki Wet-End Starch", "Wetend_tank.jpg", "Tangki khusus untuk suplai starch ke wet-end paper machine bila diperlukan."]
-    ];
-
-    const container = document.getElementById("equipmentContainer");
-    container.innerHTML = equipmentList.map(e => `
-      <div class="col">
-        <div class="card text-white">
-          <img src="${e[1]}" class="card-img-top" alt="${e[0]}" onclick="openModal(this)">
-          <div class="card-body">
-            <h5 class="card-title">${e[0]}</h5>
-            <p class="card-text">${e[2]}</p>
-          </div>
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 z-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div v-for="(eq, index) in equipments" :key="index" class="glass-card rounded-2xl overflow-hidden group cursor-pointer" @click="zoomImage = eq">
+        <div class="relative overflow-hidden h-40">
+          <img :src="eq.img" :alt="eq.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-all"></div>
+        </div>
+        <div class="p-5 border-t border-gray-700/50">
+          <h3 class="text-sm font-black text-white mb-2 group-hover:text-amber-400 transition-colors tracking-tighter">{{ eq.name }}</h3>
+          <p class="text-[11px] text-gray-400 leading-relaxed line-clamp-2">{{ eq.desc }}</p>
         </div>
       </div>
-    `).join("");
+    </div>
+  </main>
 
-    function openModal(img) {
-      document.getElementById("imageModal").style.display = "block";
-      document.getElementById("modalContent").src = img.src;
+  <div v-if="zoomImage" class="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center p-4 backdrop-blur-md" @click.self="zoomImage = null">
+    <button @click="zoomImage = null" class="absolute top-6 right-6 text-white bg-red-500 hover:bg-red-600 w-12 h-12 rounded-full font-bold shadow-lg transition-transform active:scale-90 z-50"><i class="fas fa-times text-xl"></i></button>
+    
+    <img :src="zoomImage.img" class="max-w-full max-h-[65vh] rounded-2xl shadow-[0_0_50px_rgba(245,158,11,0.3)] border border-gray-700 object-contain">
+    
+    <div class="mt-6 w-full max-w-2xl bg-black/60 p-6 rounded-2xl border border-gray-800 text-center shadow-xl">
+      <h3 class="text-2xl font-black text-amber-400 mb-3 tracking-tighter">{{ zoomImage.name }}</h3>
+      <p class="text-sm md:text-base text-gray-300 leading-relaxed">{{ zoomImage.desc }}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        zoomImage: null,
+        equipments: [
+          { name: 'Tangki Hopper', img: 'hopper3.jpg', desc: 'Unit penerima awal starch dari jumbo bag yang berfungsi sebagai buffer sebelum proses transfer mekanis.' },
+          { name: 'Screw & Elevator', img: 'screw_elevator.jpg', desc: 'Sistem transportasi mekanis untuk memindahkan starch secara vertikal dari hopper menuju unit proses berikutnya.' },
+          { name: 'Pompa Enzyme', img: 'monitoring7.jpg', desc: 'Pompa dosing untuk injeksi enzim secara presisi ke dalam tangki cooker sesuai kebutuhan reaksi.' },
+          { name: 'Tangki Cooker', img: 'Cooker_tank.jpg', desc: 'Vessel pencampur yang menghomogenkan larutan starch, air, dan enzim sebelum tahap pemanasan intensif.' },
+          { name: 'Filter 6813 & 6814', img: 'Filter6813.jpg', desc: 'Sistem filtrasi awal untuk mengeliminasi partikel kasar sebelum larutan masuk ke jet cooker.' },
+          { name: 'Jet Cooker 1', img: 'Jetcooker1.jpg', desc: 'Perangkat pemanas bertekanan tinggi untuk gelatinisasi starch dan aktivasi enzim melalui injeksi steam langsung.' },
+          { name: 'Tangki Reaction', img: 'Reaction_tank.jpg', desc: 'Tangki reaksi untuk proses hidrolisis parsial starch oleh enzim guna meningkatkan kelarutan dan viskositas.' },
+          { name: 'Jet Cooker 2', img: 'Jetcooker2.jpg', desc: 'Jet cooker tahap akhir untuk peningkatan suhu cepat dalam rangka deaktivasi enzim.' },
+          { name: 'Tangki Storage', img: 'storage_tank.jpg', desc: 'Tangki penampung sementara untuk starch hasil proses sebelum tahap filtrasi lanjutan atau distribusi akhir.' },
+          { name: 'Pressure Filter', img: 'pressure_filter.jpg', desc: 'Unit filtrasi bertekanan tertutup untuk memisahkan partikel mikro dari larutan starch.' },
+          { name: 'Final Tank 1 (Bottom)', img: 'Final1.jpg', desc: 'Tangki akhir bagian bawah sebagai reservoir utama untuk starch siap aplikasi ke sistem sizing.' },
+          { name: 'Final Tank 2 (Top)', img: 'Final2.jpg', desc: 'Tangki atas yang mengatur aliran distribusi starch ke top sizer secara terkontrol.' },
+          { name: 'Vibrating Screen VB1B, VB2B', img: 'Vb1b.jpg', desc: 'Unit penyaring getar jalur bawah untuk menghilangkan impuritas sebelum masuk ke final tank bawah.' },
+          { name: 'Vibrating Screen VB1T, VB2T', img: 'Vb1t.jpg', desc: 'Unit penyaring getar jalur atas untuk memastikan kemurnian starch sebelum masuk ke final tank atas.' },
+          { name: 'Pompa Aluminium Sulfat', img: 'Alum_pump.jpg', desc: 'Memompa larutan alum untuk mendukung proses pelarutan dan aktivasi surface sizing agent pada sistem surface sizing.' },
+          { name: 'Tangki NaOH', img: 'Soda_tank.jpg', desc: 'Tangki penyimpanan NaOH yang digunakan sebagai solusi pembersih wire dan felt pada kondisi tertentu.' },
+          { name: 'Tangki Wet-End Starch', img: 'Wetend_tank.jpg', desc: 'Tangki khusus untuk suplai starch ke wet-end paper machine bila diperlukan.' }
+        ]
+      }
     }
-    function closeModal() {
-      document.getElementById("imageModal").style.display = "none";
-    }
-  </script>
+  }).mount('#app');
+</script>
 </body>
-
 </html>

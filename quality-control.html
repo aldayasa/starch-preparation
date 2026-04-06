@@ -1,204 +1,86 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
 <head>
-  <title>Quality Control - Lab Uji Starch & Kertas</title>
+  <title>Quality Control | StarchPrep</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FYZ91YW3FC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FYZ91YW3FC');
-</script>
-
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
-      background-color: #0f0f0f;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 40px 20px 80px;
-    }
-    h2 {
-      color: #61dafb;
-      margin-bottom: 30px;
-    }
-    .card {
-      background-color: #1c1c1c;
-      border: none;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-    }
-    .card img {
-      border-radius: 12px 12px 0 0;
-      cursor: zoom-in;
-    }
-    .btn-home, .btn-top {
-      position: fixed;
-      bottom: 20px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 30px;
-      font-weight: bold;
-      z-index: 1000;
-    }
-    .btn-home {
-      left: 20px;
-      background-color: #61dafb;
-      color: #000;
-    }
-    .btn-top {
-      right: 20px;
-      background-color: #fff;
-      color: #000;
-    }
-    #imageModal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.85);
-    }
-    #modalContent {
-      max-width: 90%;
-      max-height: 80%;
-      margin: 5% auto;
-      display: block;
-      border-radius: 8px;
-      animation: zoomIn 0.4s ease;
-    }
-    .close-btn {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      color: white;
-      font-size: 36px;
-      cursor: pointer;
-    }
-    @keyframes zoomIn {
-      from {transform: scale(0.7); opacity: 0;}
-      to {transform: scale(1); opacity: 1;}
-    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f8fafc; }
+    [v-cloak] { display: none; }
+    .bg-hero { position: fixed; inset: 0; z-index: -1; background-image: url('background.webp'); background-size: cover; background-position: center; }
+    .bg-overlay { position: fixed; inset: 0; background: linear-gradient(to bottom, rgba(11,15,25,0.85), rgba(11,15,25,0.95)); z-index: -1; backdrop-filter: blur(8px); }
+    .glass-card { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+    .glass-card:hover { border-color: rgba(168, 85, 247, 0.5); transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(168,85,247,0.3); }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h2 class="text-center">Uji Laboratorium & Quality Control</h2>
-    <div class="row row-cols-1 row-cols-md-2 g-4"><script>
-    const tests = [
-      ["Solid Content Starch", "monitoring1.jpg", "Pengukuran kadar padatan dalam larutan starch menggunakan refraktometer. Range normal: 25% – 30%"],
-      ["Viscosity Starch", "Viscocity.jpg", "Pengukuran kekentalan larutan menggunakan viscometer cup. Rentang normal: 15 – 30 cps"],
-      ["pH & Temperature Starch", "ph_temp.jpg", "pH ideal berada di rentang 5.5 – 6.5 agar enzim bekerja maksimal. Suhu optimal: 75°C – 80°C"],
- ["Ring Crush Test (RCT)", "", `
-  <div style="margin-bottom: 10px;">
-    <iframe width="100%" height="200" 
-      src="https://www.youtube.com/embed/oiGdKyoNB9o" 
-      title="RCT - YouTube Shorts" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-  Uji kekuatan tekan vertikal pada sampel kertas untuk mengetahui daya tahan compressive strength-nya.
-`],
-      ["Concora Test", "", `
-  <div style="margin-bottom: 10px;">
-    <iframe width="100%" height="200" 
-      src="https://www.youtube.com/embed/wFG2osHCwKc" 
-      title="Concora Test - YouTube" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-  Uji daya tahan liner medium setelah proses corrugation. Menilai kekuatan kertas saat dilipat dan diberi tekanan.
-`],
-      ["Cobb Test", "", `
-  <div style="margin-bottom: 10px;">
-    <iframe width="100%" height="200" 
-      src="https://www.youtube.com/embed/Nb-AZvxn9-g" 
-      title="Cobb Test - YouTube Shorts" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-  Mengukur daya serap air kertas dalam waktu tertentu. Nilai Cobb menunjukkan kemampuan kertas menahan kelembaban.
-`],
-      ["Thickness", "", `
-  <div style="margin-bottom: 10px;">
-    <iframe width="100%" height="200" 
-      src="https://www.youtube.com/embed/Y3VBqnNuhQU" 
-      title="Thickness - YouTube Shorts" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-  Ketebalan lembar kertas. Diuji menggunakan micrometer dengan toleransi berdasarkan spesifikasi produk.`],
-  ["Bursting Strength", "", `
-  <div style="margin-bottom: 10px;">
-    <iframe width="100%" height="200" 
-      src="https://www.youtube.com/embed/0KrlyOuh2fc" 
-      title="Bursting Strength - YouTube Shorts" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-  Uji ketahanan kertas terhadap tekanan dari dalam sebelum robek. Parameter ini menunjukkan kekuatan umum material terhadap beban mendadak atau tekanan titik.`],
-  ["Grammature", "", `
-  <div style="margin-bottom: 10px;">
-    <iframe width="100%" height="200" 
-      src="https://www.youtube.com/embed/LusjhBTPs0E" 
-      title="Grammature - YouTube Shorts" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-  Berat kertas per meter persegi (gsm). Parameter utama dalam menentukan spesifikasi jenis kertas dan kekuatan lembaran.
-`],
-      ["Moisture Content", "", `
-  <div style="margin-bottom: 10px;">
-    <iframe width="100%" height="200" 
-      src="https://www.youtube.com/embed/kVKjSkoSDQE" 
-      title="Moisture Content - YouTube Shorts" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-  Menentukan kadar air dalam lembaran kertas. Target ideal: 6 – 8% untuk menjaga stabilitas dimensi dan kekuatan material.
-`],
-    ];
+<body class="antialiased">
 
-    document.write(tests.map(test => `
-      <div class="col">
-        <div class="card text-white">
-      <img src="${test[1]}" class="card-img-top" alt="${test[0]}" onclick="openModal(this)" ${test[1] ? '' : 'style="display:none;"'}>
-          <div class="card-body">
-            <h5 class="card-title">${test[0]}</h5>
-            <p class="card-text">${test[2]}</p>
-          </div>
+<div id="app" v-cloak class="min-h-screen flex flex-col relative pb-20">
+  <div class="bg-hero"></div><div class="bg-overlay"></div>
+
+  <div class="max-w-7xl mx-auto w-full px-4 pt-8 pb-4">
+    <a href="index.html" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-purple-400 px-5 py-2.5 rounded-xl transition-all font-bold text-xs border border-white/10 shadow-lg backdrop-blur-sm">
+      <i class="fa fa-arrow-left"></i> Kembali ke Dashboard
+    </a>
+    <div class="text-center mt-8 mb-12">
+      <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">Quality <span class="text-purple-400">Control Lab</span></h1>
+      <p class="text-gray-400 text-sm max-w-2xl mx-auto">Standar uji laboratorium fisika & kimia untuk Starch dan Lembaran Kertas.</p>
+    </div>
+  </div>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div v-for="(qc, index) in tests" :key="index" class="glass-card rounded-2xl overflow-hidden group">
+        
+        <div class="relative overflow-hidden aspect-video bg-black/50" :class="{'cursor-zoom-in': qc.type === 'img'}" @click="qc.type === 'img' ? zoomImage = qc : null">
+          <img v-if="qc.type === 'img'" :src="qc.media" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <iframe v-else-if="qc.type === 'vid'" :src="qc.media" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="p-6 border-t border-gray-700/50">
+          <h3 class="text-lg font-black text-white mb-3 group-hover:text-purple-400 transition-colors tracking-tighter">{{ qc.name }}</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">{{ qc.desc }}</p>
         </div>
       </div>
-    `).join(""));
-  </script>
+    </div>
+  </main>
 
+  <div v-if="zoomImage" class="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center p-4 backdrop-blur-md" @click.self="zoomImage = null">
+    <button @click="zoomImage = null" class="absolute top-6 right-6 text-white bg-red-500 hover:bg-red-600 w-12 h-12 rounded-full font-bold shadow-lg transition-transform active:scale-90 z-50"><i class="fas fa-times text-xl"></i></button>
+    
+    <img :src="zoomImage.media" class="max-w-full max-h-[65vh] rounded-2xl shadow-[0_0_50px_rgba(168,85,247,0.3)] border border-gray-700 object-contain">
+    
+    <div class="mt-6 w-full max-w-2xl bg-black/60 p-6 rounded-2xl border border-gray-800 text-center shadow-xl">
+      <h3 class="text-2xl font-black text-purple-400 mb-3 tracking-tighter">{{ zoomImage.name }}</h3>
+      <p class="text-sm md:text-base text-gray-300 leading-relaxed">{{ zoomImage.desc }}</p>
+    </div>
+  </div>
 </div>
 
-  </div>  <!-- Modal Gambar -->  <div id="imageModal">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <img id="modalContent" alt="Zoomed Image">
-  </div><button class="btn-home" onclick="location.href='index.html#photos-content'">Home</button> <button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
-
-  <script>
-    function openModal(img) {
-      document.getElementById("imageModal").style.display = "block";
-      document.getElementById("modalContent").src = img.src;
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        zoomImage: null,
+        tests: [
+          { name: 'Solid Content Starch', type: 'img', media: 'monitoring1.jpg', desc: 'Pengukuran kadar padatan dalam larutan starch menggunakan refraktometer. Range normal: 25% – 30%' },
+          { name: 'Viscosity Starch', type: 'img', media: 'Viscocity.jpg', desc: 'Pengukuran kekentalan larutan menggunakan viscometer cup. Rentang normal: 15 – 30 cps' },
+          { name: 'pH & Temperature', type: 'img', media: 'ph_temp.jpg', desc: 'pH ideal berada di rentang 5.5 – 6.5 agar enzim bekerja maksimal. Suhu optimal: 75°C – 80°C' },
+          { name: 'Ring Crush Test (RCT)', type: 'vid', media: 'https://www.youtube.com/embed/oiGdKyoNB9o', desc: 'Uji kekuatan tekan vertikal pada sampel kertas untuk mengetahui daya tahan compressive strength-nya.' },
+          { name: 'Concora Test', type: 'vid', media: 'https://www.youtube.com/embed/wFG2osHCwKc', desc: 'Uji daya tahan liner medium setelah proses corrugation. Menilai kekuatan kertas saat dilipat dan diberi tekanan.' },
+          { name: 'Cobb Test', type: 'vid', media: 'https://www.youtube.com/embed/Nb-AZvxn9-g', desc: 'Mengukur daya serap air kertas dalam waktu tertentu. Nilai Cobb menunjukkan kemampuan kertas menahan kelembaban.' },
+          { name: 'Thickness', type: 'vid', media: 'https://www.youtube.com/embed/Y3VBqnNuhQU', desc: 'Ketebalan lembar kertas. Diuji menggunakan micrometer dengan toleransi berdasarkan spesifikasi produk.' },
+          { name: 'Bursting Strength', type: 'vid', media: 'https://www.youtube.com/embed/0KrlyOuh2fc', desc: 'Uji ketahanan kertas terhadap tekanan dari dalam sebelum robek. Menunjukkan kekuatan umum material terhadap tekanan.' },
+          { name: 'Grammature', type: 'vid', media: 'https://www.youtube.com/embed/LusjhBTPs0E', desc: 'Berat kertas per meter persegi (gsm). Parameter utama dalam menentukan spesifikasi jenis kertas dan kekuatan lembaran.' },
+          { name: 'Moisture Content', type: 'vid', media: 'https://www.youtube.com/embed/kVKjSkoSDQE', desc: 'Menentukan kadar air dalam lembaran kertas. Target ideal: 6 – 8% untuk menjaga stabilitas dimensi dan kekuatan material.' }
+        ]
+      }
     }
-    function closeModal() {
-      document.getElementById("imageModal").style.display = "none";
-    } 
-  </script>
+  }).mount('#app');
+</script>
 </body>
-
 </html>

@@ -1,395 +1,103 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
+  <title>SOP & Rutinitas | StarchPrep</title>
   <meta charset="UTF-8">
-  <title>Galeri Pekerjaan: Helper QC & Operator Vibrating Screen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FYZ91YW3FC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FYZ91YW3FC');
-</script>
-
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* Reset dan box sizing */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0f0f0f;
-      color: #f0f0f0;
-      line-height: 1.6;
-      padding: 40px 20px;
-    }
-    
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    
-    header h1 {
-      font-size: 2.8em;
-      color: #4fc3f7;
-      margin-bottom: 10px;
-    }
-    
-    header p {
-      font-size: 1.1em;
-      color: #ccc;
-    }
-    
-    /* Kategori */
-    section {
-      margin-bottom: 60px;
-    }
-    
-    section h2 {
-      font-size: 2em;
-      color: #81d4fa;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #4fc3f7;
-      padding-bottom: 10px;
-    }
-    
-    /* Gallery grid untuk tiap kategori */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      margin-top: 20px;
-    }
-    
-    .card {
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s ease forwards;
-    }
-    
-    /* Efek fade-in dengan delay dinamis, bisa sesuaikan jika jumlah card per kategori berbeda */
-    .card:nth-child(1) { animation-delay: 0.1s; }
-    .card:nth-child(2) { animation-delay: 0.2s; }
-    .card:nth-child(3) { animation-delay: 0.3s; }
-    .card:nth-child(4) { animation-delay: 0.4s; }
-    .card:nth-child(5) { animation-delay: 0.5s; }
-    
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-    }
-    
-    .card-content {
-      padding: 20px;
-    }
-    
-    .card-content h3 {
-      color: #81d4fa;
-      font-size: 1.4em;
-      margin-bottom: 10px;
-    }
-    
-    .card-content p {
-      color: #ccc;
-      font-size: 0.95em;
-    }
-    
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* Footer */
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #aaa;
-    }
-    /* Tombol Navigasi */
-    .nav-buttons {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      z-index: 999;
-    }
-
-    .home-btn, .top-btn {
-      background-color: #4fc3f7;
-      color: #0f0f0f;
-      border: none;
-      border-radius: 50px;
-      padding: 12px 18px;
-      font-size: 1em;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease, background-color 0.3s;
-    }
-
-    .home-btn:hover, .top-btn:hover {
-      background-color: #29b6f6;
-      transform: scale(1.05);
-    }
-    .top-btn {
-  display: none; /* Awalnya disembunyikan */
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 999;
-  background-color: #333;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  margin-right: 5px;
-}
-
-.top-btn:hover {
-  background-color: #29b6f6;
-  transform: scale(1.05);
-}
-a:hover {
-  background-color: rgba(79, 195, 247, 0.3);
-}
-    .modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  padding-top: 60px;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.9);
-}
-
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 90%;
-  max-height: 80%;
-  animation: zoom 0.3s ease;
-}
-
-@keyframes zoom {
-  from { transform: scale(0.7); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.close {
-  position: absolute;
-  top: 20px; right: 35px;
-  color: #fff;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.close:hover {
-  color: #bbb;
-}
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f8fafc; }
+    [v-cloak] { display: none; }
+    .bg-hero { position: fixed; inset: 0; z-index: -1; background-image: url('background.webp'); background-size: cover; background-position: center; }
+    .bg-overlay { position: fixed; inset: 0; background: linear-gradient(to bottom, rgba(11,15,25,0.85), rgba(11,15,25,0.95)); z-index: -1; backdrop-filter: blur(8px); }
+    .glass-card { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+    .glass-card:hover { border-color: rgba(34, 197, 94, 0.5); transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(34,197,94,0.3); }
+    .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+    .fade-enter-from, .fade-leave-to { opacity: 0; }
   </style>
 </head>
-<body>
-<!-- Modal Image Viewer -->
-<div id="imageModal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img class="modal-content" id="modalImage">
+<body class="antialiased">
+
+<div id="app" v-cloak class="min-h-screen flex flex-col relative pb-20">
+  <div class="bg-hero"></div><div class="bg-overlay"></div>
+
+  <div class="max-w-6xl mx-auto w-full px-4 pt-8 pb-4">
+    <a href="index.html" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-green-400 px-5 py-2.5 rounded-xl transition-all font-bold text-xs border border-white/10 shadow-lg backdrop-blur-sm">
+      <i class="fa fa-arrow-left"></i> Kembali ke Dashboard
+    </a>
+    <div class="text-center mt-8 mb-8">
+      <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">Rutinitas <span class="text-green-400">Harian</span></h1>
+      <p class="text-gray-400 text-sm max-w-2xl mx-auto">Standar Operasional Prosedur (SOP) Helper QC & Tim Hopper.</p>
+    </div>
+
+    <div class="flex border-b border-gray-700 max-w-md mx-auto mb-10">
+      <button @click="activeTab = 'qc'" :class="activeTab === 'qc' ? 'border-green-400 text-green-400' : 'border-transparent text-gray-500'" class="flex-1 py-3 text-xs font-black uppercase tracking-widest border-b-2 transition-all">Tim QC</button>
+      <button @click="activeTab = 'hopper'" :class="activeTab === 'hopper' ? 'border-yellow-400 text-yellow-400' : 'border-transparent text-gray-500'" class="flex-1 py-3 text-xs font-black uppercase tracking-widest border-b-2 transition-all">Tim Hopper</button>
+    </div>
+  </div>
+
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 z-10">
+    <transition name="fade" mode="out-in">
+      <div :key="activeTab" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-for="(task, index) in currentData" :key="index" class="glass-card rounded-2xl overflow-hidden group cursor-pointer" @click="zoomImage = task">
+          <div class="relative overflow-hidden h-40">
+            <img :src="task.img" :alt="task.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
+          </div>
+          <div class="p-5 border-t border-gray-700/50">
+            <h3 class="text-sm font-black text-white mb-2 transition-colors tracking-tighter" :class="activeTab === 'qc' ? 'group-hover:text-green-400' : 'group-hover:text-yellow-400'">{{ task.name }}</h3>
+            <p class="text-[11px] text-gray-400 leading-relaxed line-clamp-2">{{ task.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </main>
+
+  <div v-if="zoomImage" class="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center p-4 backdrop-blur-md" @click.self="zoomImage = null">
+    <button @click="zoomImage = null" class="absolute top-6 right-6 text-white bg-red-500 hover:bg-red-600 w-12 h-12 rounded-full font-bold shadow-lg transition-transform active:scale-90 z-50"><i class="fas fa-times text-xl"></i></button>
+    
+    <img :src="zoomImage.img" class="max-w-full max-h-[65vh] rounded-2xl border border-gray-700 object-contain shadow-2xl" :class="activeTab === 'qc' ? 'shadow-[0_0_50px_rgba(34,197,94,0.3)]' : 'shadow-[0_0_50px_rgba(250,204,21,0.3)]'">
+    
+    <div class="mt-6 w-full max-w-2xl bg-black/60 p-6 rounded-2xl border border-gray-800 text-center shadow-xl">
+      <h3 class="text-2xl font-black mb-3 tracking-tighter" :class="activeTab === 'qc' ? 'text-green-400' : 'text-yellow-400'">{{ zoomImage.name }}</h3>
+      <p class="text-sm md:text-base text-gray-300 leading-relaxed">{{ zoomImage.desc }}</p>
+    </div>
+  </div>
 </div>
-  <header>
-    <!-- Tombol Navigasi Interaktif -->
-    <a href="index.html"
-   style="display: inline-block;
-          background-color: rgba(79, 195, 247, 0.15);
-          color: #4fc3f7;
-          padding: 10px 18px;
-          border-radius: 8px;
-          font-size: 0.95rem;
-          font-weight: 600;
-          text-decoration: none;
-          transition: background-color 0.3s ease;">
-  <i class="fa fa-home" style="margin-right: 6px;"></i> Kembali ke Beranda
-</a>
-    <button class="top-btn" onclick="scrollToTop()"><i class="bi bi-arrow-up"></i>Atas
-</button>
-</button>
-    </div>
-  </header>
 
-  <!-- Kategori 1: Monitoring & Pengujian di Ruang QC -->
-  <section id="monitoring-qc">
-    <h2>Tim QC & Monitoring</h2>
-    <div class="gallery">
-      <div class="card">
-        <img src="monitoring1.jpg" alt="Pengambilan Sampel">
-        <div class="card-content">
-          <h3>Pengambilan Sampel</h3>
-          <p>Mengukur kadar padatan menggunakan Refractometer dan memeriksa viskositas dengan visco cup.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="monitoring2.jpg" alt="Pencatatan Data QC">
-        <div class="card-content">
-          <h3>Pencatatan Data QC</h3>
-          <p>Mencatat dan membuat laporan hasil pengecekan yang kemudian dikirimkan ke grup WhatsApp untuk koordinasi tim.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="monitoring3.jpg" alt="Pembersihan Vibrating Screen">
-        <div class="card-content">
-          <h3>Pembersihan Vibrating Screen</h3>
-          <p>Membersihkan Vibrating Screen setiap jam.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="monitoring4.jpg" alt="Pengelolaan Reject">
-        <div class="card-content">
-          <h3>Pengelolaan Reject</h3>
-          <p>Mengangkat dan membuang reject ke ember yang kemudian dibuang di area barat gudang starch.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="monitoring5.jpg" alt="Koordinasi Tim DCS">
-        <div class="card-content">
-          <h3>Koordinasi Tim DCS</h3>
-          <p>Berkoordinasi dengan tim DCS menggunakan alat komunikasi HT.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="monitoring6.jpg" alt="Klining Filter Cooker to Reaction Tank">
-        <div class="card-content">
-          <h3>Cleaning Filter Cooker to Reaction Tank</h3>
-          <p>Membersihkan filter cooker menuju reaction tank (tag number 6813 & 6814).</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="monitoring7.jpg" alt="Kalibrasi Flow Enzyme">
-        <div class="card-content">
-          <h3>Kalibrasi Flow Enzyme</h3>
-          <p>Melakukan kalibrasi flow enzyme saat memulai proses cooking.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="monitoring8.jpg" alt="Cleaning Area Vibrating">
-        <div class="card-content">
-          <h3>Cleaning Area Vibrating</h3>
-          <p>Membersihkan area vibrating dengan air.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Kategori 2: Hopper -->
-  <section id="hopper">
-    <h2>Tim Hopper</h2>
-    <div class="gallery">
-      <div class="card">
-        <img src="hopper1.jpg" alt="Pembersihan Pallet Gudang Starch">
-        <div class="card-content">
-          <h3>Pembersihan Pallet Gudang Starch</h3>
-          <p>Membersihkan pallet gudang starch secara rutin.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="hopper2.jpg" alt="Angkat Jumbo Bag dengan Crane">
-        <div class="card-content">
-          <h3>Angkat Jumbo Bag dengan Crane</h3>
-          <p>Mengangkat jumbo bag menggunakan crane.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="hopper3.jpg" alt="Pengisian ke Hopper">
-        <div class="card-content">
-          <h3>Pengisian ke Hopper</h3>
-          <p>Membuka tutup bawah jumbo bag dan mengisinya ke dalam hopper.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="hopper4.jpg" alt="Pengelolaan Karung Jumbo Bag Kosong">
-        <div class="card-content">
-          <h3>Pengelolaan Karung Jumbo Bag Kosong</h3>
-          <p>Menangani karung jumbo bag kosong yang dibawa keluar gudang starch.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="hopper5.jpg" alt="Laporan Akhir Shift">
-        <div class="card-content">
-          <h3>Laporan Akhir Shift</h3>
-          <p>Menyusun laporan akhir shift mengenai konsumsi jumbo bag dan enzyme.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="hopper6.jpg" alt="Bantuan Tim Produksi">
-        <div class="card-content">
-          <h3>Bantuan Tim Produksi</h3>
-          <p>Ketika proses cooking berhenti dan tim produksi membutuhkan bantuan, tim Hopper bertanggung jawab membantu membersihkan sisa kertas di area reel dengan melakukan pengangkatan ke pulper reel.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 - Ardita Rizki F</p>
-  </footer>
-  <script>
-    // Fungsi scroll ke atas
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        activeTab: 'qc',
+        zoomImage: null,
+        qc: [
+          { name: 'Pengambilan Sampel', img: 'monitoring1.jpg', desc: 'Mengukur kadar padatan menggunakan Refractometer dan memeriksa viskositas dengan visco cup.' },
+          { name: 'Pencatatan Data QC', img: 'monitoring2.jpg', desc: 'Mencatat dan membuat laporan hasil pengecekan yang kemudian dikirimkan ke grup WhatsApp untuk koordinasi tim.' },
+          { name: 'Pembersihan Screen', img: 'monitoring3.jpg', desc: 'Membersihkan Vibrating Screen setiap jam agar aliran starch tidak tersumbat.' },
+          { name: 'Pengelolaan Reject', img: 'monitoring4.jpg', desc: 'Mengangkat dan membuang reject ke ember yang kemudian dibuang di area barat gudang starch.' },
+          { name: 'Koordinasi DCS', img: 'monitoring5.jpg', desc: 'Berkoordinasi dengan tim DCS menggunakan alat komunikasi HT.' },
+          { name: 'Cleaning Filter', img: 'monitoring6.jpg', desc: 'Membersihkan filter cooker menuju reaction tank (tag number 6813 & 6814).' },
+          { name: 'Kalibrasi Enzyme', img: 'monitoring7.jpg', desc: 'Melakukan kalibrasi flow enzyme saat memulai proses cooking.' },
+          { name: 'Cleaning Area', img: 'monitoring8.jpg', desc: 'Membersihkan area vibrating dengan air untuk menjaga kebersihan (5S).' }
+        ],
+        hopper: [
+          { name: 'Pembersihan Pallet', img: 'hopper1.jpg', desc: 'Membersihkan pallet gudang starch secara rutin.' },
+          { name: 'Angkat Jumbo Bag', img: 'hopper2.jpg', desc: 'Mengangkat jumbo bag menggunakan crane untuk dipindahkan ke atas hopper.' },
+          { name: 'Pengisian Hopper', img: 'hopper3.jpg', desc: 'Membuka tutup bawah jumbo bag dan mengisinya ke dalam hopper secara perlahan.' },
+          { name: 'Pengelolaan Karung', img: 'hopper4.jpg', desc: 'Menangani karung jumbo bag kosong yang dibawa keluar gudang starch.' },
+          { name: 'Laporan Akhir Shift', img: 'hopper5.jpg', desc: 'Menyusun laporan akhir shift mengenai total konsumsi jumbo bag dan enzyme hari itu.' },
+          { name: 'Bantuan Produksi', img: 'hopper6.jpg', desc: 'Ketika proses cooking berhenti, tim Hopper bertanggung jawab membantu membersihkan sisa kertas di area reel.' }
+        ]
+      }
+    },
+    computed: {
+      currentData() { return this.activeTab === 'qc' ? this.qc : this.hopper; }
     }
-    // Modal zoom image
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("modalImage");
-
-document.querySelectorAll(".card img").forEach(img => {
-  img.addEventListener("click", function () {
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    modalImg.alt = this.alt;
-  });
-});
-
-function closeModal() {
-  modal.style.display = "none";
-}
-
-  </script>
-  <script>
-  // Tombol scroll ke atas
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // Munculkan tombol saat discroll
-  window.addEventListener('scroll', function () {
-    var btn = document.querySelector('.top-btn');
-    if (window.scrollY > 300) {
-      btn.style.display = 'block';
-    } else {
-      btn.style.display = 'none';
-    }
-  });
+  }).mount('#app');
 </script>
 </body>
 </html>

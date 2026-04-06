@@ -2,146 +2,178 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Tentang Penulis</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <title>Ardita Rizki | Career Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #121212;
-      color: #f1f1f1;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .author-photo {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #4fc3f7;
-      margin-bottom: 20px;
-    }
-
-    .author-box {
-      max-width: 600px;
-      margin: auto;
-      background-color: rgba(255, 255, 255, 0.05);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f1f1f1; -webkit-tap-highlight-color: transparent;}
+    [v-cloak] { display: none; }
+    .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+    .tab-active { color: #22d3ee; border-bottom: 2px solid #22d3ee; background: rgba(34, 211, 238, 0.05); }
+    .star-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #22d3ee; margin-bottom: 0.25rem; display: block; }
     
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    .author-box {
-  animation: fadeInUp 0.8s ease;
-}
-a:hover {
-  background-color: rgba(79, 195, 247, 0.3);
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    /* Animasi Transisi Tab */
+    .fade-enter-active, .fade-leave-active { transition: all 0.3s ease; }
+    .fade-enter-from { opacity: 0; transform: translateX(10px); }
+    .fade-leave-to { opacity: 0; transform: translateX(-10px); }
   </style>
 </head>
-<body>
-  <div class="author-box">
-    <!-- Tombol Home rapi dan center -->
-    <div style="margin-bottom: 20px;">
-      <a href="index.html"
-   style="display: inline-block;
-          background-color: rgba(79, 195, 247, 0.15);
-          color: #4fc3f7;
-          padding: 10px 18px;
-          border-radius: 8px;
-          font-size: 0.95rem;
-          font-weight: 600;
-          text-decoration: none;
-          transition: background-color 0.3s ease;">
-  <i class="fa fa-home" style="margin-right: 6px;"></i> Kembali ke Beranda
-</a>
-    </div>
+<body class="min-h-screen py-8 md:py-12 px-4 md:px-6">
 
-    <img src="author.webp" alt="Foto Penulis" class="author-photo">
-    <h1 style="margin-bottom: 10px;">Ardita Rizki Fauzi</h1>
-
-<h3 style="color: #aad8ff; margin-top: 24px; font-weight: 600;">Fokus Keahlian</h3>
-<hr style="border: 0; height: 1px; background: #444; margin: 12px auto; width: 60%;">
-
-<ul style="list-style: none; padding: 0; color: #ccc; font-size: 15px; line-height: 1.8;">
-  <li>✓ Starch Preparation & Process Monitoring</li>
-  <li>✓ Pengembangan Rumus Perhitungan Industri</li>
-  <li>✓ Otomatisasi & Efisiensi Produksi</li>
-</ul>
-
-<p style="margin-top: 24px;">
-  Saya adalah seorang profesional di industri kertas dengan spesialisasi dalam efisiensi proses dan kontrol kualitas, khususnya pada pengolahan pati (starch preparation).
-</p>
-<p>
-  Website ini saya bangun sebagai platform berbagi solusi praktis, alat bantu hitung, serta dokumentasi teknis untuk membantu teknisi dan operator bekerja lebih efektif dan presisi.
-</p>
-
-<!-- Tambahkan di <head> untuk ikon -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- Konten Ikon Sosial Media -->
-<div style="
-  margin-top: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  text-align: center;
-  padding: 10px;
-">
-  <a href="https://wa.me/62895410571547" target="_blank" style="
-    color: #4fc3f7;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  ">
-    <i class="fab fa-whatsapp"></i> WhatsApp
-  </a>
-
-  <a href="https://www.instagram.com/mcardhy/" target="_blank" style="
-    color: #4fc3f7;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  ">
-    <i class="fab fa-instagram"></i> Instagram
-  </a>
+<div id="app" v-cloak class="max-w-4xl mx-auto">
   
-  <a href="https://arditarizkif.blogspot.com" target="_blank" style="
-    color: #4fc3f7;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  ">
-    <i class="fab fa-blogger-b"></i> Blog
-  </a>
-</div>
+  <div class="mb-8 flex justify-between items-center">
+    <a href="index.html" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-gray-300 px-5 py-2 rounded-xl transition-all font-bold text-xs border border-white/10">
+      <i class="fa fa-arrow-left"></i> Dashboard
+    </a>
+    <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Digital Resume v2.0</div>
   </div>
+
+  <header class="glass-card rounded-[2.5rem] p-8 md:p-10 shadow-2xl relative overflow-hidden mb-6">
+    <div class="absolute -top-24 -right-24 w-64 h-64 bg-cyan-500/10 blur-[100px] rounded-full"></div>
+    <div class="relative z-10 flex flex-col md:flex-row items-center gap-8 md:text-left text-center">
+      <img src="https://i.supaimg.com/74ab27fb-fcc0-4c79-86c8-843a9b5299c2/a23b4f31-9109-4020-8068-69c142c41289.png" alt="Ardita Rizki Fauzi" class="w-28 h-28 md:w-36 md:h-36 rounded-3xl border-4 border-cyan-500/20 shadow-2xl object-cover shadow-cyan-500/10">
+      <div class="flex-1">
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-2 tracking-tighter">Ardita Rizki Fauzi</h1>
+        <p class="text-cyan-400 font-black tracking-[0.2em] uppercase text-[10px] mb-4">DCS Operator PM1 | PT Dayasa Aria Prima</p>
+        <p class="text-gray-400 text-xs md:text-sm leading-relaxed max-w-xl">Berdedikasi dalam optimalisasi proses industri melalui integrasi logika operasional dan solusi digital modern.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex border-b border-white/5 mb-8 overflow-hidden rounded-t-2xl">
+    <button @click="activeTab = 'star'" :class="{'tab-active': activeTab === 'star'}" class="flex-1 py-4 text-xs font-black uppercase tracking-widest transition-all hover:bg-white/5">
+      <i class="fa fa-trophy mr-2"></i> Professional Impact (STAR)
+    </button>
+    <button @click="activeTab = 'cv'" :class="{'tab-active': activeTab === 'cv'}" class="flex-1 py-4 text-xs font-black uppercase tracking-widest transition-all hover:bg-white/5">
+      <i class="fa fa-file-alt mr-2"></i> Background & CV
+    </button>
+  </div>
+
+  <main>
+    <transition name="fade" mode="out-in">
+
+      <div v-if="activeTab === 'star'" key="star" class="space-y-6">
+        <div class="text-center md:text-left mb-4 px-2">
+          <h2 class="text-xl font-black text-white italic underline decoration-cyan-500 decoration-4 mb-2">Kasus: Digitalisasi Sistem Kalkulasi PM1</h2>
+          <p class="text-gray-400 text-sm">Bagaimana saya mentransformasi metode kerja manual menjadi sistem otomatis yang presisi.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass-card p-6 rounded-3xl border-l-4 border-l-cyan-500 shadow-xl">
+            <span class="star-label">Situation & Task</span>
+            <p class="text-sm text-gray-300 leading-relaxed">
+              Unit Starch Preparation di PM1 memiliki <strong class="text-cyan-400">13 variabel rumus kritis</strong> yang sebelumnya dihitung manual oleh operator. Hal ini menyebabkan risiko tinggi terjadinya <em class="italic">human error</em> dan inefisiensi waktu yang berdampak pada stabilitas kualitas produk.
+            </p>
+          </div>
+
+          <div class="glass-card p-6 rounded-3xl border-l-4 border-l-blue-500 shadow-xl">
+            <span class="star-label">Action (Innovative Solution)</span>
+            <p class="text-sm text-gray-300 leading-relaxed">
+              Saya berinisiatif membangun aplikasi <strong class="text-blue-400">DCS Helper Dashboard</strong> menggunakan arsitektur <strong class="text-blue-400">Vue.js 3 dan Tailwind CSS</strong>. Saya mendigitalisasi seluruh rumus (Solid, Flow, Dosing, hingga Retention Time) ke dalam satu antarmuka yang reaktif dan responsif di perangkat <i>mobile</i>.
+            </p>
+          </div>
+
+          <div class="glass-card p-6 rounded-3xl border-l-4 border-l-emerald-500 md:col-span-2 shadow-xl bg-emerald-500/5">
+            <span class="star-label text-emerald-400">Result (Impact)</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+              <div class="bg-black/20 p-4 rounded-2xl text-center">
+                <div class="text-2xl font-black text-emerald-400">80%</div>
+                <div class="text-[10px] text-gray-500 uppercase font-bold">Waktu Lebih Efisien</div>
+              </div>
+              <div class="bg-black/20 p-4 rounded-2xl text-center">
+                <div class="text-2xl font-black text-emerald-400">100%</div>
+                <div class="text-[10px] text-gray-500 uppercase font-bold">Akurasi Data</div>
+              </div>
+              <div class="bg-black/20 p-4 rounded-2xl text-center">
+                <div class="text-2xl font-black text-emerald-400">Industry 4.0</div>
+                <div class="text-[10px] text-gray-500 uppercase font-bold">Digital Readiness</div>
+              </div>
+            </div>
+            <p class="text-sm text-gray-400 mt-4 italic">"Transformasi ini memungkinkan tim operasional fokus pada monitoring kualitas daripada menghabiskan waktu pada perhitungan manual."</p>
+          </div>
+        </div>
+      </div>
+
+      <div v-else-if="activeTab === 'cv'" key="cv" class="space-y-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div class="space-y-6">
+            <h3 class="text-lg font-black text-white uppercase tracking-tighter flex items-center gap-2">
+              <i class="fa fa-briefcase text-cyan-400"></i> Kerja
+            </h3>
+            <div class="relative border-l-2 border-white/10 ml-3 pl-6 space-y-8">
+              <div class="relative">
+                <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+                <h4 class="text-sm font-bold text-white">DCS Operator PM1</h4>
+                <p class="text-[10px] text-cyan-400 font-black uppercase mb-2">PT Dayasa Aria Prima | 2018 - Sekarang</p>
+                <ul class="text-xs text-gray-400 list-disc list-inside space-y-1">
+                  <li>Mengontrol sistem operasional Starch Preparation.</li>
+                  <li>Melakukan monitoring parameter kimia secara real-time.</li>
+                  <li>Inisiator digitalisasi kalkulator industri tim.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-lg font-black text-white uppercase tracking-tighter flex items-center gap-2">
+              <i class="fa fa-graduation-cap text-cyan-400"></i> Pendidikan
+            </h3>
+            <div class="relative border-l-2 border-white/10 ml-3 pl-6 space-y-8">
+              <div class="relative">
+                <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-blue-500"></div>
+                <h4 class="text-sm font-bold text-white">Mahasiswa Aktif</h4>
+                <p class="text-[10px] text-blue-400 font-black uppercase mb-2">Pendidikan Tinggi</p>
+                <p class="text-xs text-gray-400">Fokus pada pengembangan kompetensi teknis dan manajerial industri.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="glass-card p-8 rounded-[2rem]">
+          <h3 class="text-center text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-6 italic">Technical Skills Mastery</h3>
+          <div class="flex flex-wrap justify-center gap-3">
+            <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Starch Prep Process</span>
+            <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Vue.js 3</span>
+            <span class="bg-blue-400/10 text-blue-300 border border-blue-400/20 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Tailwind CSS</span>
+            <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-4 py-2 rounded-xl text-[10px] font-black uppercase">DCS Control System</span>
+            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-4 py-2 rounded-xl text-[10px] font-black uppercase">Quality Control</span>
+          </div>
+        </div>
+      </div>
+
+    </transition>
+  </main>
+
+  <div class="mt-12 flex flex-wrap justify-center gap-4">
+    <a href="https://wa.me/62895410571547" target="_blank" class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 border border-green-500/20 hover:bg-green-500 hover:text-white transition-all shadow-lg active:scale-90"><i class="fab fa-whatsapp text-xl"></i></a>
+    <a href="https://www.instagram.com/mcardhy/" target="_blank" class="w-12 h-12 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500 border border-pink-500/20 hover:bg-pink-500 hover:text-white transition-all shadow-lg active:scale-90"><i class="fab fa-instagram text-xl"></i></a>
+    <a href="https://arditarizkif.blogspot.com/?m=1" target="_blank" class="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 border border-orange-500/20 hover:bg-orange-500 hover:text-white transition-all shadow-lg active:scale-90"><i class="fab fa-blogger-b text-xl"></i></a>
+    <a href="https://www.youtube.com/@arditarizkif" target="_blank" class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all shadow-lg active:scale-90"><i class="fab fa-youtube text-xl"></i></a>
+  </div>
+
+  <footer class="mt-12 py-8 border-t border-white/5 text-center">
+    <p class="text-[10px] text-gray-600 uppercase tracking-[0.4em] font-black">&copy; 2026 Ardita Rizki Fauzi — Industrial Excellence</p>
+  </footer>
+
+</div>
+
+<script>
+  const { createApp } = Vue;
+  createApp({
+    data() {
+      return {
+        activeTab: 'star' // Tab default yang terbuka
+      }
+    }
+  }).mount('#app');
+</script>
 </body>
 </html>
