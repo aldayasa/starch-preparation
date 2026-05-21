@@ -1,81 +1,250 @@
+
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-  <title>Chemical | StarchPrep</title>
+  <title>Chemical Data | StarchPrep</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Core Libraries -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: {
+            darkbg: '#070b14',
+            glass: 'rgba(20, 25, 35, 0.5)',
+            glassborder: 'rgba(255, 255, 255, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; color: #f8fafc; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #070b14; color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent;}
     [v-cloak] { display: none; }
-    .bg-hero { position: fixed; inset: 0; z-index: -1; background-image: url('background.webp'); background-size: cover; background-position: center; }
-    .bg-overlay { position: fixed; inset: 0; background: linear-gradient(to bottom, rgba(11,15,25,0.85), rgba(11,15,25,0.95)); z-index: -1; backdrop-filter: blur(8px); }
-    .glass-card { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
-    .glass-card:hover { border-color: rgba(6, 182, 212, 0.5); transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(6,182,212,0.3); }
+    
+    /* Ambient Glow Backgrounds */
+    .bg-glow-1 { position: fixed; top: -10%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, rgba(0,0,0,0) 70%); z-index: -1; pointer-events: none; }
+    .bg-glow-2 { position: fixed; bottom: -20%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, rgba(0,0,0,0) 70%); z-index: -1; pointer-events: none; }
+    .bg-pattern { position: fixed; inset: 0; z-index: -1; background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMikiLz48L3N2Zz4='); }
+
+    /* Premium Glassmorphism Cards */
+    .premium-card {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glassborder);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .premium-card:hover {
+      border-color: rgba(168, 85, 247, 0.4);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.2);
+    }
+
+    /* Gradient Text */
+    .text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-image: linear-gradient(to right, #c084fc, #22d3ee); }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+
+    /* Vue Transitions */
+    .modal-enter-active, .modal-leave-active { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .modal-enter-from, .modal-leave-to { opacity: 0; transform: scale(0.95) translateY(10px); }
   </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-purple-500 selection:text-white">
 
 <div id="app" v-cloak class="min-h-screen flex flex-col relative pb-20">
-  <div class="bg-hero"></div><div class="bg-overlay"></div>
+  
+  <!-- Ambient Background -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+  <div class="bg-pattern"></div>
 
-  <div class="max-w-6xl mx-auto w-full px-4 pt-8 pb-4">
-    <a href="index.html" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-cyan-400 px-5 py-2.5 rounded-xl transition-all font-bold text-xs border border-white/10 shadow-lg backdrop-blur-sm">
-      <i class="fa fa-arrow-left"></i> Kembali ke Dashboard
-    </a>
-    <div class="text-center mt-8 mb-12">
-      <h1 class="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">Bahan Kimia <span class="text-cyan-400">Starch Prep</span></h1>
-      <p class="text-gray-400 text-sm max-w-2xl mx-auto">Katalog material kimia yang digunakan dalam proses preparasi dan sizing kertas.</p>
-    </div>
-  </div>
-
-  <main class="flex-grow max-w-6xl w-full mx-auto px-4 z-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="(item, index) in chemicals" :key="index" class="glass-card rounded-2xl overflow-hidden group cursor-pointer" @click="zoomImage = item">
-        <div class="relative overflow-hidden h-48">
-          <img :src="item.img" :alt="item.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
-          <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"><i class="fa fa-search-plus text-cyan-400"></i></div>
+  <!-- Top Navigation -->
+  <nav class="sticky top-0 z-[100] backdrop-blur-xl bg-darkbg/70 border-b border-white/5 transition-all shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest group">
+        <div class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-purple-500/20 group-hover:border-purple-500/50 group-hover:text-purple-400 transition-all">
+          <i class="fa fa-arrow-left"></i>
         </div>
-        <div class="p-6">
-          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{{ item.name }}</h3>
-          <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">{{ item.desc }}</p>
+        <span class="hidden md:inline">Dashboard</span>
+      </a>
+      
+      <div class="flex items-center gap-2 cursor-pointer">
+        <div class="bg-gradient-to-br from-purple-500 to-cyan-500 p-1.5 rounded-lg shadow-lg">
+          <i class="bi bi-droplet-half text-white text-sm"></i>
+        </div>
+        <h1 class="text-sm font-black tracking-widest text-white uppercase">Chemical<span class="text-purple-400">Data</span></h1>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="max-w-4xl mx-auto w-full px-6 pt-16 md:pt-24 pb-12 text-center" data-aos="fade-down" data-aos-duration="1000">
+    <div class="inline-block px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+      <i class="fas fa-vial mr-2"></i> Ensiklopedia Material
+    </div>
+    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6 leading-tight">
+      Bahan Kimia <br class="hidden md:block"> <span class="text-gradient">Starch Preparation</span>
+    </h1>
+    <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+      Katalog mendalam material kimia esensial yang digunakan dalam proses pengolahan pati, modifikasi *sizing*, dan optimasi kualitas kertas pada mesin PM1.
+    </p>
+  </header>
+
+  <!-- Chemical Grid -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-6 z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <div v-for="(item, index) in chemicals" :key="index" 
+           class="premium-card rounded-3xl overflow-hidden group cursor-pointer flex flex-col" 
+           @click="zoomImage = item"
+           data-aos="fade-up" :data-aos-delay="index * 100">
+        
+        <!-- Image Container -->
+        <div class="relative overflow-hidden h-56 border-b border-white/5 bg-[#0f172a]">
+          <img :src="item.img" :alt="item.name" 
+               onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' font-weight=\'bold\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Image</text><circle cx=\'50%\' cy=\'35%\' r=\'40\' fill=\'%23334155\'/><text x=\'50%\' y=\'38%\' font-family=\'sans-serif\' font-size=\'40\' fill=\'%2364748b\' text-anchor=\'middle\'>🧪</text></svg>'" 
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1 opacity-80 group-hover:opacity-100 mix-blend-screen">
+          
+          <!-- Hover Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+          
+          <!-- Zoom Icon -->
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-50 group-hover:scale-100">
+            <div class="w-12 h-12 rounded-full bg-purple-500/80 backdrop-blur-md flex items-center justify-center text-white shadow-[0_0_30px_rgba(168,85,247,0.6)]">
+              <i class="fa fa-search-plus text-xl"></i>
+            </div>
+          </div>
+
+          <!-- Category Badge (Decorative) -->
+          <div class="absolute top-4 left-4">
+            <span class="bg-black/50 backdrop-blur-md border border-white/10 text-gray-300 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg">
+              {{ item.category }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6 md:p-8 flex-grow flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors flex items-center gap-2">
+              {{ item.name }}
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">
+              {{ item.desc }}
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-widest group-hover:text-cyan-400 transition-colors">
+            <span>Lihat Detail</span>
+            <i class="fa fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+          </div>
         </div>
       </div>
+
     </div>
   </main>
 
-  <div v-if="zoomImage" class="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center p-4 backdrop-blur-md" @click.self="zoomImage = null">
-    <button @click="zoomImage = null" class="absolute top-6 right-6 text-white bg-red-500 hover:bg-red-600 w-12 h-12 rounded-full font-bold shadow-lg transition-transform active:scale-90 z-50"><i class="fas fa-times text-xl"></i></button>
-    
-    <img :src="zoomImage.img" class="max-w-full max-h-[65vh] rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.3)] border border-gray-700 object-contain">
-    
-    <div class="mt-6 w-full max-w-2xl bg-black/60 p-6 rounded-2xl border border-gray-800 text-center shadow-xl">
-      <h3 class="text-2xl font-black text-cyan-400 mb-3 tracking-tighter">{{ zoomImage.name }}</h3>
-      <p class="text-sm md:text-base text-gray-300 leading-relaxed">{{ zoomImage.desc }}</p>
+  <!-- Advanced Lightbox Modal -->
+  <transition name="modal">
+    <div v-if="zoomImage" class="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6" @click.self="zoomImage = null">
+      
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-darkbg/90 backdrop-blur-xl transition-opacity" @click="zoomImage = null"></div>
+      
+      <!-- Modal Content -->
+      <div class="relative w-full max-w-4xl max-h-[90vh] flex flex-col lg:flex-row bg-[#0f172a] rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] z-10" @click.stop>
+        
+        <!-- Close Button -->
+        <button @click="zoomImage = null" class="absolute top-4 right-4 lg:top-6 lg:right-6 text-white bg-black/50 hover:bg-red-500 w-10 h-10 lg:w-12 lg:h-12 rounded-full font-bold shadow-lg transition-all border border-white/10 hover:border-red-500 z-50 flex items-center justify-center hover:scale-110 backdrop-blur-md">
+          <i class="fas fa-times text-lg"></i>
+        </button>
+
+        <!-- Image Side -->
+        <div class="w-full lg:w-1/2 h-[30vh] lg:h-auto bg-black relative flex items-center justify-center overflow-hidden p-6 border-b lg:border-b-0 lg:border-r border-white/5">
+          <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-cyan-500/10"></div>
+          <img :src="zoomImage.img" :alt="zoomImage.name" 
+               onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%23000000\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' font-weight=\'bold\' fill=\'%2364748b\' text-anchor=\'middle\'>No Image</text></svg>'"
+               class="max-w-full max-h-full object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+        </div>
+
+        <!-- Text Side -->
+        <div class="w-full lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center overflow-y-auto">
+          <div class="inline-block px-3 py-1 rounded-md bg-purple-500/20 text-purple-400 text-[10px] font-black uppercase tracking-widest mb-4 w-max border border-purple-500/30">
+            Material Info
+          </div>
+          <h3 class="text-3xl md:text-4xl font-black text-white mb-6 tracking-tighter leading-tight">{{ zoomImage.name }}</h3>
+          
+          <div class="space-y-4">
+            <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest border-b border-white/5 pb-2">Deskripsi Teknis</h4>
+            <p class="text-sm md:text-base text-gray-300 leading-relaxed font-light">
+              {{ zoomImage.desc }}
+            </p>
+          </div>
+          
+          <div class="mt-8 bg-cyan-500/5 border border-cyan-500/20 rounded-xl p-4 flex gap-4 items-start">
+            <i class="fas fa-info-circle text-cyan-400 mt-0.5 text-lg"></i>
+            <p class="text-xs text-gray-400 leading-relaxed">Pastikan penggunaan bahan kimia ini sesuai dengan dosis (PPM) dan instruksi yang tertera pada <a href="index.html" class="text-cyan-400 hover:underline font-bold">Kalkulator Interaktif DCS</a>.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
+  </transition>
+
 </div>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  Vue.createApp({
+  const { createApp } = Vue;
+
+  const app = createApp({
     data() {
       return {
         zoomImage: null,
+        // Data dipertahankan, ditambahkan label kategori virtual untuk mempercantik UI
         chemicals: [
-          { name: 'Enzyme Amylase', img: 'enzyme.webp', desc: 'Digunakan di tangki cooker untuk menghidrolisis pati menjadi unit yang lebih kecil, meningkatkan kelarutan dan performa starch. Disuplai dari enzyme tank dengan kontrol suhu di jet cooker.' },
-          { name: 'Aluminium Sulfat (Alum)', img: 'alum.webp', desc: 'Membantu mengikat agen sizing ke permukaan serat kertas, sehingga sizing lebih efektif dalam membuat kertas tahan terhadap penetrasi air.' },
-          { name: 'Surface Sizing Agent', img: 'sizing.webp', desc: 'Agen pelapis untuk meningkatkan kekuatan permukaan kertas. Dicampur bersama starch di final tank sebelum disalurkan ke size press.' },
-          { name: 'Defoamer', img: 'defoamer.webp', desc: 'Mencegah dan menghilangkan busa berlebih yang bisa mengganggu proses produksi. Diberikan di inlet final tank bersama alum dan sizing agent.' },
-          { name: 'Retention Agent', img: 'retention.webp', desc: 'Digunakan di outlet primary screen untuk membantu retensi filler dan fiber pada lembaran kertas serta meningkatkan efisiensi penggunaan bahan.' },
-          { name: 'Wet-End Starch', img: 'wetend.webp', desc: 'Starch dengan formulasi khusus untuk wet end, ditambahkan di inlet machine chest untuk meningkatkan kekuatan kering (dry strength) dan bonding antar serat.' }
+          { name: 'Enzyme Amylase', img: 'enzyme.webp', category: 'Biocatalyst', desc: 'Digunakan di tangki cooker untuk menghidrolisis pati menjadi unit yang lebih kecil, meningkatkan kelarutan dan performa starch. Disuplai dari enzyme tank dengan kontrol suhu di jet cooker.' },
+          { name: 'Aluminium Sulfat (Alum)', img: 'alum.webp', category: 'Sizing Aid', desc: 'Membantu mengikat agen sizing ke permukaan serat kertas, sehingga sizing lebih efektif dalam membuat kertas tahan terhadap penetrasi air.' },
+          { name: 'Surface Sizing Agent', img: 'sizing.webp', category: 'Coating', desc: 'Agen pelapis untuk meningkatkan kekuatan permukaan kertas. Dicampur bersama starch di final tank sebelum disalurkan ke size press.' },
+          { name: 'Defoamer', img: 'defoamer.webp', category: 'Additive', desc: 'Mencegah dan menghilangkan busa berlebih yang bisa mengganggu proses produksi. Diberikan di inlet final tank bersama alum dan sizing agent.' },
+          { name: 'Retention Agent', img: 'retention.webp', category: 'Polymer', desc: 'Digunakan di outlet primary screen untuk membantu retensi filler dan fiber pada lembaran kertas serta meningkatkan efisiensi penggunaan bahan.' },
+          { name: 'Wet-End Starch', img: 'wetend.webp', category: 'Dry Strength', desc: 'Starch dengan formulasi khusus untuk wet end, ditambahkan di inlet machine chest untuk meningkatkan kekuatan kering (dry strength) dan bonding antar serat.' }
         ]
       }
+    },
+    mounted() {
+      // Inisialisasi AOS setelah Vue Mount
+      AOS.init({
+        once: true,
+        offset: 50,
+        duration: 800,
+        easing: 'ease-out-cubic',
+      });
     }
-  }).mount('#app');
+  });
+
+  app.mount('#app');
 </script>
 </body>
 </html>
