@@ -36,7 +36,6 @@
 
 <style>
   body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #070b14; color: #f8fafc; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
-  [v-cloak] { display: none; }
   
   /* Ambient Glow Backgrounds */
   .bg-glow-1 { position: fixed; top: -20%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(34,211,238,0.1) 0%, rgba(0,0,0,0) 70%); z-index: -1; pointer-events: none; }
@@ -53,38 +52,15 @@
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Inputs Customization */
-  input[type="number"], input[type="text"], input[type="time"], select {
-    background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.875rem 1.25rem; border-radius: 0.75rem; width: 100%; transition: all 0.3s; outline: none; font-family: monospace; font-size: 1rem;
-  }
-  input:focus, select:focus { border-color: #22d3ee; box-shadow: 0 0 15px rgba(34,211,238,0.2); background: rgba(0, 0, 0, 0.6); }
-  
-  /* Result Boxes */
-  .res-box { background: linear-gradient(90deg, rgba(16,185,129,0.1) 0%, rgba(0,0,0,0) 100%); border-left: 4px solid #10b981; color: #a7f3d0; padding: 1.25rem; border-radius: 0.5rem; margin-top: 1.5rem; font-weight: 800; text-align: center; font-size: 1.1rem; letter-spacing: 0.05em; text-shadow: 0 0 10px rgba(16,185,129,0.4); }
-  .err-box { background: linear-gradient(90deg, rgba(239,68,68,0.1) 0%, rgba(0,0,0,0) 100%); border-left: 4px solid #ef4444; color: #fecaca; padding: 1rem; border-radius: 0.5rem; margin-top: 1.5rem; font-style: italic; font-size: 0.875rem; }
-
   /* Gradient Text */
   .text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-image: linear-gradient(to right, #22d3ee, #3b82f6); }
 
-  /* Vue Transitions */
-  .fade-enter-active, .fade-leave-active { transition: opacity 0.4s ease; }
-  .fade-enter-from, .fade-leave-to { opacity: 0; }
+  /* Smooth Vue Toggle */
   .slide-enter-active, .slide-leave-active { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; transform-origin: top; }
   .slide-enter-from, .slide-leave-to { opacity: 0; transform: translateY(-10px) scaleY(0.95); }
   
   .rotate-icon { transform: rotate(180deg); }
   .norm-icon { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-
-  /* Desktop Dropdown */
-  @media (min-width: 1024px) {
-    .desk-dropdown:hover > .desk-dropdown-menu { display: block; animation: fade-in-up 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-  }
-  @keyframes fade-in-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* PDF Container */
-  .pdf-container { position: relative; padding-bottom: 120%; height: 0; overflow: hidden; max-width: 100%; border-radius: 1rem; }
-  .pdf-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-  @media (min-width: 768px) { .pdf-container { padding-bottom: 75%; } }
 
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: #070b14; }
@@ -94,17 +70,18 @@
 </head>
 <body class="antialiased selection:bg-cyan-500 selection:text-white">
 
-<div id="app" v-cloak class="min-h-screen flex flex-col relative">
+<div id="app" class="min-h-screen flex flex-col relative">
   <!-- Ambient Elements -->
   <div class="bg-glow-1"></div>
   <div class="bg-glow-2"></div>
   <div class="bg-pattern"></div>
 
   <!-- Navbar -->
-  <nav class="sticky top-0 z-[100] backdrop-blur-xl bg-darkbg/70 border-b border-white/5 transition-all duration-300 shadow-2xl">
-    <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+  <nav class="sticky top-0 z-[100] backdrop-blur-xl bg-darkbg/80 border-b border-white/5 transition-all duration-300 shadow-2xl">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-6">
       
-      <div class="flex items-center gap-3 cursor-pointer group" @click="currentMenu = 'home'; mobileMenuOpen = false; window.scrollTo({top:0, behavior:'smooth'})">
+      <!-- Logo Area (Scroll to top) -->
+      <div class="flex items-center gap-3 cursor-pointer group py-4" @click="scrollToTop">
         <div class="bg-gradient-to-br from-cyan-400 to-blue-600 p-2.5 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.3)] group-hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] transition-all">
           <i class="fa fa-flask text-white text-xl"></i>
         </div>
@@ -114,391 +91,306 @@
         </div>
       </div>
 
-      <!-- Mobile Toggle -->
+      <!-- Mobile Menu Toggle -->
       <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-gray-300 hover:text-cyan-400 text-2xl focus:outline-none p-2 transition-colors">
         <i class="fa" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
       </button>
 
-      <!-- Desktop Menu -->
-      <div class="hidden lg:flex items-center gap-2 text-xs uppercase tracking-widest font-bold">
-        <button @click="currentMenu = 'home'; window.scrollTo({top:0, behavior:'smooth'})" class="px-4 py-2 rounded-lg transition-all" :class="currentMenu === 'home' ? 'text-cyan-400 bg-cyan-500/10 border border-cyan-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5'"><i class="fas fa-home mr-1"></i> Home</button>
-        <a href="about.html" class="px-4 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all"><i class="fas fa-user mr-1"></i> About</a>
-        <button @click="currentMenu = 'formula'; window.scrollTo({top:0, behavior:'smooth'})" class="px-4 py-2 rounded-lg transition-all" :class="currentMenu === 'formula' ? 'text-yellow-400 bg-yellow-500/10 border border-yellow-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5'"><i class="bi bi-calculator-fill mr-1"></i> Kalkulator</button>
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center h-full text-xs uppercase tracking-widest font-bold">
+        <button @click="scrollToTop" class="px-4 py-2 mx-1 rounded-lg transition-all text-cyan-400 bg-cyan-500/10 border border-cyan-500/20">
+          <i class="fas fa-home mr-1"></i> Home
+        </button>
+        <a href="about.html" class="px-4 py-2 mx-1 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all">
+          <i class="fas fa-user mr-1"></i> About
+        </a>
+        <a href="https://rumus-starch.netlify.app/" target="_blank" class="px-4 py-2 mx-1 rounded-lg text-yellow-400 hover:bg-yellow-500/10 border border-transparent transition-all">
+          <i class="bi bi-calculator-fill mr-1"></i> Kalkulator
+        </a>
 
-        <!-- Dropdowns -->
-        <div class="relative desk-dropdown px-2">
-          <button class="px-2 py-2 text-gray-400 hover:text-white transition-all"><i class="fas fa-folder-open mr-1"></i> Document <i class="fa fa-chevron-down ml-1 text-[9px]"></i></button>
-          <div class="desk-dropdown-menu absolute left-0 hidden premium-card rounded-2xl mt-4 min-w-[240px] p-2 z-50">
-            <a href="Rutinitas Harian.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-calendar-day mr-3"></i> Rutinitas Harian</a>
-            <button @click="currentMenu = 'sop'; window.scrollTo({top:0, behavior:'smooth'})" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-red-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-file-pdf mr-3"></i> Standar Operasional</button>
-            <button @click="goToHomeAndScroll('mixing')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-blue-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-project-diagram mr-3"></i> Alur Proses Starch</button>
+        <!-- Dropdown 1: Document (CSS Hover Bridge) -->
+        <div class="relative group h-full flex items-center px-3 py-6 -my-6 cursor-pointer">
+          <div class="text-gray-400 group-hover:text-white transition-all flex items-center">
+            <i class="fas fa-folder-open mr-1"></i> Document <i class="fa fa-chevron-down ml-1 text-[9px] transition-transform group-hover:rotate-180"></i>
+          </div>
+          <div class="absolute left-0 top-full pt-4 w-56 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
+            <div class="premium-card rounded-2xl p-2 shadow-2xl">
+              <a href="Rutinitas Harian.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-calendar-day mr-3"></i> Rutinitas Harian</a>
+              <a href="https://drive.google.com/drive/folders/1kgCD6YJzX__dqGRVOOHqc3bS1E4CCgkN" target="_blank" class="block px-4 py-3 text-sm text-gray-300 hover:text-red-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-file-pdf mr-3"></i> Standar Operasional</a>
+              <button @click="goToSection('mixing')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-blue-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-project-diagram mr-3"></i> Alur Proses Starch</button>
+            </div>
           </div>
         </div>
 
-        <div class="relative desk-dropdown px-2">
-          <button class="px-2 py-2 text-gray-400 hover:text-white transition-all"><i class="bi bi-tools mr-1"></i> Technical <i class="fa fa-chevron-down ml-1 text-[9px]"></i></button>
-          <div class="desk-dropdown-menu absolute left-0 hidden premium-card rounded-2xl mt-4 min-w-[200px] p-2 z-50">
-            <a href="equipment.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-orange-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-hammer mr-3"></i> Equipment</a>
-            <a href="chemical.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-purple-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-droplet-half mr-3"></i> Chemical</a>
-            <a href="quality-control.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-emerald-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-graph-up-arrow mr-3"></i> Quality Control</a>
+        <!-- Dropdown 2: Technical -->
+        <div class="relative group h-full flex items-center px-3 py-6 -my-6 cursor-pointer">
+          <div class="text-gray-400 group-hover:text-white transition-all flex items-center">
+            <i class="bi bi-tools mr-1"></i> Technical <i class="fa fa-chevron-down ml-1 text-[9px] transition-transform group-hover:rotate-180"></i>
+          </div>
+          <div class="absolute left-0 top-full pt-4 w-48 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
+            <div class="premium-card rounded-2xl p-2 shadow-2xl">
+              <a href="equipment.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-orange-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-hammer mr-3"></i> Equipment</a>
+              <a href="chemical.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-purple-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-droplet-half mr-3"></i> Chemical</a>
+              <a href="quality-control.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-emerald-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-graph-up-arrow mr-3"></i> Quality Control</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile Navigation Drawer -->
     <transition name="slide">
       <div v-show="mobileMenuOpen" class="lg:hidden absolute w-full bg-darkbg/95 backdrop-blur-xl border-b border-white/10 shadow-2xl overflow-y-auto max-h-[85vh] px-6 py-6 text-xs font-bold uppercase tracking-widest space-y-3 z-50">
-        <button @click="currentMenu = 'home'; mobileMenuOpen = false; window.scrollTo({top:0, behavior:'smooth'})" class="w-full text-left p-4 rounded-xl border border-transparent transition-all" :class="currentMenu === 'home' ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/30 shadow-[0_0_15px_rgba(34,211,238,0.1)]' : 'text-gray-300 hover:bg-white/5'"><i class="fas fa-home mr-3 w-5 text-center text-lg"></i> Home Dashboard</button>
-        <button @click="currentMenu = 'formula'; mobileMenuOpen = false; window.scrollTo({top:0, behavior:'smooth'})" class="w-full text-left p-4 rounded-xl border border-transparent transition-all" :class="currentMenu === 'formula' ? 'text-yellow-400 bg-yellow-500/10 border-yellow-500/30 shadow-[0_0_15px_rgba(250,204,21,0.1)]' : 'text-gray-300 hover:bg-white/5'"><i class="bi bi-calculator-fill mr-3 w-5 text-center text-lg"></i> Kalkulator Formula</button>
+        <button @click="scrollToTop" class="w-full text-left p-4 rounded-xl border border-cyan-500/30 text-cyan-400 bg-cyan-500/10 shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all"><i class="fas fa-home mr-3 w-5 text-center text-lg"></i> Home Dashboard</button>
+        <a href="https://rumus-starch.netlify.app/" target="_blank" class="block w-full text-left p-4 rounded-xl border border-transparent text-yellow-400 hover:bg-white/5 transition-all"><i class="bi bi-calculator-fill mr-3 w-5 text-center text-lg"></i> Kalkulator Formula</a>
         
         <div class="bg-white/5 rounded-xl overflow-hidden border border-white/5">
           <button @click="toggleMobileNav('doc')" class="w-full text-left p-4 text-gray-300 flex justify-between items-center hover:bg-white/5">
-            <span><i class="fas fa-folder-open mr-3 w-5 text-center text-lg"></i> Dokumen</span> <i class="fa fa-chevron-right norm-icon" :class="{'rotate-icon text-cyan-400': mobNav === 'doc'}"></i>
+            <span><i class="fas fa-folder-open mr-3 w-5 text-center text-lg"></i> Dokumen Operasional</span> <i class="fa fa-chevron-right norm-icon" :class="{'rotate-icon text-cyan-400': mobNav === 'doc'}"></i>
           </button>
           <div v-show="mobNav === 'doc'" class="bg-black/40 p-3 space-y-2 border-t border-white/5">
             <a href="Rutinitas Harian.html" class="block p-3 rounded-lg text-gray-400 hover:text-yellow-400 hover:bg-white/5"><i class="fas fa-calendar-day mr-2"></i> Rutinitas Harian</a>
-            <button @click="currentMenu = 'sop'; mobileMenuOpen = false; window.scrollTo({top:0, behavior:'smooth'})" class="w-full text-left p-3 rounded-lg text-gray-400 hover:text-red-400 hover:bg-white/5"><i class="fas fa-file-pdf mr-2"></i> Standar Operasional (SOP)</button>
-            <button @click="goToHomeAndScroll('mixing')" class="w-full text-left p-3 rounded-lg text-gray-400 hover:text-blue-400 hover:bg-white/5"><i class="fas fa-project-diagram mr-2"></i> Alur Proses Starch</button>
+            <a href="https://drive.google.com/drive/folders/1kgCD6YJzX__dqGRVOOHqc3bS1E4CCgkN" target="_blank" class="block w-full text-left p-3 rounded-lg text-gray-400 hover:text-red-400 hover:bg-white/5"><i class="fas fa-file-pdf mr-2"></i> Standar Operasional (SOP)</a>
+            <button @click="goToSection('mixing')" class="w-full text-left p-3 rounded-lg text-gray-400 hover:text-blue-400 hover:bg-white/5"><i class="fas fa-project-diagram mr-2"></i> Alur Proses Starch</button>
           </div>
         </div>
 
         <a href="about.html" class="block p-4 rounded-xl text-gray-300 hover:bg-white/5"><i class="fas fa-user mr-3 w-5 text-center text-lg"></i> Profile Portofolio</a>
+        <a href="equipment.html" class="block p-4 rounded-xl text-gray-300 hover:bg-white/5"><i class="bi bi-hammer mr-3 w-5 text-center text-lg"></i> Equipment Data</a>
         <a href="chemical.html" class="block p-4 rounded-xl text-gray-300 hover:bg-white/5"><i class="bi bi-droplet-half mr-3 w-5 text-center text-lg"></i> Chemical Data</a>
+        <a href="quality-control.html" class="block p-4 rounded-xl text-gray-300 hover:bg-white/5"><i class="bi bi-graph-up-arrow mr-3 w-5 text-center text-lg"></i> Quality Control</a>
       </div>
     </transition>
   </nav>
 
-  <!-- Main Content -->
-  <main class="flex-grow max-w-5xl w-full mx-auto px-6 py-12 md:py-20 z-10">
-    <transition name="fade" mode="out-in">
+  <!-- Main Content Area -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-6 py-12 md:py-20 z-10 space-y-12">
+    
+    <!-- Hero Header -->
+    <div class="text-center mb-16" data-aos="zoom-in" data-aos-duration="1000">
+      <div class="inline-block px-5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
+        <i class="fas fa-microchip mr-2"></i> Sistem Operasional PM1
+      </div>
+      <h2 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-tight">
+        DCS <span class="text-gradient">Dashboard</span> <br class="hidden md:block"> & Management
+      </h2>
+      <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+        Pusat navigasi digital, ensiklopedia alur proses, dan akses operasional. Dibangun khusus untuk memaksimalkan efisiensi dan akurasi di lapangan.
+      </p>
+    </div>
 
-      <!-- ================= HOME SECTION ================= -->
-      <div v-if="currentMenu === 'home'" key="home" class="space-y-12">
-        
-        <!-- Hero Header -->
-        <div class="text-center mb-16" data-aos="zoom-in" data-aos-duration="1000">
-          <div class="inline-block px-5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-            <i class="fas fa-microchip mr-2"></i> Sistem Operasional PM1
-          </div>
-          <h2 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-tight">
-            DCS <span class="text-gradient">Calculator</span> <br class="hidden md:block"> & Management
-          </h2>
-          <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-            Pusat navigasi digital, ensiklopedia alur proses, dan alat hitung presisi tinggi untuk pengolahan pati industri. Dibangun untuk efisiensi operator.
-          </p>
+    <!-- Quick Access Cards -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="200">
+      <!-- Calculator (Direct External Link) -->
+      <a href="https://rumus-starch.netlify.app/" target="_blank" class="premium-card p-6 rounded-3xl text-center hover:border-cyan-500 group block transition-all">
+        <div class="bg-cyan-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all shadow-lg text-cyan-400">
+          <i class="bi bi-calculator-fill text-2xl"></i>
         </div>
-
-        <!-- Quick Access Cards -->
-        <section class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="200">
-          <button @click="currentMenu = 'formula'; openF = 'f1'; window.scrollTo({top:0, behavior:'smooth'})" class="premium-card p-6 rounded-3xl text-center hover:border-cyan-500 group">
-            <div class="bg-cyan-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all shadow-lg text-cyan-400">
-              <i class="bi bi-calculator-fill text-2xl"></i>
-            </div>
-            <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Kalkulator</h4>
-          </button>
-          <a href="Rutinitas Harian.html" class="premium-card p-6 rounded-3xl text-center hover:border-yellow-500 group block">
-            <div class="bg-yellow-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-yellow-500 group-hover:text-white transition-all shadow-lg text-yellow-400">
-              <i class="fas fa-clipboard-check text-2xl"></i>
-            </div>
-            <h4 class="text-[10px] font-black text-white uppercase tracking-widest">SOP Harian</h4>
-          </a>
-          <a href="chemical.html" class="premium-card p-6 rounded-3xl text-center hover:border-purple-500 group block">
-            <div class="bg-purple-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-lg text-purple-400">
-              <i class="bi bi-droplet-fill text-2xl"></i>
-            </div>
-            <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Data Kimia</h4>
-          </a>
-          <button @click="currentMenu = 'sop'; window.scrollTo({top:0, behavior:'smooth'})" class="premium-card p-6 rounded-3xl text-center hover:border-red-500 group">
-            <div class="bg-red-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-red-500 group-hover:text-white transition-all shadow-lg text-red-400">
-              <i class="fas fa-file-pdf text-2xl"></i>
-            </div>
-            <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Viewer SOP</h4>
-          </button>
-        </section>
-
-        <!-- Accordion Contents -->
-        <div class="space-y-6" data-aos="fade-up" data-aos-delay="400">
-          
-          <section class="premium-card rounded-[2rem] overflow-hidden">
-            <div @click="sec.starch = !sec.starch" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-              <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mr-4 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><i class="fa fa-flask"></i></div> 1. Pengenalan Persiapan Starch</h3>
-              <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-cyan-400': sec.starch}"></i>
-            </div>
-            <transition name="slide">
-              <div v-show="sec.starch" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
-                <p class="text-gray-400 text-sm leading-relaxed mb-8">Tahap persiapan starch adalah proses awal yang menentukan keberhasilan pembuatan kertas. Di sini, campuran antara pati, air, dan bahan kimia seperti alum serta enzim disesuaikan secara presisi.</p>
-                <!-- Slider Image -->
-                <div class="relative w-full max-w-3xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] group bg-black">
-                  <img :src="images[sliderIndex]" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'800\' height=\'400\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'24\' fill=\'%2394a3b8\' text-anchor=\'middle\'>Image Placeholder</text></svg>'" class="w-full h-64 md:h-[400px] object-cover cursor-zoom-in transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" @click="zoomImage = images[sliderIndex]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
-                  
-                  <button @click.stop="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-black/50 backdrop-blur-md hover:bg-cyan-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all border border-white/10"><i class="fa fa-chevron-left"></i></button>
-                  <button @click.stop="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-black/50 backdrop-blur-md hover:bg-cyan-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all border border-white/10"><i class="fa fa-chevron-right"></i></button>
-                  
-                  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                    <span v-for="(img, idx) in images" :key="idx" class="w-2 h-2 rounded-full transition-all" :class="idx === sliderIndex ? 'bg-cyan-400 w-6' : 'bg-white/30'"></span>
-                  </div>
-                </div>
-              </div>
-            </transition>
-          </section>
-
-          <section id="mixing" class="premium-card rounded-[2rem] overflow-hidden border-blue-500/20">
-            <div @click="sec.mixing = !sec.mixing" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-              <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mr-4 group-hover:bg-blue-500 group-hover:text-white transition-colors"><i class="fa fa-blender"></i></div> 2. Alur Proses: Starch Mixing</h3>
-              <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-blue-400': sec.mixing}"></i>
-            </div>
-            <transition name="slide">
-              <div v-show="sec.mixing" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
-                <p class="text-gray-400 text-sm leading-relaxed mb-8">Tahap ini merupakan langkah pertama dalam proses <strong>Starch Preparation</strong>, yaitu pencampuran air dan starch mentah dalam tangki pencampur. Kontrol DCS digunakan untuk mengatur rasio bahan, membuka katup, serta memantau level, suhu, dan kecepatan agitasi.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg">
-                    <img src="hopper3.webp" onerror="this.style.display='none'" @click="zoomImage = 'hopper3.webp'" class="w-full h-48 md:h-64 object-cover cursor-zoom-in group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-cyan-300 font-bold uppercase tracking-widest">Pengisian Jumbo Bag</p></div>
-                  </div>
-                  <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg">
-                    <img src="starchmix_2.webp" onerror="this.style.display='none'" @click="zoomImage = 'starchmix_2.webp'" class="w-full h-48 md:h-64 object-cover cursor-zoom-in group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-cyan-300 font-bold uppercase tracking-widest">Monitoring DCS</p></div>
-                  </div>
-                </div>
-              </div>
-            </transition>
-          </section>
-
-          <section id="reaction" class="premium-card rounded-[2rem] overflow-hidden border-orange-500/20">
-            <div @click="sec.reaction = !sec.reaction" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-              <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center mr-4 group-hover:bg-orange-500 group-hover:text-white transition-colors"><i class="fa fa-fire"></i></div> 3. Alur Proses: Starch Reaction</h3>
-              <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-orange-400': sec.reaction}"></i>
-            </div>
-            <transition name="slide">
-              <div v-show="sec.reaction" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
-                <p class="text-gray-400 text-sm leading-relaxed mb-8">Tahapan inti di mana slurry starch yang telah dicampur akan dimasak menggunakan pemanas. Proses ini penting untuk menghasilkan viskositas dan reaktivitas yang sesuai.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg">
-                    <img src="starchreact_1.webp" onerror="this.style.display='none'" @click="zoomImage = 'starchreact_1.webp'" class="w-full h-48 md:h-64 object-cover cursor-zoom-in group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-orange-300 font-bold uppercase tracking-widest">Suhu Reaktor</p></div>
-                  </div>
-                  <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg">
-                    <img src="starchreact_2.webp" onerror="this.style.display='none'" @click="zoomImage = 'starchreact_2.webp'" class="w-full h-48 md:h-64 object-cover cursor-zoom-in group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-orange-300 font-bold uppercase tracking-widest">Aliran & Agitasi</p></div>
-                  </div>
-                </div>
-              </div>
-            </transition>
-          </section>
-
+        <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Kalkulator</h4>
+      </a>
+      
+      <!-- SOP Harian (Internal Link) -->
+      <a href="Rutinitas Harian.html" class="premium-card p-6 rounded-3xl text-center hover:border-yellow-500 group block transition-all">
+        <div class="bg-yellow-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-yellow-500 group-hover:text-white transition-all shadow-lg text-yellow-400">
+          <i class="fas fa-clipboard-check text-2xl"></i>
         </div>
+        <h4 class="text-[10px] font-black text-white uppercase tracking-widest">SOP Harian</h4>
+      </a>
+      
+      <!-- Chemical (Internal Link) -->
+      <a href="chemical.html" class="premium-card p-6 rounded-3xl text-center hover:border-purple-500 group block transition-all">
+        <div class="bg-purple-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-lg text-purple-400">
+          <i class="bi bi-droplet-fill text-2xl"></i>
+        </div>
+        <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Data Kimia</h4>
+      </a>
+      
+      <!-- SOP Viewer (Direct External Link) -->
+      <a href="https://drive.google.com/drive/folders/1kgCD6YJzX__dqGRVOOHqc3bS1E4CCgkN" target="_blank" class="premium-card p-6 rounded-3xl text-center hover:border-red-500 group block w-full transition-all">
+        <div class="bg-red-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-red-500 group-hover:text-white transition-all shadow-lg text-red-400">
+          <i class="fab fa-google-drive text-2xl"></i>
+        </div>
+        <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Arsip SOP</h4>
+      </a>
+    </section>
+
+    <!-- Accordion Contents: Alur Proses Starch -->
+    <div class="space-y-6 pt-8" data-aos="fade-up" data-aos-delay="400">
+      <div class="text-center mb-10">
+        <h3 class="text-2xl md:text-3xl font-black text-white tracking-tighter">Alur Proses <span class="text-cyan-400">Starch Preparation</span></h3>
+        <p class="text-gray-400 text-sm mt-2">Pemahaman komprehensif alur produksi kertas dari awal hingga akhir.</p>
       </div>
 
-      <!-- ================= SOP SECTION ================= -->
-      <div v-else-if="currentMenu === 'sop'" key="sop" class="space-y-8">
-        <div class="text-center mb-12" data-aos="fade-down">
-          <div class="inline-block px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Official Document</div>
-          <h2 class="text-4xl md:text-5xl font-black text-white mb-4">Standar <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">Operasional</span></h2>
-          <p class="text-gray-400 text-sm max-w-xl mx-auto">Sistem penampil dokumen PDF interaktif untuk pedoman SOP internal Paper Machine 1.</p>
+      <!-- 1. Pengenalan -->
+      <section class="premium-card rounded-[2rem] overflow-hidden">
+        <div @click="sec.starch = !sec.starch" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mr-4 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><i class="fa fa-flask"></i></div> 1. Pengenalan Persiapan Starch</h3>
+          <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-cyan-400': sec.starch}"></i>
         </div>
-
-        <div class="premium-card rounded-[2.5rem] overflow-hidden p-3 md:p-8" data-aos="zoom-in">
-          <!-- Segmented Control -->
-          <div class="flex flex-wrap bg-black/40 p-1.5 rounded-2xl border border-white/5 mb-8">
-            <button @click="activeSop = 'dcs'" :class="activeSop === 'dcs' ? 'bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="flex-1 py-3.5 text-[10px] md:text-xs font-black uppercase tracking-widest rounded-xl transition-all"><i class="fas fa-desktop mr-2"></i> SOP DCS</button>
-            <button @click="activeSop = 'qc'" :class="activeSop === 'qc' ? 'bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="flex-1 py-3.5 text-[10px] md:text-xs font-black uppercase tracking-widest rounded-xl transition-all"><i class="fas fa-microscope mr-2"></i> SOP Team QC</button>
-            <button @click="activeSop = 'hopper'" :class="activeSop === 'hopper' ? 'bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'" class="flex-1 py-3.5 text-[10px] md:text-xs font-black uppercase tracking-widest rounded-xl transition-all"><i class="fas fa-box-open mr-2"></i> SOP Hopper</button>
-          </div>
-          
-          <div class="pdf-container bg-black rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] relative group">
-            <div class="absolute inset-0 flex items-center justify-center bg-darkbg/80 z-0">
-               <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
-            </div>
-            <iframe v-if="activeSop === 'dcs'" src="https://drive.google.com/file/d/1jSHzPUQt_GeQKSQuNmlJDI_pIQLcI3Io/preview" class="z-10 relative"></iframe>
-            <iframe v-else-if="activeSop === 'qc'" src="https://drive.google.com/file/d/1hSEemISLoVc8DORYLY-NyKJaODIJ7yiG/preview" class="z-10 relative"></iframe>
-            <iframe v-else-if="activeSop === 'hopper'" src="https://drive.google.com/file/d/1hKj2Xa4wBXxIDTstsBEEKL-C4x4oBZTr/preview" class="z-10 relative"></iframe>
-          </div>
-          <p class="text-center text-[10px] text-gray-500 mt-6 font-bold tracking-widest uppercase"><i class="fas fa-cloud text-red-400 mr-1"></i> Disematkan dari Google Drive Server</p>
-        </div>
-      </div>
-
-      <!-- ================= FORMULA SECTION ================= -->
-      <div v-else-if="currentMenu === 'formula'" key="formula" class="space-y-8">
-        <div class="text-center mb-16" data-aos="fade-down">
-          <div class="inline-block px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4">Akurasi 100%</div>
-          <h2 class="text-4xl md:text-5xl font-black text-white mb-4">Kalkulator <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Interaktif</span></h2>
-          <p class="text-gray-400 text-sm max-w-xl mx-auto">Kumpulan algoritma matematis operasional mesin dalam antarmuka UI modern. Anti-ngelag, instan, responsif.</p>
-        </div>
-
-        <div class="space-y-12">
-          
-          <!-- Category 1 -->
-          <div data-aos="fade-up">
-            <h3 class="text-xs md:text-sm font-black text-white uppercase tracking-[0.2em] mb-6 flex items-center"><span class="w-8 h-px bg-cyan-500 mr-4"></span> Dasar Pati & Konversi</h3>
+        <transition name="slide">
+          <div v-show="sec.starch" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">Tahap persiapan starch adalah proses krusial yang menentukan kekuatan permukaan kertas. Di sini, material dasar pati dihidrolisis dan direaksikan bersama bahan kimia pendukung dengan presisi tinggi.</p>
             
-            <div class="grid md:grid-cols-2 gap-6">
-              <!-- F1 -->
-              <div class="premium-card rounded-3xl overflow-hidden shadow-lg">
-                <div @click="toggleF('f1')" class="p-6 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-                  <h4 class="font-bold text-white text-sm"><i class="bi bi-calculator-fill text-cyan-400 mr-3 text-lg"></i> 1. Solid Starch</h4>
-                  <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-cyan-400': openF === 'f1'}"></i>
-                </div>
-                <transition name="slide">
-                  <div v-show="openF === 'f1'" class="p-6 border-t border-white/5 bg-black/40">
-                    <div class="space-y-4 mb-6">
-                      <div><label class="text-[10px] text-cyan-400 font-bold mb-2 block uppercase tracking-widest">Starch (kg)</label><input type="number" v-model.number="f1.s" placeholder="Contoh: 1000"></div>
-                      <div><label class="text-[10px] text-cyan-400 font-bold mb-2 block uppercase tracking-widest">Water (Liter)</label><input type="number" v-model.number="f1.w" placeholder="Contoh: 3000"></div>
-                    </div>
-                    <button @click="calc1" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)]">Hitung Solid</button>
-                    <div v-if="f1.res" class="res-box" v-html="f1.res"></div><div v-if="f1.err" class="err-box" v-html="f1.err"></div>
-                  </div>
-                </transition>
-              </div>
-
-              <!-- F13 -->
-              <div class="premium-card rounded-3xl overflow-hidden shadow-lg">
-                <div @click="toggleF('f13')" class="p-6 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-                  <h4 class="font-bold text-white text-sm"><i class="bi bi-droplet-fill text-cyan-400 mr-3 text-lg"></i> 2. Density Starch</h4>
-                  <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-cyan-400': openF === 'f13'}"></i>
-                </div>
-                <transition name="slide">
-                  <div v-show="openF === 'f13'" class="p-6 border-t border-white/5 bg-black/40">
-                    <div class="mb-6"><label class="text-[10px] text-cyan-400 font-bold mb-2 block uppercase tracking-widest">Solid (%)</label><input type="number" v-model.number="f13.sol" placeholder="Contoh: 28"></div>
-                    <button @click="calc13" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)]">Hitung Density</button>
-                    <div v-if="f13.res" class="res-box" v-html="f13.res"></div><div v-if="f13.err" class="err-box" v-html="f13.err"></div>
-                  </div>
-                </transition>
+            <!-- Auto Slider Image -->
+            <div class="relative w-full max-w-3xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] group bg-black">
+              <img :src="images[sliderIndex]" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'800\' height=\'400\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'24\' fill=\'%2394a3b8\' text-anchor=\'middle\'>Image Placeholder</text></svg>'" class="w-full h-64 md:h-[400px] object-cover cursor-zoom-in transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" @click="zoomImage = images[sliderIndex]">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+              
+              <button @click.stop="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-black/50 backdrop-blur-md hover:bg-cyan-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all border border-white/10"><i class="fa fa-chevron-left"></i></button>
+              <button @click.stop="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-black/50 backdrop-blur-md hover:bg-cyan-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all border border-white/10"><i class="fa fa-chevron-right"></i></button>
+              
+              <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                <span v-for="(img, idx) in images" :key="idx" class="w-2 h-2 rounded-full transition-all" :class="idx === sliderIndex ? 'bg-cyan-400 w-6' : 'bg-white/30'"></span>
               </div>
             </div>
           </div>
+        </transition>
+      </section>
 
-          <!-- Category 2 -->
-          <div data-aos="fade-up">
-            <h3 class="text-xs md:text-sm font-black text-white uppercase tracking-[0.2em] mb-6 flex items-center"><span class="w-8 h-px bg-orange-500 mr-4"></span> Manajemen Aliran</h3>
-            
-            <div class="premium-card rounded-3xl overflow-hidden shadow-lg mb-6">
-              <div @click="toggleF('f3')" class="p-6 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-                <h4 class="font-bold text-white text-sm"><i class="bi bi-speedometer2 text-orange-400 mr-3 text-lg"></i> 3. Hitung Flow (Beda Level)</h4>
-                <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-orange-400': openF === 'f3'}"></i>
-              </div>
-              <transition name="slide">
-                <div v-show="openF === 'f3'" class="p-6 border-t border-white/5 bg-black/40">
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div><label class="text-[10px] text-orange-400 font-bold mb-2 block uppercase tracking-widest">Level Awal (%)</label><input type="number" v-model.number="f3.l1"></div>
-                    <div><label class="text-[10px] text-orange-400 font-bold mb-2 block uppercase tracking-widest">Level Akhir (%)</label><input type="number" v-model.number="f3.l2"></div>
-                    <div><label class="text-[10px] text-orange-400 font-bold mb-2 block uppercase tracking-widest">Vol Tangki (m³)</label><input type="number" v-model.number="f3.v"></div>
-                    <div><label class="text-[10px] text-orange-400 font-bold mb-2 block uppercase tracking-widest">Jam Awal</label><input type="time" v-model="f3.t1"></div>
-                    <div><label class="text-[10px] text-orange-400 font-bold mb-2 block uppercase tracking-widest">Jam Akhir</label><input type="time" v-model="f3.t2"></div>
-                  </div>
-                  <button @click="calc3" class="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)]">Proses Kalkulasi</button>
-                  <div v-if="f3.res" class="res-box" v-html="f3.res"></div><div v-if="f3.err" class="err-box" v-html="f3.err"></div>
-                </div>
-              </transition>
-            </div>
-            
-            <div class="premium-card rounded-3xl overflow-hidden shadow-lg">
-              <div @click="toggleF('f2')" class="p-6 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-                <h4 class="font-bold text-white text-sm"><i class="bi bi-arrow-right-circle-fill text-orange-400 mr-3 text-lg"></i> 4. Flow Starch Elevator</h4>
-                <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-orange-400': openF === 'f2'}"></i>
-              </div>
-              <transition name="slide">
-                <div v-show="openF === 'f2'" class="p-6 border-t border-white/5 bg-black/40">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div><label class="text-[10px] text-orange-400 font-bold mb-2 block uppercase tracking-widest">Solid (%)</label><input type="number" v-model.number="f2.sol"></div>
-                    <div><label class="text-[10px] text-orange-400 font-bold mb-2 block uppercase tracking-widest">Flow Air (L/min)</label><input type="number" v-model.number="f2.fw"></div>
-                  </div>
-                  <button @click="calc2" class="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)]">Hitung Flow</button>
-                  <div v-if="f2.res" class="res-box" v-html="f2.res"></div><div v-if="f2.err" class="err-box" v-html="f2.err"></div>
-                </div>
-              </transition>
-            </div>
-          </div>
-
-          <!-- Category 3 -->
-          <div data-aos="fade-up">
-            <h3 class="text-xs md:text-sm font-black text-white uppercase tracking-[0.2em] mb-6 flex items-center"><span class="w-8 h-px bg-purple-500 mr-4"></span> Bahan Kimia & Dosis</h3>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-              <!-- F5 -->
-              <div class="premium-card rounded-3xl overflow-hidden shadow-lg">
-                <div @click="toggleF('f5')" class="p-6 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-                  <h4 class="font-bold text-white text-sm"><i class="bi bi-lightning-charge-fill text-purple-400 mr-3 text-lg"></i> 5. Flow Waterglass</h4>
-                  <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-purple-400': openF === 'f5'}"></i>
-                </div>
-                <transition name="slide">
-                  <div v-show="openF === 'f5'" class="p-6 border-t border-white/5 bg-black/40">
-                    <div class="space-y-4 mb-6">
-                      <div><label class="text-[10px] text-purple-400 font-bold mb-2 block uppercase tracking-widest">Flow Strg (m³/h)</label><input type="number" v-model.number="f5.fs"></div>
-                      <div><label class="text-[10px] text-purple-400 font-bold mb-2 block uppercase tracking-widest">%Solid Strg</label><input type="number" v-model.number="f5.sol"></div>
-                      <div><label class="text-[10px] text-purple-400 font-bold mb-2 block uppercase tracking-widest">%Dosis Target</label><input type="number" v-model.number="f5.dos"></div>
-                    </div>
-                    <button @click="calc5" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)]">Hitung WG</button>
-                    <div v-if="f5.res" class="res-box" v-html="f5.res"></div><div v-if="f5.err" class="err-box" v-html="f5.err"></div>
-                  </div>
-                </transition>
-              </div>
-
-              <!-- F10 -->
-              <div class="premium-card rounded-3xl overflow-hidden shadow-lg">
-                <div @click="toggleF('f10')" class="p-6 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-                  <h4 class="font-bold text-white text-sm"><i class="bi bi-percent text-purple-400 mr-3 text-lg"></i> 6. Dosis Enzyme (PPM)</h4>
-                  <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-purple-400': openF === 'f10'}"></i>
-                </div>
-                <transition name="slide">
-                  <div v-show="openF === 'f10'" class="p-6 border-t border-white/5 bg-black/40">
-                    <div class="space-y-4 mb-6">
-                      <div><label class="text-[10px] text-purple-400 font-bold mb-2 block uppercase tracking-widest">Flow Enz (L/m)</label><input type="number" v-model.number="f10.e"></div>
-                      <div><label class="text-[10px] text-purple-400 font-bold mb-2 block uppercase tracking-widest">Flow Starch (kg/m)</label><input type="number" v-model.number="f10.s"></div>
-                    </div>
-                    <button @click="calc10" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)]">Hitung PPM</button>
-                    <div v-if="f10.res" class="res-box" v-html="f10.res"></div><div v-if="f10.err" class="err-box" v-html="f10.err"></div>
-                  </div>
-                </transition>
-              </div>
-            </div>
-          </div>
-
+      <!-- 2. Mixing -->
+      <section id="mixing" class="premium-card rounded-[2rem] overflow-hidden border-blue-500/20">
+        <div @click="sec.mixing = !sec.mixing" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mr-4 group-hover:bg-blue-500 group-hover:text-white transition-colors"><i class="fa fa-blender"></i></div> 2. Tahap Awal: Starch Mixing</h3>
+          <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-blue-400': sec.mixing}"></i>
         </div>
+        <transition name="slide">
+          <div v-show="sec.mixing" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">Pencampuran air dan pati mentah dalam tangki pencampur. Di tahap ini, DCS memainkan peran penting mengatur rasio konsentrasi bahan agar parameter <em>Solid Content</em> sesuai standar.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in" @click="zoomImage = 'hopper3.webp'">
+                <img src="hopper3.webp" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-cyan-300 font-bold uppercase tracking-widest">Pengisian Bahan (Hopper)</p></div>
+              </div>
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in" @click="zoomImage = 'starchmix_2.webp'">
+                <img src="starchmix_2.webp" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-cyan-300 font-bold uppercase tracking-widest">Agitasi Tangki Mixing</p></div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </section>
 
-        <div class="mt-16 text-center" data-aos="fade-up">
-          <button @click="window.scrollTo({top:0, behavior:'smooth'})" class="inline-flex items-center gap-2 text-cyan-400 hover:text-white font-bold text-xs uppercase tracking-widest border border-cyan-500/30 hover:bg-cyan-500/20 px-6 py-3 rounded-full transition-all">
-            <i class="fa fa-arrow-up"></i> Kembali ke Atas
-          </button>
+      <!-- 3. Reaction -->
+      <section id="reaction" class="premium-card rounded-[2rem] overflow-hidden border-orange-500/20">
+        <div @click="sec.reaction = !sec.reaction" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center mr-4 group-hover:bg-orange-500 group-hover:text-white transition-colors"><i class="fa fa-fire"></i></div> 3. Proses Inti: Starch Reaction</h3>
+          <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-orange-400': sec.reaction}"></i>
         </div>
+        <transition name="slide">
+          <div v-show="sec.reaction" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">Slurry starch dipanaskan menggunakan <em>Jet Cooker</em> dan direaksikan dengan <em>Enzyme Amylase</em> untuk mencapai viskositas target. Proses pemanasan ini sangat krusial dan dipantau ketat secara termodinamik.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in" @click="zoomImage = 'starchreact_1.webp'">
+                <img src="starchreact_1.webp" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-orange-300 font-bold uppercase tracking-widest">Injeksi Steam (Pemanasan)</p></div>
+              </div>
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in" @click="zoomImage = 'starchreact_2.webp'">
+                <img src="starchreact_2.webp" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-orange-300 font-bold uppercase tracking-widest">Tangki Reaktor (Hidrolisis)</p></div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </section>
+      
+      <!-- 4. Final & Distribusi (NEW SECTION TO COMPLETE THE STORY) -->
+      <section id="final" class="premium-card rounded-[2rem] overflow-hidden border-emerald-500/20">
+        <div @click="sec.final = !sec.final" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mr-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors"><i class="fa fa-check-circle"></i></div> 4. Finalisasi & Distribusi</h3>
+          <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-emerald-400': sec.final}"></i>
+        </div>
+        <transition name="slide">
+          <div v-show="sec.final" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">Puncak dari alur proses. Starch yang telah matang dan difiltrasi akan ditampung di <em>Final Tank</em>. Dari sini, larutan sizing akan didistribusikan secara konstan menuju mesin kertas (Size Press) untuk pelapisan.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in" @click="zoomImage = 'storage_tank.webp'">
+                <img src="storage_tank.webp" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-emerald-300 font-bold uppercase tracking-widest">Storage & Filtrasi</p></div>
+              </div>
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in" @click="zoomImage = 'Final1.webp'">
+                <img src="Final1.webp" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-48 md:h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-emerald-300 font-bold uppercase tracking-widest">Final Tank (Distribusi Size Press)</p></div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </section>
 
-      </div>
-
-    </transition>
+    </div>
   </main>
 
   <!-- Image Lightbox Modal -->
   <transition name="fade">
     <div v-if="zoomImage" class="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4 backdrop-blur-xl" @click.self="zoomImage = null">
-      <button @click="zoomImage = null" class="absolute top-6 right-6 md:top-10 md:right-10 text-white bg-white/10 hover:bg-red-500 w-12 h-12 rounded-full font-bold shadow-lg transition-all border border-white/20 hover:scale-110 flex items-center justify-center"><i class="fas fa-times text-xl"></i></button>
+      <button @click="zoomImage = null" class="absolute top-6 right-6 md:top-10 md:right-10 text-white bg-white/10 hover:bg-red-500 w-12 h-12 rounded-full font-bold shadow-lg transition-all border border-white/20 hover:scale-110 flex items-center justify-center z-50"><i class="fas fa-times text-xl"></i></button>
       <img :src="zoomImage" class="max-w-full max-h-[90vh] rounded-3xl shadow-[0_0_80px_rgba(34,211,238,0.2)] border border-white/10 transform transition-transform" alt="Zoomed Image">
     </div>
   </transition>
 
-  <!-- Footer -->
-  <footer class="bg-darkbg border-t border-white/5 relative overflow-hidden z-10 mt-auto">
-    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-cyan-500/5 blur-[120px] rounded-[100%] pointer-events-none"></div>
+  <!-- PROFESSIONAL MEGA FOOTER -->
+  <footer class="bg-[#04070c] border-t border-white/10 relative overflow-hidden z-10 mt-10">
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-[100%] pointer-events-none"></div>
     
-    <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="max-w-6xl mx-auto px-6 pt-16 pb-8 relative z-10">
+      
+      <!-- Footer Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
         
-        <div class="flex items-center gap-3">
-          <div class="bg-gradient-to-br from-cyan-400 to-blue-600 p-2 rounded-lg">
-            <i class="fa fa-flask text-white text-xs"></i>
+        <!-- Brand Column -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="bg-gradient-to-br from-cyan-400 to-blue-600 p-2.5 rounded-xl shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+              <i class="fa fa-flask text-white text-lg"></i>
+            </div>
+            <div>
+              <h2 class="text-2xl font-black tracking-tighter text-white">STARCH<span class="text-cyan-400">PREP</span> <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-md ml-1 font-mono uppercase tracking-widest">PM1 System</span></h2>
+            </div>
           </div>
-          <h2 class="text-lg font-black tracking-tighter text-white">STARCH<span class="text-cyan-400">PREP</span> <span class="text-[9px] bg-white/10 text-gray-300 px-2 py-0.5 rounded ml-1 font-mono">v3.0</span></h2>
+          <p class="text-gray-400 text-sm leading-relaxed max-w-sm mb-6">
+            Sistem panduan operasional digital untuk area Starch Preparation. Dirancang khusus untuk memfasilitasi operator DCS dalam menghitung rumus kritis, mengakses SOP, dan memahami alur proses.
+          </p>
+          <div class="flex gap-4">
+            <a href="https://wa.me/62895410571547" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all border border-white/5"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:arditarizkif@gmail.com" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-blue-500 hover:text-white transition-all border border-white/5"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.instagram.com/mcardhy/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-pink-500 hover:text-white transition-all border border-white/5"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
 
-        <div class="text-gray-500 text-[10px] font-bold tracking-widest uppercase flex flex-wrap justify-center items-center gap-3">
-          <span>&copy; 2026 Ardita Rizki F</span>
-          <span class="w-1 h-1 bg-gray-600 rounded-full hidden md:block"></span>
-          <span>DCS Operator PM1</span>
-          <span class="w-1 h-1 bg-gray-600 rounded-full hidden md:block"></span>
-          <span class="text-cyan-500/70"><i class="fab fa-vuejs mr-1"></i> Vue.js Powered</span>
+        <!-- Quick Links Column -->
+        <div>
+          <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest border-b border-white/10 pb-2 inline-block">Navigasi Utama</h4>
+          <ul class="space-y-3">
+            <li><a href="Rutinitas Harian.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Rutinitas Operator</a></li>
+            <li><a href="equipment.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Daftar Equipment</a></li>
+            <li><a href="chemical.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Material Kimia</a></li>
+            <li><a href="quality-control.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Lab Quality Control</a></li>
+          </ul>
+        </div>
+
+        <!-- External System Column -->
+        <div>
+          <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest border-b border-white/10 pb-2 inline-block">Sistem Eksternal</h4>
+          <ul class="space-y-3">
+            <li><a href="https://rumus-starch.netlify.app/" target="_blank" class="text-yellow-400 hover:text-yellow-300 text-sm transition-colors flex items-center gap-2"><i class="fas fa-external-link-alt text-[10px]"></i> Kalkulator DCS</a></li>
+            <li><a href="https://drive.google.com/drive/folders/1kgCD6YJzX__dqGRVOOHqc3bS1E4CCgkN" target="_blank" class="text-red-400 hover:text-red-300 text-sm transition-colors flex items-center gap-2"><i class="fas fa-external-link-alt text-[10px]"></i> Google Drive SOP</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2 mt-4"><i class="fas fa-user-circle text-[10px]"></i> Developer Profile</a></li>
+          </ul>
         </div>
 
       </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-gray-500 text-xs font-bold tracking-widest uppercase">
+          &copy; 2026 Ardita Rizki F. Hak Cipta Dilindungi.
+        </div>
+        <div class="flex items-center gap-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
+          <span class="flex items-center gap-2"><i class="fas fa-shield-alt text-emerald-500"></i> Sistem Aman</span>
+          <span class="hidden md:inline">|</span>
+          <span class="flex items-center gap-2 text-cyan-500/70"><i class="fab fa-vuejs"></i> Dibangun dengan Vue</span>
+        </div>
+      </div>
+
     </div>
   </footer>
 
@@ -506,93 +398,60 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+  // Script Sangat Ringan dan Anti-Blank
   const { createApp } = Vue;
 
   createApp({
     data() {
       return {
-        currentMenu: 'home',
         mobileMenuOpen: false,
         mobNav: null,
         zoomImage: null,
-        activeSop: 'dcs',
         
-        sec: { starch: true, mixing: true, reaction: true },
-        images: ['hopper3.webp', 'starchmix_2.webp', 'starchreact_1.webp', 'starchreact_2.webp'],
+        // State section accordions
+        sec: { starch: true, mixing: true, reaction: true, final: true },
+        
+        // Image slider khusus pengenalan
+        images: ['hopper3.webp', 'starchmix_2.webp', 'starchreact_1.webp', 'storage_tank.webp'],
         sliderIndex: 0,
-        
-        openF: null,
-        
-        // Calculator Models
-        f1: { s: null, w: null, res: '', err: '' },
-        f13: { sol: null, res: '', err: '' },
-        f2: { sol: null, fw: null, res: '', err: '' },
-        f3: { l1: null, l2: null, v: null, t1: '', t2: '', res: '', err: '' },
-        f5: { fs: null, sol: null, dos: null, res: '', err: '' },
-        f10: { e: null, s: null, res: '', err: '' }
+        sliderInterval: null
       }
     },
     mounted() {
-      // Init Scroll Animations
+      // Inisialisasi AOS secara standar
       AOS.init({ once: true, offset: 50, duration: 800, easing: 'ease-out-cubic' });
       
-      // Auto Slider
-      setInterval(() => { if(!this.zoomImage && this.currentMenu === 'home' && this.sec.starch) this.nextSlide(); }, 4000);
+      // Auto Slider (Hanya jalan jika tidak nge-zoom gambar)
+      this.sliderInterval = setInterval(() => { 
+        if(!this.zoomImage && this.sec.starch) {
+           this.nextSlide(); 
+        }
+      }, 4000);
+    },
+    beforeUnmount() {
+      clearInterval(this.sliderInterval);
     },
     methods: {
       toggleMobileNav(menu) { this.mobNav = this.mobNav === menu ? null : menu; },
       nextSlide() { this.sliderIndex = (this.sliderIndex + 1) % this.images.length; },
       prevSlide() { this.sliderIndex = (this.sliderIndex - 1 + this.images.length) % this.images.length; },
-      toggleF(id) { this.openF = this.openF === id ? null : id; },
       
-      goToHomeAndScroll(sectionId) {
-        this.currentMenu = 'home';
+      scrollToTop() {
         this.mobileMenuOpen = false;
-        this.sec[sectionId] = true;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      
+      goToSection(sectionId) {
+        this.mobileMenuOpen = false;
+        this.sec[sectionId] = true; // Pastikan section terbuka
         setTimeout(() => {
           const el = document.getElementById(sectionId);
           if (el) {
+            // Scroll menuju section
             const y = el.getBoundingClientRect().top + window.scrollY - 100;
             window.scrollTo({top: y, behavior: 'smooth'});
           }
-        }, 300); // Tunggu render Vue sebentar
-      },
-      
-      // Calc Methods
-      calc1() {
-        this.f1.res = this.f1.err = '';
-        if(!this.f1.s || !this.f1.w) return this.f1.err = 'Lengkapi nilai Starch dan Air!';
-        this.f1.res = `SOLID = ${((this.f1.s / (this.f1.s + this.f1.w)) * 100).toFixed(1)} %`;
-      },
-      calc13() {
-        this.f13.res = this.f13.err = '';
-        if(!this.f13.sol) return this.f13.err = 'Isi nilai solid!';
-        this.f13.res = `DENSITY = ${(100 / (100 - this.f13.sol + (this.f13.sol / 1.65))).toFixed(3)}`;
-      },
-      calc2() {
-        this.f2.res = this.f2.err = '';
-        let s = this.f2.sol / 100;
-        if(!s || !this.f2.fw || s>=1) return this.f2.err = 'Data tidak valid / Solid max 99!';
-        this.f2.res = `FLOW = ${((s * this.f2.fw) / (1 - s) * 1.1).toFixed(2)} kg/min`;
-      },
-      calc3() {
-        this.f3.res = this.f3.err = '';
-        if(!this.f3.t1 || !this.f3.t2) return this.f3.err = 'Jam belum diisi!';
-        let t1 = parseInt(this.f3.t1.split(":")[0])*60 + parseInt(this.f3.t1.split(":")[1]);
-        let t2 = parseInt(this.f3.t2.split(":")[0])*60 + parseInt(this.f3.t2.split(":")[1]);
-        if(!this.f3.l1 || !this.f3.l2 || !this.f3.v || t2<=t1) return this.f3.err = 'Logika data salah (Waktu/Level)!';
-        let f = (((this.f3.l1 - this.f3.l2)/100) * this.f3.v) / (t2 - t1) * 60;
-        this.f3.res = `${f.toFixed(1)} m³/jam <br> ${(f*1000/60).toFixed(1)} L/min`;
-      },
-      calc5() {
-        this.f5.res = this.f5.err = '';
-        if(!this.f5.fs || !this.f5.sol || !this.f5.dos) return this.f5.err = 'Lengkapi parameter data!';
-        this.f5.res = `WATERGLASS = ${(((this.f5.fs * this.f5.sol * this.f5.dos)/1400)*1000/60).toFixed(1)} L/min`;
-      },
-      calc10() {
-        this.f10.res = this.f10.err = '';
-        if(!this.f10.e || !this.f10.s) return this.f10.err = 'Isi data dengan benar!';
-        this.f10.res = `DOSIS ENZYME = ${((this.f10.e / this.f10.s)*1000).toFixed(0)} ppm`;
+        }, 150); 
       }
     }
   }).mount('#app');
