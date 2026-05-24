@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOP Starch Preparation | PT Dayasa Aria Prima</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #070b14;
+      --surface: rgba(15, 23, 42, 0.8);
+      --border: rgba(255,255,255,0.07);
+      --accent1: #10b981; /* emerald */
+      --accent2: #14b8a6; /* teal */
+      --accent3: #f1c40f; /* yellow */
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: #f1f5f9;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    [v-cloak] { display: none; }
+
+    /* ── Background ── */
+    .bg-fixed-layer {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    }
+    .mesh-gradient {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18;
+    }
+    .mesh-1 { width: 600px; height: 600px; top: -15%; left: -10%; background: radial-gradient(circle, #10b981, transparent 70%); }
+    .mesh-2 { width: 500px; height: 500px; bottom: -10%; right: -5%;  background: radial-gradient(circle, #14b8a6, transparent 70%); }
+    .mesh-3 { width: 350px; height: 350px; top: 40%; left: 40%;       background: radial-gradient(circle, #1e293b, transparent 70%); opacity: 0.5; }
+    .grid-bg {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ── Glass Card ── */
+    .glass {
+      background: rgba(13, 20, 35, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SOP Card ── */
+    .sop-card {
+      background: rgba(13, 20, 35, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 28px;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      position: relative;
+    }
+    .sop-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--card-accent, linear-gradient(to right, #10b981, #14b8a6));
+      border-radius: 28px 28px 0 0;
+    }
+    .sop-card:hover { border-color: rgba(16,185,129,0.25); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(16,185,129,0.1); }
+
+    /* ── Step Indicator ── */
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── Section Block ── */
+    .section-block {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+    }
+
+    /* ── Accordion ── */
+    .accordion-body { overflow: hidden; transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease; }
+
+    /* ── Tag Chip ── */
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 99px;
+      font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em;
+    }
+
+    /* ── Warning Box ── */
+    .warn-box {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 12px;
+      padding: 12px 16px;
+    }
+
+    /* ── Transitions ── */
+    .slide-enter-active, .slide-leave-active { transition: all 0.45s cubic-bezier(0.4,0,0.2,1); }
+    .slide-enter-from, .slide-leave-to { opacity: 0; transform: translateY(24px) scale(0.98); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+    /* ── Pulse dot ── */
+    .pulse-dot { animation: pulse-anim 2s infinite; }
+    @keyframes pulse-anim { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+    /* ── Number badge ── */
+    .num-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      color: rgba(255,255,255,0.15);
+      position: absolute; top: 20px; right: 24px;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Nav button ── */
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: #94a3b8; transition: all 0.25s ease; cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-btn:hover { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: #34d399; }
+
+    /* Card Accent Colors per SOP */
+    .card-hopper::before  { background: linear-gradient(to right, #f97316, #fb923c); }
+    .card-qc::before      { background: linear-gradient(to right, #10b981, #14b8a6); }
+    .card-operator::before{ background: linear-gradient(to right, #3b82f6, #6366f1); }
+  </style>
+</head>
+<body class="min-h-screen antialiased pb-24">
+
+<div id="app" v-cloak>
+
+  <!-- ── Fixed Background ── -->
+  <div class="bg-fixed-layer">
+    <div class="mesh-gradient mesh-1"></div>
+    <div class="mesh-gradient mesh-2"></div>
+    <div class="mesh-gradient mesh-3"></div>
+    <div class="grid-bg"></div>
+  </div>
+
+  <!-- ── Navigation ── -->
+  <nav class="sticky top-0 z-50 glass border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+          <i class="bi bi-journal-text text-emerald-400 text-sm"></i>
+        </div>
+        <div>
+          <p class="text-[9px] font-black text-emerald-500 uppercase tracking-[0.25em]">PT Dayasa Aria Prima</p>
+          <h1 class="text-sm font-black text-white uppercase tracking-widest leading-none">SOP<span class="text-emerald-400"> Library</span></h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="history.back()" class="nav-btn"><i class="bi bi-arrow-left"></i><span class="hidden sm:inline">Kembali</span></button>
+        <a href="https://starch-preparation.netlify.app/" target="_blank" class="nav-btn"><i class="bi bi-house-door-fill"></i><span class="hidden sm:inline">Dashboard</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <header class="max-w-6xl mx-auto px-5 pt-16 pb-12 text-center" data-aos="fade-down" data-aos-duration="900">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>
+      <span class="text-[10px] font-black text-emerald-400 uppercase tracking-[0.25em]">Dokumen Resmi Internal</span>
+    </div>
+    <h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-tight mb-4">
+      Standar Operasional<br>
+      <span style="background: linear-gradient(to right, #34d399, #14b8a6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Prosedur Starch</span>
+    </h2>
+    <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+      Panduan lengkap operasional untuk seluruh tim produksi Starch Preparation PM1. Pastikan setiap langkah dijalankan sesuai prosedur demi keselamatan dan konsistensi kualitas.
+    </p>
+
+    <!-- Stats Row -->
+    <div class="flex justify-center gap-8 mt-10">
+      <div class="text-center">
+        <p class="text-2xl font-black text-white font-mono">3</p>
+        <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Dokumen SOP</p>
+      </div>
+      <div class="w-px bg-white/10"></div>
+      <div class="text-center">
+        <p class="text-2xl font-black text-white font-mono">3</p>
+        <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Tim Operasional</p>
+      </div>
+      <div class="w-px bg-white/10"></div>
+      <div class="text-center">
+        <p class="text-2xl font-black text-white font-mono">K3</p>
+        <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Prioritas Utama</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── SOP Cards ── -->
+  <main class="max-w-6xl mx-auto px-5 space-y-6">
+
+    <!-- ═══════════════════════════════════════════
+         SOP 1: Helper Hopper
+    ════════════════════════════════════════════ -->
+    <div class="sop-card card-hopper" data-aos="fade-up" data-aos-delay="100">
+      <span class="num-badge">SOP / 01</span>
+
+      <!-- Card Header -->
+      <div class="p-7 md:p-10 cursor-pointer select-none" @click="toggle(0)">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5"
+                 style="background:rgba(249,115,22,0.12); border:1px solid rgba(249,115,22,0.25)">
+              <i class="bi bi-box-seam-fill text-2xl" style="color:#fb923c"></i>
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="chip" style="background:rgba(249,115,22,0.12); border:1px solid rgba(249,115,22,0.25); color:#fb923c">
+                  <i class="bi bi-people-fill"></i> Tim Helper Hopper
+                </span>
+                <span class="chip" style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.2); color:#f87171">
+                  <i class="bi bi-shield-exclamation"></i> K3 Prioritas
+                </span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-black text-white leading-tight">Job Desk Helper Tim Starch</h3>
+              <p class="text-slate-400 text-sm mt-1">Prosedur pengisian Jumbo Bag ke Hopper — keselamatan, efisiensi, dan kebersihan area kerja</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 flex-shrink-0 mt-1">
+            <div class="text-[10px] font-mono text-slate-500 hidden sm:block">{{ open[0] ? 'TUTUP' : 'BUKA' }}</div>
+            <div class="w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300"
+                 :style="open[0] ? 'background:rgba(249,115,22,0.2);border-color:rgba(249,115,22,0.4)' : 'background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1)'">
+              <i class="bi transition-transform duration-300 text-sm"
+                 :class="open[0] ? 'bi-chevron-up text-orange-400' : 'bi-chevron-down text-slate-400'"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini preview chips -->
+        <div v-if="!open[0]" class="flex flex-wrap gap-2 mt-5 ml-0 md:ml-19">
+          <span v-for="t in ['APD Lengkap','Crane Prosedur','Pengisian Hopper','Kebersihan Area','Dokumentasi']"
+                class="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg bg-white/5 border border-white/8 text-slate-500">{{t}}</span>
+        </div>
+      </div>
+
+      <!-- Accordion Body -->
+      <div class="accordion-body" :style="open[0] ? 'max-height:4000px;opacity:1' : 'max-height:0;opacity:0'">
+        <div class="px-7 md:px-10 pb-10 space-y-5 border-t border-white/5 pt-7">
+
+          <!-- 1. Persiapan -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:#fb923c">01</div>
+              <h4 class="font-black text-white text-base">Persiapan Kerja yang Aman dan Bersih</h4>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div v-for="(item, i) in [{icon:'bi-shield-check',c:'#fb923c',t:'Penggunaan APD Lengkap',d:'Pastikan memakai helm, sarung tangan, masker, dan safety shoes sesuai standar keselamatan.'},{icon:'bi-grid-3x3',c:'#fb923c',t:'Persiapan Area Kerja',d:'Bersihkan dan atur area kerja agar bebas hambatan sehingga proses menjadi aman dan efisien.'},{icon:'bi-search',c:'#fb923c',t:'Pemeriksaan Fisik Jumbo Bag',d:'Periksa label, robekan, dan kondisi bahan agar pengisian berjalan optimal tanpa kendala.'},{icon:'bi-check2-circle',c:'#fb923c',t:'Kesiapan Hopper',d:'Pastikan hopper dalam kondisi siap menerima bahan dengan pengecekan sistem dan kebersihan.'}]"
+                  :key="i" class="flex gap-3 p-4 rounded-xl bg-white/3 border border-white/5">
+                <i :class="'bi '+item.icon+' text-lg mt-0.5 flex-shrink-0'" :style="'color:'+item.c"></i>
+                <div>
+                  <p class="text-sm font-bold text-white mb-1">{{item.t}}</p>
+                  <p class="text-xs text-slate-400 leading-relaxed">{{item.d}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Pemindahan -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:#fb923c">02</div>
+              <h4 class="font-black text-white text-base">Pemindahan Jumbo Bag dengan Prosedur Aman</h4>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4 mb-4">
+              <div class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <p class="text-xs font-black text-orange-400 uppercase tracking-widest mb-2"><i class="bi bi-tools mr-1"></i>Alat Angkat</p>
+                <p class="text-sm text-slate-300 leading-relaxed">Gunakan alat angkat sesuai prosedur. Jangan menggantung jumbo bag langsung pada hoist crane.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <p class="text-xs font-black text-orange-400 uppercase tracking-widest mb-2"><i class="bi bi-pin-map mr-1"></i>Penempatan</p>
+                <p class="text-sm text-slate-300 leading-relaxed">Pastikan jumbo bag ditempatkan stabil di atas hopper. Amankan posisi agar tidak bergeser selama pengisian.</p>
+              </div>
+            </div>
+            <div class="warn-box flex items-start gap-3">
+              <i class="bi bi-exclamation-triangle-fill text-red-400 text-lg mt-0.5 flex-shrink-0"></i>
+              <p class="text-sm text-red-300 font-bold">Jangan angkat dua jumbo bag bersamaan — berat mencapai <span class="text-white">850 kg</span>. Satu bag per operasi!</p>
+            </div>
+          </div>
+
+          <!-- 3. Pengisian -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:#fb923c">03</div>
+              <h4 class="font-black text-white text-base">Proses Pengisian Starch ke Hopper</h4>
+            </div>
+            <div class="space-y-3">
+              <div v-for="(s,i) in [{t:'Membuka Bagian Bawah',d:'Buka bagian bawah jumbo bag dengan aman untuk mengalirkan pati secara terkendali ke hopper.'},{t:'Pengaturan Aliran',d:'Atur aliran starch agar stabil, mencegah tumpahan yang bisa membahayakan dan merusak kualitas.'},{t:'Penutupan Sementara',d:'Tutup kembali bagian bawah bag bila perlu untuk menghentikan aliran secara sementara.'}]" :key="i"
+                  class="flex gap-4 items-start p-4 rounded-xl bg-white/3 border border-white/5">
+                <span class="text-xs font-mono font-black text-orange-500 bg-orange-500/10 rounded-lg px-2 py-1 flex-shrink-0">{{String(i+1).padStart(2,'0')}}</span>
+                <div>
+                  <p class="text-sm font-bold text-white mb-1">{{s.t}}</p>
+                  <p class="text-xs text-slate-400 leading-relaxed">{{s.d}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Kebersihan -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:#fb923c">04</div>
+              <h4 class="font-black text-white text-base">Kebersihan dan Penanganan Limbah</h4>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <p class="text-xs font-black text-orange-400 uppercase tracking-widest mb-2"><i class="bi bi-brush mr-1"></i>Membersihkan Area</p>
+                <p class="text-sm text-slate-300 leading-relaxed">Setelah pengisian, bersihkan tumpahan starch di seputar hopper untuk menjaga kebersihan dan menghindari kecelakaan.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <p class="text-xs font-black text-orange-400 uppercase tracking-widest mb-2"><i class="bi bi-recycle mr-1"></i>Jumbo Bag Kosong</p>
+                <p class="text-sm text-slate-300 leading-relaxed">Eliminasi atau daur ulang jumbo bag kosong sesuai prosedur agar area tidak berantakan.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Tugas Khusus & 6. Dokumentasi -->
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="section-block p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="step-num" style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:#fb923c">05</div>
+                <h4 class="font-black text-white text-sm">Kondisi Khusus</h4>
+              </div>
+              <div class="space-y-3">
+                <div class="p-3 rounded-xl bg-white/3 border border-white/5">
+                  <p class="text-xs font-black text-yellow-400 mb-1"><i class="bi bi-exclamation-octagon mr-1"></i>Stop Masak PM</p>
+                  <p class="text-xs text-slate-400">Segera hadir di area reel sesuai instruksi tim produksi.</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white/3 border border-white/5">
+                  <p class="text-xs font-black text-yellow-400 mb-1"><i class="bi bi-people mr-1"></i>Bantu Proses Ngebroke</p>
+                  <p class="text-xs text-slate-400">Membantu pembersihan area dan pengolahan ulang bahan di bawah arahan supervisor.</p>
+                </div>
+              </div>
+            </div>
+            <div class="section-block p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="step-num" style="background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);color:#fb923c">06</div>
+                <h4 class="font-black text-white text-sm">Dokumentasi & Pelaporan</h4>
+              </div>
+              <div class="space-y-3">
+                <div v-for="(d,i) in [{t:'Pencatatan Jumlah Bag',d:'Catat jumlah bag harian untuk laporan produksi & audit.'},{t:'Laporan Kerusakan',d:'Segera laporkan kerusakan bag atau hambatan hopper ke atasan.'},{t:'Rekap Harian',d:'Pastikan data laporan tersusun rapi untuk evaluasi produksi.'}]" :key="i"
+                    class="flex items-start gap-2 text-xs">
+                  <i class="bi bi-check-circle-fill text-orange-400 mt-0.5 flex-shrink-0"></i>
+                  <div><span class="font-bold text-white">{{d.t}}.</span> <span class="text-slate-400">{{d.d}}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. K3 -->
+          <div class="section-block p-6" style="background:rgba(239,68,68,0.05);border-color:rgba(239,68,68,0.15)">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="step-num" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171">K3</div>
+              <h4 class="font-black text-white text-sm">Kesehatan & Keselamatan Kerja</h4>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div v-for="k in [{icon:'bi-clipboard-check',t:'Patuh Prosedur K3',d:'Ikuti disiplin seluruh prosedur keselamatan di area produksi.'},{icon:'bi-telephone-fill',t:'Pelaporan Cepat',d:'Segera laporkan kecelakaan atau kondisi tidak aman kepada atasan.'},{icon:'bi-people-fill',t:'Kesadaran Tim',d:'Kerja sama menjaga lingkungan aman dan saling mengingatkan potensi bahaya.'}]" :key="k.t"
+                  class="p-4 rounded-xl bg-white/3 border border-red-500/10 text-center">
+                <i :class="'bi '+k.icon+' text-2xl text-red-400 mb-2 block'"></i>
+                <p class="text-xs font-black text-white mb-1">{{k.t}}</p>
+                <p class="text-[11px] text-slate-500 leading-relaxed">{{k.d}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         SOP 2: Helper QC & Vibrating Screen
+    ════════════════════════════════════════════ -->
+    <div class="sop-card card-qc" data-aos="fade-up" data-aos-delay="200">
+      <span class="num-badge">SOP / 02</span>
+
+      <div class="p-7 md:p-10 cursor-pointer select-none" @click="toggle(1)">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5"
+                 style="background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.25)">
+              <i class="bi bi-eyedropper-half text-2xl" style="color:#10b981"></i>
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="chip" style="background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.25); color:#34d399">
+                  <i class="bi bi-vial"></i> Tim QC & Vibrating Screen
+                </span>
+                <span class="chip" style="background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.2); color:#2dd4bf">
+                  <i class="bi bi-bar-chart-line"></i> Quality Control
+                </span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-black text-white leading-tight">Job Desk Helper QC & Area Vibrating Screen</h3>
+              <p class="text-slate-400 text-sm mt-1">Pengujian kualitas rutin, perawatan vibrating screen, dan koordinasi dengan tim DCS</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 flex-shrink-0 mt-1">
+            <div class="text-[10px] font-mono text-slate-500 hidden sm:block">{{ open[1] ? 'TUTUP' : 'BUKA' }}</div>
+            <div class="w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300"
+                 :style="open[1] ? 'background:rgba(16,185,129,0.2);border-color:rgba(16,185,129,0.4)' : 'background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1)'">
+              <i class="bi transition-transform duration-300 text-sm"
+                 :class="open[1] ? 'bi-chevron-up text-emerald-400' : 'bi-chevron-down text-slate-400'"></i>
+            </div>
+          </div>
+        </div>
+        <div v-if="!open[1]" class="flex flex-wrap gap-2 mt-5">
+          <span v-for="t in ['Solid Content','Viscosity','pH Monitor','Vibrating Screen','Koordinasi DCS','Maintenance']"
+                class="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg bg-white/5 border border-white/8 text-slate-500">{{t}}</span>
+        </div>
+      </div>
+
+      <div class="accordion-body" :style="open[1] ? 'max-height:4000px;opacity:1' : 'max-height:0;opacity:0'">
+        <div class="px-7 md:px-10 pb-10 space-y-5 border-t border-white/5 pt-7">
+
+          <!-- 1. Monitoring QC -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981">01</div>
+              <h4 class="font-black text-white text-base">Monitoring dan Pengujian Kualitas di Ruang QC</h4>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <p class="text-xs font-black text-emerald-400 uppercase tracking-widest mb-3"><i class="bi bi-list-check mr-1"></i>Parameter Pengujian Rutin</p>
+                <div class="space-y-2">
+                  <div v-for="p in ['Kadar Padatan (Solid Content)','Kekentalan (Viscosity)','Tingkat Keasaman/Basaan (pH)','Suhu (Temperature)','Laju Aliran Enzim (Flow Enzyme)']" :key="p"
+                       class="flex items-center gap-2 text-sm text-slate-300">
+                    <i class="bi bi-dot text-emerald-500 text-xl -my-1"></i>{{p}}
+                  </div>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <p class="text-xs font-black text-emerald-400 uppercase tracking-widest mb-2"><i class="bi bi-file-earmark-text mr-1"></i>Pencatatan & Pelaporan</p>
+                <p class="text-sm text-slate-300 leading-relaxed">Hasil pengujian dicatat teliti dalam form QC harian. Setiap anomali harus segera dilaporkan ke tim DCS untuk tindakan cepat dan tepat.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Vibrating Screen -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981">02</div>
+              <h4 class="font-black text-white text-base">Perawatan Rutin Area Vibrating Screen</h4>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <p class="text-xs font-black text-emerald-400 uppercase tracking-widest mb-2"><i class="bi bi-clock-history mr-1"></i>Pembersihan Berkala</p>
+                <p class="text-sm text-slate-300 leading-relaxed">Membersihkan sisa starch dan material lain <strong class="text-white">setiap minimal 1 jam sekali</strong> untuk menjaga performa mesin.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <p class="text-xs font-black text-emerald-400 uppercase tracking-widest mb-2"><i class="bi bi-trash3 mr-1"></i>Pengelolaan Reject</p>
+                <p class="text-sm text-slate-300 leading-relaxed">Menyekrop ampas dan mengangkut ke tempat pembuangan sesuai prosedur yang berlaku.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Komunikasi -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981">03</div>
+              <h4 class="font-black text-white text-base">Kesiapan dan Komunikasi Efektif dalam Tim</h4>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="flex gap-3 p-4 rounded-xl bg-white/3 border border-white/5">
+                <i class="bi bi-phone-fill text-emerald-400 text-xl flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <p class="text-sm font-bold text-white mb-1">Handphone Standby</p>
+                  <p class="text-xs text-slate-400 leading-relaxed">Perangkat harus aktif dengan paket data untuk memastikan komunikasi lancar dengan tim DCS.</p>
+                </div>
+              </div>
+              <div class="flex gap-3 p-4 rounded-xl bg-white/3 border border-white/5">
+                <i class="bi bi-lightning-fill text-emerald-400 text-xl flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <p class="text-sm font-bold text-white mb-1">Respon Cepat</p>
+                  <p class="text-xs text-slate-400 leading-relaxed">Segera menanggapi panggilan atau instruksi untuk mendukung kelancaran proses produksi.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 & 5 -->
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="section-block p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="step-num" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981">04</div>
+                <h4 class="font-black text-white text-sm">Dukungan Tim DCS</h4>
+              </div>
+              <div class="space-y-3">
+                <div class="flex gap-2 items-start p-3 rounded-xl bg-white/3 border border-white/5">
+                  <span class="text-[10px] font-mono font-black text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded flex-shrink-0">01</span>
+                  <div><p class="text-xs font-bold text-white">Siap Siaga Membantu</p><p class="text-[11px] text-slate-400 mt-0.5">Bersikap cekatan dan sigap bila diminta membantu tim DCS.</p></div>
+                </div>
+                <div class="flex gap-2 items-start p-3 rounded-xl bg-white/3 border border-white/5">
+                  <span class="text-[10px] font-mono font-black text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded flex-shrink-0">02</span>
+                  <div><p class="text-xs font-bold text-white">Eksekusi Instruksi</p><p class="text-[11px] text-slate-400 mt-0.5">Melaksanakan petunjuk tambahan terkait produksi atau kebersihan.</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="section-block p-6">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="step-num" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981">05</div>
+                <h4 class="font-black text-white text-sm">Maintenance Rutin</h4>
+              </div>
+              <div class="space-y-3">
+                <div class="p-3 rounded-xl bg-white/3 border border-white/5">
+                  <p class="text-xs font-black text-emerald-400 mb-1"><i class="bi bi-droplet mr-1"></i>Pengisian Tangki Enzim</p>
+                  <p class="text-xs text-slate-400">Isi ulang tangki <strong class="text-white">1 jam sebelum selesai shift</strong> dan catat jumlahnya di lembar harian.</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white/3 border border-white/5">
+                  <p class="text-xs font-black text-emerald-400 mb-1"><i class="bi bi-toggles mr-1"></i>Membuka Valve Pompa</p>
+                  <p class="text-xs text-slate-400">Buka manual valve inlet pompa alum <strong class="text-white">1 jam sebelum pulang</strong> untuk memastikan suplai bahan lancar.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- K3 QC -->
+          <div class="section-block p-6" style="background:rgba(239,68,68,0.05);border-color:rgba(239,68,68,0.15)">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="step-num" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171">K3</div>
+              <h4 class="font-black text-white text-sm">Kesehatan, Keselamatan, dan Kebersihan Kerja</h4>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div v-for="k in [{icon:'bi-stars',t:'Kebersihan Area',d:'Menjaga area kerja tetap rapi dan bebas dari tumpahan bahan.'},{icon:'bi-shield-check',t:'Penggunaan APD',d:'Memakai alat pelindung diri lengkap selama bertugas.'},{icon:'bi-megaphone',t:'Pelaporan Bahaya',d:'Melaporkan potensi bahaya atau kerusakan alat secara tepat waktu.'}]" :key="k.t"
+                  class="p-4 rounded-xl bg-white/3 border border-red-500/10 text-center">
+                <i :class="'bi '+k.icon+' text-2xl text-red-400 mb-2 block'"></i>
+                <p class="text-xs font-black text-white mb-1">{{k.t}}</p>
+                <p class="text-[11px] text-slate-500 leading-relaxed">{{k.d}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         SOP 3: Operator Starch
+    ════════════════════════════════════════════ -->
+    <div class="sop-card card-operator" data-aos="fade-up" data-aos-delay="300">
+      <span class="num-badge">SOP / 03</span>
+
+      <div class="p-7 md:p-10 cursor-pointer select-none" @click="toggle(2)">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5"
+                 style="background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.25)">
+              <i class="bi bi-cpu-fill text-2xl" style="color:#60a5fa"></i>
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="chip" style="background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.25); color:#93c5fd">
+                  <i class="bi bi-person-gear"></i> Operator Starch DCS
+                </span>
+                <span class="chip" style="background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2); color:#a5b4fc">
+                  <i class="bi bi-journal-check"></i> Prosedur Standar
+                </span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-black text-white leading-tight">Prosedur Operasional Standar: Operator Starch</h3>
+              <p class="text-slate-400 text-sm mt-1">SOP lengkap produksi pati — pra-operasi, memasak, transfer, reaksi, hingga pasca-operasi</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 flex-shrink-0 mt-1">
+            <div class="text-[10px] font-mono text-slate-500 hidden sm:block">{{ open[2] ? 'TUTUP' : 'BUKA' }}</div>
+            <div class="w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300"
+                 :style="open[2] ? 'background:rgba(59,130,246,0.2);border-color:rgba(59,130,246,0.4)' : 'background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1)'">
+              <i class="bi transition-transform duration-300 text-sm"
+                 :class="open[2] ? 'bi-chevron-up text-blue-400' : 'bi-chevron-down text-slate-400'"></i>
+            </div>
+          </div>
+        </div>
+        <div v-if="!open[2]" class="flex flex-wrap gap-2 mt-5">
+          <span v-for="t in ['Pra-Operasi','Tahap Memasak 85°C','Transfer & Reaksi','Kontrol pH','Pasca-Operasi','Pedoman K3']"
+                class="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg bg-white/5 border border-white/8 text-slate-500">{{t}}</span>
+        </div>
+      </div>
+
+      <div class="accordion-body" :style="open[2] ? 'max-height:4000px;opacity:1' : 'max-height:0;opacity:0'">
+        <div class="px-7 md:px-10 pb-10 space-y-5 border-t border-white/5 pt-7">
+
+          <!-- Tujuan -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa">ℹ</div>
+              <h4 class="font-black text-white text-base">Tujuan SOP</h4>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div v-for="t in [{icon:'bi-list-ol',c:'#60a5fa',t:'Langkah Rinci',d:'Instruksi khusus untuk operator produksi pati.'},{icon:'bi-graph-up-arrow',c:'#60a5fa',t:'Kualitas & Efisiensi',d:'Menjaga konsistensi produk dan efisiensi operasional.'},{icon:'bi-shield-lock',c:'#60a5fa',t:'Keselamatan Kerja',d:'Menciptakan lingkungan kerja yang aman bagi semua operator.'}]" :key="t.t"
+                  class="p-4 rounded-xl bg-white/3 border border-white/5 text-center">
+                <i :class="'bi '+t.icon+' text-2xl mb-2 block'" :style="'color:'+t.c"></i>
+                <p class="text-sm font-black text-white mb-1">{{t.t}}</p>
+                <p class="text-xs text-slate-400 leading-relaxed">{{t.d}}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ruang Lingkup -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa">00</div>
+              <h4 class="font-black text-white text-base">Ruang Lingkup dan Penerapan</h4>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <p class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Cakupan</p>
+                <div class="space-y-2">
+                  <div v-for="c in ['Menyangkut semua operator produksi pati','Meliputi tahap memasak, transfer, reaksi']" :key="c" class="flex items-center gap-2 text-sm text-slate-300">
+                    <i class="bi bi-dot text-blue-500 text-xl -my-1"></i>{{c}}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Protokol Keselamatan</p>
+                <div class="space-y-2">
+                  <div v-for="c in ['Penanganan alat dan bahan sesuai SOP','Penggunaan alat pelindung diri (APD) wajib']" :key="c" class="flex items-center gap-2 text-sm text-slate-300">
+                    <i class="bi bi-dot text-blue-500 text-xl -my-1"></i>{{c}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1. Pra-Operasi -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa">01</div>
+              <h4 class="font-black text-white text-base">Checklist Pra-Operasi</h4>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div v-for="c in [{icon:'bi-gear-wide-connected',t:'Periksa Fungsi Alat',d:'Pompa dan katup harus berfungsi baik.'},{icon:'bi-box-seam',t:'Cek Kualitas Pati',d:'Pastikan kualitas dan kuantitas sesuai standar.'},{icon:'bi-shield-check',t:'Persiapan Keselamatan',d:'Kenakan APD lengkap dan cek protokol keamanan.'}]" :key="c.t"
+                  class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <i :class="'bi '+c.icon+' text-2xl text-blue-400 mb-2 block'"></i>
+                <p class="text-sm font-black text-white mb-1">{{c.t}}</p>
+                <p class="text-xs text-slate-400 leading-relaxed">{{c.d}}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Memasak -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa">02</div>
+              <h4 class="font-black text-white text-base">Prosedur Tahap Memasak</h4>
+            </div>
+            <div class="space-y-3">
+              <div v-for="(s,i) in [{t:'Kontrol Suhu',d:'Jaga suhu pada 85°C selama 30 menit.'},{t:'Pengawasan Viskositas',d:'Amati kekentalan dan keseragaman pati selama proses berlangsung.'},{t:'Proses Memasak',d:'Ikuti seluruh langkah memasak sesuai SOP yang berlaku tanpa melewati satu pun tahapan.'}]" :key="i"
+                  class="flex gap-4 items-start p-4 rounded-xl bg-white/3 border border-white/5">
+                <span class="text-xs font-mono font-black text-blue-400 bg-blue-500/10 rounded-lg px-2 py-1 flex-shrink-0">{{String(i+1).padStart(2,'0')}}</span>
+                <div>
+                  <p class="text-sm font-bold text-white mb-0.5">{{s.t}}</p>
+                  <p class="text-xs text-slate-400 leading-relaxed">{{s.d}}</p>
+                </div>
+              </div>
+            </div>
+            <!-- highlight suhu -->
+            <div class="mt-4 flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-500/10 border border-blue-500/20">
+              <i class="bi bi-thermometer-half text-blue-400 text-xl"></i>
+              <p class="text-sm font-bold text-blue-300">Target Suhu: <span class="text-white font-black">85°C</span> selama <span class="text-white font-black">30 menit</span></p>
+            </div>
+          </div>
+
+          <!-- 3. Transfer & Reaksi -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa">03</div>
+              <h4 class="font-black text-white text-base">Prosedur Tahap Transfer dan Reaksi</h4>
+            </div>
+            <div class="space-y-3">
+              <div v-for="(s,i) in [{t:'Transfer Starch',d:'Pindahkan pati matang ke reaktor dengan hati-hati dan terencana.'},{t:'Pengaturan Campuran',d:'Pastikan rasio campuran dan waktu reaksi tepat sesuai parameter yang ditentukan.'},{t:'Kontrol pH',d:'Monitor pH secara berkala dan lakukan penyesuaian jika diperlukan untuk menjaga kualitas produk.'}]" :key="i"
+                  class="flex gap-4 items-start p-4 rounded-xl bg-white/3 border border-white/5">
+                <span class="text-xs font-mono font-black text-indigo-400 bg-indigo-500/10 rounded-lg px-2 py-1 flex-shrink-0">{{String(i+1).padStart(2,'0')}}</span>
+                <div>
+                  <p class="text-sm font-bold text-white mb-0.5">{{s.t}}</p>
+                  <p class="text-xs text-slate-400 leading-relaxed">{{s.d}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Pasca -->
+          <div class="section-block p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="step-num" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#60a5fa">04</div>
+              <h4 class="font-black text-white text-base">Prosedur Pasca-Operasi</h4>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div v-for="p in [{icon:'bi-droplet',t:'Pembersihan',d:'Bersihkan dan sanitasi peralatan serta area kerja setelah operasi selesai.'},{icon:'bi-clipboard-data',t:'Pencatatan Data',d:'Catat suhu, pH, dan durasi reaksi secara lengkap dalam log harian.'},{icon:'bi-megaphone',t:'Laporan Masalah',d:'Laporkan setiap penyimpangan atau masalah operasional kepada supervisor.'}]" :key="p.t"
+                  class="p-4 rounded-xl bg-white/3 border border-white/5">
+                <i :class="'bi '+p.icon+' text-2xl text-blue-400 mb-2 block'"></i>
+                <p class="text-sm font-black text-white mb-1">{{p.t}}</p>
+                <p class="text-xs text-slate-400 leading-relaxed">{{p.d}}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- K3 Operator -->
+          <div class="section-block p-6" style="background:rgba(239,68,68,0.05);border-color:rgba(239,68,68,0.15)">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="step-num" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171">K3</div>
+              <h4 class="font-black text-white text-sm">Pedoman Keselamatan</h4>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div v-for="k in [{icon:'bi-shield-check',t:'Kenakan APD',d:'Gunakan sarung tangan, kacamata, dan pelindung lainnya selama beroperasi.'},{icon:'bi-sign-intersection-fill',t:'Prosedur Darurat',d:'Ketahui jalur evakuasi dan kontak darurat yang berlaku di area.'},{icon:'bi-biohazard',t:'Penanganan Kimia',d:'Kelola bahan kimia dengan hati-hati dan sesuai prosedur yang telah ditetapkan.'}]" :key="k.t"
+                  class="p-4 rounded-xl bg-white/3 border border-red-500/10 text-center">
+                <i :class="'bi '+k.icon+' text-2xl text-red-400 mb-2 block'"></i>
+                <p class="text-xs font-black text-white mb-1">{{k.t}}</p>
+                <p class="text-[11px] text-slate-500 leading-relaxed">{{k.d}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto px-5 mt-20 text-center" data-aos="fade-up">
+    <div class="glass rounded-2xl px-6 py-6 border border-white/5">
+      <div class="flex flex-wrap justify-center items-center gap-6 mb-4">
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot"></span>
+          <span class="font-bold uppercase tracking-widest">SOP Wajib Setiap Shift</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+          <i class="bi bi-building text-slate-600"></i>
+          <span class="font-bold uppercase tracking-widest">PT Dayasa Aria Prima</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+          <i class="bi bi-cpu text-slate-600"></i>
+          <span class="font-bold uppercase tracking-widest">Dept. Starch Preparation PM1</span>
+        </div>
+      </div>
+      <p class="text-[10px] text-slate-600 font-mono">Dokumen ini bersifat internal dan rahasia. Dilarang disebarkan tanpa izin manajemen.</p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+const { createApp } = Vue;
+createApp({
+  data() {
+    return {
+      open: [false, false, false]
+    }
+  },
+  methods: {
+    toggle(i) {
+      this.open[i] = !this.open[i];
+    }
+  },
+  mounted() {
+    AOS.init({ once: true, offset: 40, duration: 700, easing: 'ease-out-cubic' });
+  }
+}).mount('#app');
+</script>
+</body>
+</html>
