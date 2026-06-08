@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
@@ -7,16 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="chemical.png" sizes="64x64">
 
-<!-- Core Libraries -->
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-<!-- Animations (AOS) -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <script>
@@ -71,16 +67,13 @@
 <body class="antialiased selection:bg-cyan-500 selection:text-white">
 
 <div id="app" class="min-h-screen flex flex-col relative">
-  <!-- Ambient Elements -->
   <div class="bg-glow-1"></div>
   <div class="bg-glow-2"></div>
   <div class="bg-pattern"></div>
 
-  <!-- Navbar -->
   <nav class="sticky top-0 z-[100] backdrop-blur-xl bg-darkbg/80 border-b border-white/5 transition-all duration-300 shadow-2xl">
     <div class="max-w-6xl mx-auto flex justify-between items-center px-6">
       
-      <!-- Logo Area (Scroll to top) -->
       <div class="flex items-center gap-3 cursor-pointer group py-4" @click="scrollToTop">
         <div class="bg-gradient-to-br from-cyan-400 to-blue-600 p-2.5 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.3)] group-hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] transition-all">
           <i class="fa fa-flask text-white text-xl"></i>
@@ -91,12 +84,10 @@
         </div>
       </div>
 
-      <!-- Mobile Menu Toggle -->
       <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-gray-300 hover:text-cyan-400 text-2xl focus:outline-none p-2 transition-colors">
         <i class="fa" :class="mobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
       </button>
 
-      <!-- Desktop Navigation -->
       <div class="hidden lg:flex items-center h-full text-xs uppercase tracking-widest font-bold">
         <button @click="scrollToTop" class="px-4 py-2 mx-1 rounded-lg transition-all text-cyan-400 bg-cyan-500/10 border border-cyan-500/20">
           <i class="fas fa-home mr-1"></i> Home
@@ -108,7 +99,6 @@
           <i class="bi bi-calculator-fill mr-1"></i> Kalkulator
         </a>
 
-        <!-- Dropdown 1: Document (CSS Hover Bridge) -->
         <div class="relative group h-full flex items-center px-3 py-6 -my-6 cursor-pointer">
           <div class="text-gray-400 group-hover:text-white transition-all flex items-center">
             <i class="fas fa-folder-open mr-1"></i> Document <i class="fa fa-chevron-down ml-1 text-[9px] transition-transform group-hover:rotate-180"></i>
@@ -122,13 +112,14 @@
           </div>
         </div>
 
-        <!-- Dropdown 2: Technical -->
         <div class="relative group h-full flex items-center px-3 py-6 -my-6 cursor-pointer">
           <div class="text-gray-400 group-hover:text-white transition-all flex items-center">
             <i class="bi bi-tools mr-1"></i> Technical <i class="fa fa-chevron-down ml-1 text-[9px] transition-transform group-hover:rotate-180"></i>
           </div>
-          <div class="absolute left-0 top-full pt-4 w-48 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
+          <div class="absolute left-0 top-full pt-4 w-52 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
             <div class="premium-card rounded-2xl p-2 shadow-2xl">
+              <button @click="goToSection('gallery')" class="w-full text-left px-4 py-3 text-sm text-pink-300 hover:text-pink-400 hover:bg-white/5 rounded-xl transition-all border-b border-white/5"><i class="bi bi-display mr-3"></i> Display DCS & QC</button>
+              <button @click="goToSection('rumus')" class="w-full text-left px-4 py-3 text-sm text-cyan-300 hover:text-cyan-400 hover:bg-white/5 rounded-xl transition-all border-b border-white/5"><i class="bi bi-braces-asterisk mr-3"></i> Rumus DCS</button>
               <a href="equipment.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-orange-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-hammer mr-3"></i> Equipment</a>
               <a href="chemical.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-purple-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-droplet-half mr-3"></i> Chemical</a>
               <a href="quality-control.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-emerald-400 hover:bg-white/5 rounded-xl transition-all"><i class="bi bi-graph-up-arrow mr-3"></i> Quality Control</a>
@@ -138,7 +129,6 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
     <transition name="slide">
       <div v-show="mobileMenuOpen" class="lg:hidden absolute w-full bg-darkbg/95 backdrop-blur-xl border-b border-white/10 shadow-2xl overflow-y-auto max-h-[85vh] px-6 py-6 text-xs font-bold uppercase tracking-widest space-y-3 z-50">
         <button @click="scrollToTop" class="w-full text-left p-4 rounded-xl border border-cyan-500/30 text-cyan-400 bg-cyan-500/10 shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all"><i class="fas fa-home mr-3 w-5 text-center text-lg"></i> Home Dashboard</button>
@@ -155,6 +145,8 @@
           </div>
         </div>
 
+        <button @click="goToSection('gallery')" class="w-full text-left p-4 rounded-xl text-pink-300 hover:bg-white/5 transition-all border border-pink-500/10"><i class="bi bi-display mr-3 w-5 text-center text-lg"></i> Galeri DCS</button>
+        <button @click="goToSection('rumus')" class="w-full text-left p-4 rounded-xl text-cyan-300 hover:bg-white/5 transition-all border border-cyan-500/10"><i class="bi bi-braces-asterisk mr-3 w-5 text-center text-lg"></i> Kumpulan Rumus</button>
         <a href="about.html" class="block p-4 rounded-xl text-gray-300 hover:bg-white/5"><i class="fas fa-user mr-3 w-5 text-center text-lg"></i> Profile Portofolio</a>
         <a href="equipment.html" class="block p-4 rounded-xl text-gray-300 hover:bg-white/5"><i class="bi bi-hammer mr-3 w-5 text-center text-lg"></i> Equipment Data</a>
         <a href="chemical.html" class="block p-4 rounded-xl text-gray-300 hover:bg-white/5"><i class="bi bi-droplet-half mr-3 w-5 text-center text-lg"></i> Chemical Data</a>
@@ -163,10 +155,8 @@
     </transition>
   </nav>
 
-  <!-- Main Content Area -->
   <main class="flex-grow max-w-5xl w-full mx-auto px-6 py-12 md:py-20 z-10 space-y-12">
     
-    <!-- Hero Header -->
     <div class="text-center mb-16" data-aos="zoom-in" data-aos-duration="1000">
       <div class="inline-block px-5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
         <i class="fas fa-microchip mr-2"></i> Sistem Operasional PM1
@@ -179,9 +169,7 @@
       </p>
     </div>
 
-    <!-- Quick Access Cards -->
     <section class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="200">
-      <!-- Calculator (Direct External Link) -->
       <a href="https://rumus-starch.netlify.app/" target="_blank" class="premium-card p-6 rounded-3xl text-center hover:border-cyan-500 group block transition-all">
         <div class="bg-cyan-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all shadow-lg text-cyan-400">
           <i class="bi bi-calculator-fill text-2xl"></i>
@@ -189,7 +177,6 @@
         <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Kalkulator</h4>
       </a>
       
-      <!-- SOP Harian (Internal Link) -->
       <a href="Rutinitas Harian.html" class="premium-card p-6 rounded-3xl text-center hover:border-yellow-500 group block transition-all">
         <div class="bg-yellow-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-yellow-500 group-hover:text-white transition-all shadow-lg text-yellow-400">
           <i class="fas fa-clipboard-check text-2xl"></i>
@@ -197,7 +184,6 @@
         <h4 class="text-[10px] font-black text-white uppercase tracking-widest">SOP Harian</h4>
       </a>
       
-      <!-- Chemical (Internal Link) -->
       <a href="chemical.html" class="premium-card p-6 rounded-3xl text-center hover:border-purple-500 group block transition-all">
         <div class="bg-purple-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-lg text-purple-400">
           <i class="bi bi-droplet-fill text-2xl"></i>
@@ -205,7 +191,6 @@
         <h4 class="text-[10px] font-black text-white uppercase tracking-widest">Data Kimia</h4>
       </a>
       
-      <!-- SOP Viewer (Direct External Link) -->
       <a href="SOP Starch.html" target="_blank" class="premium-card p-6 rounded-3xl text-center hover:border-red-500 group block w-full transition-all">
         <div class="bg-red-500/10 w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-red-500 group-hover:text-white transition-all shadow-lg text-red-400">
           <i class="fab fa-google-drive text-2xl"></i>
@@ -214,24 +199,21 @@
       </a>
     </section>
 
-    <!-- Accordion Contents: Alur Proses Starch -->
     <div class="space-y-6 pt-8" data-aos="fade-up" data-aos-delay="400">
       <div class="text-center mb-10">
         <h3 class="text-2xl md:text-3xl font-black text-white tracking-tighter">Alur Proses <span class="text-cyan-400">Starch Preparation</span></h3>
         <p class="text-gray-400 text-sm mt-2">Pemahaman komprehensif alur produksi kertas dari awal hingga akhir.</p>
       </div>
 
-      <!-- 1. Pengenalan -->
       <section class="premium-card rounded-[2rem] overflow-hidden">
         <div @click="sec.starch = !sec.starch" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
-          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mr-4 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><i class="fa fa-flask"></i></div> 1. Pengenalan Persiapan Starch</h3>
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mr-4 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><i class="fa fa-flask"></i></div> 1. Pengenalan Starch Preparation </h3>
           <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-cyan-400': sec.starch}"></i>
         </div>
         <transition name="slide">
           <div v-show="sec.starch" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
             <p class="text-gray-400 text-sm leading-relaxed mb-8">Tahap persiapan starch adalah proses krusial yang menentukan kekuatan permukaan kertas. Di sini, material dasar pati dihidrolisis dan direaksikan bersama bahan kimia pendukung dengan presisi tinggi.</p>
             
-            <!-- Auto Slider Image -->
             <div class="relative w-full max-w-3xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] group bg-black">
               <img :src="images[sliderIndex]" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'800\' height=\'400\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'24\' fill=\'%2394a3b8\' text-anchor=\'middle\'>Image Placeholder</text></svg>'" class="w-full h-64 md:h-[400px] object-cover cursor-zoom-in transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" @click="zoomImage = images[sliderIndex]">
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
@@ -247,7 +229,6 @@
         </transition>
       </section>
 
-      <!-- 2. Mixing -->
       <section id="mixing" class="premium-card rounded-[2rem] overflow-hidden border-blue-500/20">
         <div @click="sec.mixing = !sec.mixing" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
           <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mr-4 group-hover:bg-blue-500 group-hover:text-white transition-colors"><i class="fa fa-blender"></i></div> 2. Tahap Awal: Starch Mixing</h3>
@@ -270,7 +251,6 @@
         </transition>
       </section>
 
-      <!-- 3. Reaction -->
       <section id="reaction" class="premium-card rounded-[2rem] overflow-hidden border-orange-500/20">
         <div @click="sec.reaction = !sec.reaction" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
           <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center mr-4 group-hover:bg-orange-500 group-hover:text-white transition-colors"><i class="fa fa-fire"></i></div> 3. Proses Inti: Starch Reaction</h3>
@@ -293,7 +273,6 @@
         </transition>
       </section>
       
-      <!-- 4. Final & Distribusi (NEW SECTION TO COMPLETE THE STORY) -->
       <section id="final" class="premium-card rounded-[2rem] overflow-hidden border-emerald-500/20">
         <div @click="sec.final = !sec.final" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
           <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mr-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors"><i class="fa fa-check-circle"></i></div> 4. Finalisasi & Distribusi</h3>
@@ -316,10 +295,150 @@
         </transition>
       </section>
 
+      <section id="rumus" class="premium-card rounded-[2rem] overflow-hidden border-cyan-500/20">
+        <div @click="sec.rumus = !sec.rumus" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mr-4 group-hover:bg-cyan-500 group-hover:text-white transition-colors"><i class="bi bi-braces-asterisk"></i></div> Kumpulan Rumus Starch Kitchen</h3>
+          <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-cyan-400': sec.rumus}"></i>
+        </div>
+        <transition name="slide">
+          <div v-show="sec.rumus" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
+            <div class="flex justify-between items-center mb-6">
+              <p class="text-gray-400 text-sm leading-relaxed">Referensi matematis cepat untuk perhitungan parameter pada sistem DCS PM1.</p>
+              <span class="text-[10px] text-cyan-500/70 bg-cyan-500/10 px-3 py-1 rounded-full uppercase tracking-widest border border-cyan-500/20">Ditulis Oleh Ardita Rizki Fauzi</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div class="space-y-4">
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-colors">
+                  <h4 class="text-cyan-300 font-bold mb-2">Rumus Solid</h4>
+                  <p class="font-mono text-gray-300">Starch &divide; (Starch + Water)</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-colors">
+                  <h4 class="text-cyan-300 font-bold mb-2">Flow Starch Elevator</h4>
+                  <p class="font-mono text-gray-300">Solid &times; Flow Water &divide; (1 - Solid)</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-colors">
+                  <h4 class="text-cyan-300 font-bold mb-2">Menghitung Flow</h4>
+                  <p class="font-mono text-gray-300">(Level Tangki 1 - Level Tangki 2)% &times; Volume Tangki &divide; (Time Level 2 - Time Level 1)</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-colors">
+                  <h4 class="text-cyan-300 font-bold mb-2">Retention Time</h4>
+                  <p class="font-mono text-gray-300">(Flow FIC-6881 &divide; 60 &times; 1000) &times; Waktu Retention (min) &divide; 7000 &times; 100</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-colors">
+                  <h4 class="text-cyan-300 font-bold mb-2">Flow Waterglass</h4>
+                  <p class="font-mono text-gray-300">Flow ML1a/ML1b &times; %Solid Storage &times; %Dosis Waterglass &divide; 1.4</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-colors">
+                  <h4 class="text-cyan-300 font-bold mb-2">Density Starch (%)</h4>
+                  <p class="font-mono text-gray-300">100 &divide; (100 - solid + (solid &times; 1.65))</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-colors">
+                  <h4 class="text-cyan-300 font-bold mb-2">Konversi l/min &harr; m&sup3;/jam</h4>
+                  <p class="font-mono text-gray-300 text-xs mb-1"><span class="text-gray-400">l/min &rarr; m&sup3;/jam:</span> Flow &times; 60 &divide; 1000</p>
+                  <p class="font-mono text-gray-300 text-xs"><span class="text-gray-400">m&sup3;/jam &rarr; l/min:</span> Flow &divide; 60 &times; 1000</p>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                  <h4 class="text-blue-300 font-bold mb-2">Rumus Pengenceran</h4>
+                  <p class="font-mono text-gray-300">(Flow ML1a/ML1b &times; %Solid Content &divide; %Solid Target) - Flow ML1a/ML1b</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                  <h4 class="text-blue-300 font-bold mb-2">Rumus Pencampuran</h4>
+                  <p class="font-mono text-gray-300">(Total Volume 1 &times; Solid 1) + (Total Volume 2 &times; Solid 2) &divide; (Total Volume 1 + Total Volume 2)</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                  <h4 class="text-blue-300 font-bold mb-2">Solid NaOH</h4>
+                  <p class="font-mono text-gray-300">Total NaOH &times; 48% &divide; (Total NaOH + Total Water)</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-orange-500/30 transition-colors">
+                  <h4 class="text-orange-300 font-bold mb-2">PPM Enzyme</h4>
+                  <p class="font-mono text-gray-300">(Flow Enzyme <sup>(ml/min)</sup> &divide; Flow Starch <sup>(Kg/min)</sup>) &times; 1000</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-emerald-500/30 transition-colors">
+                  <h4 class="text-emerald-300 font-bold mb-2">Starch Bonedry Flow <sup>(Kg/H)</sup></h4>
+                  <p class="font-mono text-gray-300">(%Solid Final Tank &divide; 100) &times; Total Flow Static Mixer <sup>(m&sup3;/h)</sup> &times; 1000</p>
+                </div>
+                <div class="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-emerald-500/30 transition-colors">
+                  <h4 class="text-emerald-300 font-bold mb-2">Starch Consumption <sup>(Kg/Tp)</sup></h4>
+                  <p class="font-mono text-gray-300">Starch Bone Dry Flow <sup>(Kg/H)</sup> &divide; Paper Prod. Rate <sup>(T/H)</sup></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </section>
+
+      <section id="gallery" class="premium-card rounded-[2rem] overflow-hidden border-pink-500/20">
+        <div @click="sec.gallery = !sec.gallery" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center mr-4 group-hover:bg-pink-500 group-hover:text-white transition-colors"><i class="bi bi-display"></i></div> Galeri Tampilan DCS & QC (Presentasi)</h3>
+          <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-pink-400': sec.gallery}"></i>
+        </div>
+        <transition name="slide">
+          <div v-show="sec.gallery" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Kumpulan tangkapan layar antarmuka sistem Distributed Control System (DCS) ABB PM1 dan log pengawasan Quality Control. Klik pada gambar untuk memperbesar saat pemaparan materi.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black/50" @click="zoomImage = '318419.jpg'">
+                <img src="318419.jpg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10">
+                  <p class="text-[10px] text-pink-300 font-bold uppercase tracking-widest text-center">Starch Preparation & Cooker</p>
+                </div>
+              </div>
+
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black/50" @click="zoomImage = '318418.jpg'">
+                <img src="318418.jpg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10">
+                  <p class="text-[10px] text-pink-300 font-bold uppercase tracking-widest text-center">Starch Final Station</p>
+                </div>
+              </div>
+
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black/50" @click="zoomImage = '321731.jpg'">
+                <img src="321731.jpg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10">
+                  <p class="text-[10px] text-pink-300 font-bold uppercase tracking-widest text-center">Sym Sizer Roll Load</p>
+                </div>
+              </div>
+
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black/50" @click="zoomImage = '321730.jpg'">
+                <img src="321730.jpg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10">
+                  <p class="text-[10px] text-pink-300 font-bold uppercase tracking-widest text-center">Mixing Ratio & Chemicals</p>
+                </div>
+              </div>
+
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black/50" @click="zoomImage = '318420.jpg'">
+                <img src="318420.jpg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10">
+                  <p class="text-[10px] text-pink-300 font-bold uppercase tracking-widest text-center">Total Consumption Dashboard</p>
+                </div>
+              </div>
+
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black/50" @click="zoomImage = '318421.jpg'">
+                <img src="318421.jpg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10">
+                  <p class="text-[10px] text-pink-300 font-bold uppercase tracking-widest text-center">Starch Level Trends</p>
+                </div>
+              </div>
+
+              <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black/50 lg:col-span-3" @click="zoomImage = '318357.jpg'">
+                <img src="318357.jpg" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'><rect width=\'800\' height=\'600\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'32\' fill=\'%2394a3b8\' text-anchor=\'middle\'>No Photo</text></svg>'" class="w-full h-48 object-cover object-top group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10">
+                  <p class="text-[10px] text-emerald-300 font-bold uppercase tracking-widest text-center"><i class="fas fa-clipboard-list mr-1"></i> Quality Control Chart (Log Manual)</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </transition>
+      </section>
+
     </div>
   </main>
 
-  <!-- Image Lightbox Modal -->
   <transition name="fade">
     <div v-if="zoomImage" class="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4 backdrop-blur-xl" @click.self="zoomImage = null">
       <button @click="zoomImage = null" class="absolute top-6 right-6 md:top-10 md:right-10 text-white bg-white/10 hover:bg-red-500 w-12 h-12 rounded-full font-bold shadow-lg transition-all border border-white/20 hover:scale-110 flex items-center justify-center z-50"><i class="fas fa-times text-xl"></i></button>
@@ -327,16 +446,13 @@
     </div>
   </transition>
 
-  <!-- PROFESSIONAL MEGA FOOTER -->
   <footer class="bg-[#04070c] border-t border-white/10 relative overflow-hidden z-10 mt-10">
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-[100%] pointer-events-none"></div>
     
     <div class="max-w-6xl mx-auto px-6 pt-16 pb-8 relative z-10">
       
-      <!-- Footer Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
         
-        <!-- Brand Column -->
         <div class="lg:col-span-2">
           <div class="flex items-center gap-3 mb-6">
             <div class="bg-gradient-to-br from-cyan-400 to-blue-600 p-2.5 rounded-xl shadow-[0_0_15px_rgba(34,211,238,0.3)]">
@@ -356,18 +472,16 @@
           </div>
         </div>
 
-        <!-- Quick Links Column -->
         <div>
           <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest border-b border-white/10 pb-2 inline-block">Navigasi Utama</h4>
           <ul class="space-y-3">
             <li><a href="Rutinitas Harian.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Rutinitas Operator</a></li>
             <li><a href="equipment.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Daftar Equipment</a></li>
             <li><a href="chemical.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Material Kimia</a></li>
-            <li><a href="quality-control.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Lab Quality Control</a></li>
+            <li><a href="#rumus" @click="goToSection('rumus')" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors flex items-center gap-2"><i class="fas fa-angle-right text-[10px]"></i> Kumpulan Rumus DCS</a></li>
           </ul>
         </div>
 
-        <!-- External System Column -->
         <div>
           <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest border-b border-white/10 pb-2 inline-block">Sistem Eksternal</h4>
           <ul class="space-y-3">
@@ -379,7 +493,6 @@
 
       </div>
 
-      <!-- Bottom Bar -->
       <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="text-gray-500 text-xs font-bold tracking-widest uppercase">
           &copy; 2026 Ardita Rizki F. Hak Cipta Dilindungi.
@@ -398,7 +511,6 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Script Sangat Ringan dan Anti-Blank
   const { createApp } = Vue;
 
   createApp({
@@ -408,20 +520,17 @@
         mobNav: null,
         zoomImage: null,
         
-        // State section accordions
-        sec: { starch: true, mixing: true, reaction: true, final: true },
+        // State section accordions ditambah 'gallery'
+        sec: { starch: true, mixing: true, reaction: true, final: true, rumus: false, gallery: false },
         
-        // Image slider khusus pengenalan
-        images: ['hopper3.webp', 'starchmix_2.webp', 'starchreact_1.webp', 'storage_tank.webp'],
+        images: ['hopper3.webp', 'monitoring1.webp', 'monitoring5.webp', 'monitoring6.webp'],
         sliderIndex: 0,
         sliderInterval: null
       }
     },
     mounted() {
-      // Inisialisasi AOS secara standar
       AOS.init({ once: true, offset: 50, duration: 800, easing: 'ease-out-cubic' });
       
-      // Auto Slider (Hanya jalan jika tidak nge-zoom gambar)
       this.sliderInterval = setInterval(() => { 
         if(!this.zoomImage && this.sec.starch) {
            this.nextSlide(); 
@@ -443,11 +552,10 @@
       
       goToSection(sectionId) {
         this.mobileMenuOpen = false;
-        this.sec[sectionId] = true; // Pastikan section terbuka
+        this.sec[sectionId] = true; // Buka accordion secara otomatis jika tertutup
         setTimeout(() => {
           const el = document.getElementById(sectionId);
           if (el) {
-            // Scroll menuju section
             const y = el.getBoundingClientRect().top + window.scrollY - 100;
             window.scrollTo({top: y, behavior: 'smooth'});
           }
