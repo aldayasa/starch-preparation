@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth" translate="no">
 <head>
 <title>StarchPrep | Professional Dashboard</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
 <link rel="icon" type="image/png" href="chemical.png" sizes="64x64">
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -107,7 +108,8 @@
             <div class="premium-card rounded-2xl p-2 shadow-2xl">
               <a href="Rutinitas Harian.html" class="block px-4 py-3 text-sm text-gray-300 hover:text-yellow-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-calendar-day mr-3"></i> Rutinitas Harian</a>
               <a href="https://drive.google.com/drive/folders/1kgCD6YJzX__dqGRVOOHqc3bS1E4CCgkN" target="_blank" class="block px-4 py-3 text-sm text-gray-300 hover:text-red-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-file-pdf mr-3"></i> Standar Operasional</a>
-              <button @click="goToSection('mixing')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-blue-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-project-diagram mr-3"></i> Alur Proses Starch</button>
+              <button @click="goToSection('mixing')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-blue-400 hover:bg-white/5 rounded-xl transition-all border-b border-white/5"><i class="fas fa-project-diagram mr-3"></i> Alur Proses Starch</button>
+              <button @click="goToSection('sizepress')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-indigo-400 hover:bg-white/5 rounded-xl transition-all"><i class="fas fa-print mr-3"></i> Aplikasi Size Press</button>
             </div>
           </div>
         </div>
@@ -142,6 +144,7 @@
             <a href="Rutinitas Harian.html" class="block p-3 rounded-lg text-gray-400 hover:text-yellow-400 hover:bg-white/5"><i class="fas fa-calendar-day mr-2"></i> Rutinitas Harian</a>
             <a href="SOP Starch.html" target="_blank" class="block w-full text-left p-3 rounded-lg text-gray-400 hover:text-red-400 hover:bg-white/5"><i class="fas fa-file-pdf mr-2"></i> Standar Operasional (SOP)</a>
             <button @click="goToSection('mixing')" class="w-full text-left p-3 rounded-lg text-gray-400 hover:text-blue-400 hover:bg-white/5"><i class="fas fa-project-diagram mr-2"></i> Alur Proses Starch</button>
+            <button @click="goToSection('sizepress')" class="w-full text-left p-3 rounded-lg text-gray-400 hover:text-indigo-400 hover:bg-white/5"><i class="fas fa-print mr-2"></i> Aplikasi Size Press</button>
           </div>
         </div>
 
@@ -291,6 +294,63 @@
                 <div class="absolute bottom-0 w-full bg-black/70 backdrop-blur-sm p-3 border-t border-white/10 text-center"><p class="text-[10px] text-emerald-300 font-bold uppercase tracking-widest">Final Tank (Distribusi Size Press)</p></div>
               </div>
             </div>
+          </div>
+        </transition>
+      </section>
+
+      <section id="sizepress" class="premium-card rounded-[2rem] overflow-hidden border-indigo-500/20">
+        <div @click="sec.sizepress = !sec.sizepress" class="p-6 md:p-8 cursor-pointer flex justify-between items-center hover:bg-white/5 transition group">
+          <h3 class="text-lg md:text-xl font-bold text-white flex items-center"><div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mr-4 group-hover:bg-indigo-500 group-hover:text-white transition-colors"><i class="fa fa-print"></i></div> 5. Aplikasi Starch di Sym Sizer (Size Press)</h3>
+          <i class="fa fa-chevron-down text-gray-500 norm-icon" :class="{'rotate-icon text-indigo-400': sec.sizepress}"></i>
+        </div>
+        <transition name="slide">
+          <div v-show="sec.sizepress" class="p-6 md:p-8 pt-0 border-t border-white/5 bg-black/20">
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Sebagai informasi tambahan (FYI), cairan coating yang telah siap dari Final Tank akan didistribusikan ke bagian <strong>Sym Sizer (Size Press)</strong>. Pada bagian ini terjadi proses penambahan bahan <em>sizing</em> untuk melapisi permukaan lembaran kertas.</p>
+
+            <div class="group relative overflow-hidden rounded-2xl border border-white/10 shadow-lg cursor-zoom-in bg-black mb-6 max-w-3xl mx-auto" @click="zoomImage = 'Sym-sizer.webp'">
+              <img src="Sym-sizer.webp" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'400\'><rect width=\'800\' height=\'400\' fill=\'%231e293b\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' font-size=\'24\' fill=\'%2394a3b8\' text-anchor=\'middle\'>Image Placeholder</text></svg>'" class="w-full h-64 md:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100">
+              <div class="absolute bottom-0 w-full bg-black/80 backdrop-blur-md p-3 border-t border-white/10 text-center pointer-events-none">
+                <p class="text-[10px] text-indigo-300 font-bold uppercase tracking-widest">Ilustrasi Sym Sizer (Size Press)</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+              <div class="p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center"><i class="fas fa-medal"></i></div>
+                  <h4 class="text-indigo-300 font-bold text-base">Fungsi Sizing (Pelapisan)</h4>
+                </div>
+                <ul class="space-y-2 text-gray-300 ml-2">
+                  <li><i class="fas fa-check text-indigo-400 mr-2 text-[10px]"></i> Meningkatkan <em>Internal Strength</em> & kuat tarik (<em>Tensile</em>).</li>
+                  <li><i class="fas fa-check text-indigo-400 mr-2 text-[10px]"></i> Membantu daya tahan permukaan kertas agar tidak cepat menyerap air atau tinta.</li>
+                  <li><i class="fas fa-check text-indigo-400 mr-2 text-[10px]"></i> Membuat kertas nampak <em>glossy</em> dan permukaannya rata.</li>
+                  <li><i class="fas fa-check text-indigo-400 mr-2 text-[10px]"></i> Menurunkan probabilitas <em>linting of paper</em> dan membantu <em>rigidity</em>.</li>
+                </ul>
+              </div>
+
+              <div class="p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center"><i class="fas fa-cogs"></i></div>
+                  <h4 class="text-indigo-300 font-bold text-base">Komponen Kritis Size Press</h4>
+                </div>
+                <ul class="space-y-2 text-gray-300 ml-2">
+                  <li><i class="fas fa-dot-circle text-indigo-400 mr-2 text-[10px]"></i> <strong>Applicator Roll (Top & Bottom):</strong> Mentransfer coating ke bagian atas dan bawah sisi lembaran kertas secara merata.</li>
+                  <li><i class="fas fa-dot-circle text-indigo-400 mr-2 text-[10px]"></i> <strong>Rod:</strong> Berperan meratakan <em>coating</em> sebelum menyentuh kertas, memastikan distribusi terbebas dari sirkulasi udara.</li>
+                  <li><i class="fas fa-dot-circle text-indigo-400 mr-2 text-[10px]"></i> <strong>Air Turn Fun Foil:</strong> Membantu proses <em>drying</em> melalui hembusan udara panas agar sisi kertas yang basah tidak berpotensi lengket atau putus.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-start gap-4">
+              <i class="fas fa-info-circle text-indigo-400 text-xl mt-0.5"></i>
+              <div>
+                <h4 class="text-indigo-300 font-bold mb-1">DCS Insight: Wet Film & Roll Cooling</h4>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                  Dalam operasional DCS, terdapat hubungan yang berbanding terbalik antara kecepatan (Speed) mesin dengan lapisan kertas: Semakin cepat mesin dijalankan, lapisan film (coating) akan semakin tipis. Selain itu, suhu komponen diawasi ketat melalui <em>System Roll Cooling</em> menggunakan sirkulasi air dan angin untuk menurunkan temperatur demi mencegah delaminasi pada <em>roll cover</em> yang terbuat dari bahan polyurethane.
+                </p>
+              </div>
+            </div>
+
           </div>
         </transition>
       </section>
@@ -520,8 +580,8 @@
         mobNav: null,
         zoomImage: null,
         
-        // State section accordions ditambah 'gallery'
-        sec: { starch: true, mixing: true, reaction: true, final: true, rumus: false, gallery: false },
+        // Menambahkan properti sizepress dalam array state
+        sec: { starch: true, mixing: true, reaction: true, final: true, sizepress: false, rumus: false, gallery: false },
         
         images: ['hopper3.webp', 'monitoring1.webp', 'monitoring5.webp', 'monitoring6.webp'],
         sliderIndex: 0,
